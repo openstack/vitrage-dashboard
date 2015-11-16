@@ -1,19 +1,20 @@
-===============================
-vitrage-dashboard
-===============================
+=======
+Vitrage
+=======
 
-Vitrage Horizon plugin
+Vitrage is the Openstack RCA (Root Cause Analysis) Engine for organizing,
+analyzing and expanding OpenStack alarms & events, yielding insights
+regarding the root cause of problems and deducing the existence of problems
+before they are directly detected.
 
-Please feel here a long description which must be at least 3 lines wrapped on
-80 cols, so that distribution package maintainers can use it in their packages.
-Note that this is a hard requirement.
+Vitrage Dashboard
+-----------------
+Vitrage Dashboard is an extension for OpenStack Dashboard that provides a UI for
+Vitrage.
 
-* Free software: Apache license
-* Documentation: https://wiki.openstack.org/wiki/Vitrage
-* Source: http://git.openstack.org/cgit/openstack/vitrage-dashboard
-* Bugs: http://bugs.launchpad.net/Vitrage
+Project Resources
+-----------------
 
-Features
---------
-
-* TODO
+* `Vitrage at Launchpad <http://launchpad.net/vitrage>`_
+* `Wiki <https://wiki.openstack.org/wiki/Vitrage>`_
+* `Code Review <https://review.openstack.org/>`_
