@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Topology" %}{% endblock %}
+
+{% block page_header %}
+{% include "horizon/common/_page_header.html" with title=_("Topology") %}
+{% endblock page_header %}
+
+{% block main %}
+
+<div ng-cloak ng-controller="vitrageTopologyCtrl" ng-init='init({{ TOPOLOGY_VITRAGE_SETTINGS }})'>
+    <ng-include src="'{{STATIC_URL}}dashboard/project/topology/main_panel.html'"></ng-include>
+</div>
+{% endblock %}
+

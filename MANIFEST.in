@@ -4,3 +4,9 @@ exclude .gitignore
 exclude .gitreview
 
 global-exclude *.pyc
+
+include setup.py
+
+recursive-include vitragedashboard/enabled *
+recursive-include vitragedashboard/static *
+recursive-include vitragedashboard/templates *
