@@ -1,7 +1,7 @@
 {
   "browser": true,
   "esnext": true,
-  "predef": ["angular", "horizon", "$"],
+  "predef": ["angular", "horizon", "$","STATIC_URL","d3"],
   "globalstrict": true,
   "quotmark": true,
   "smarttabs": true,
@@ -26,4 +26,5 @@
   "nonew": true,
   "supernew": true,
   "validthis": true
+
 }

@@ -5,7 +5,7 @@ angular
 function sunburst() {
     var directive = {
         link: link,
-        templateUrl: 'dashboard/project/components/sunburst/sunburst.html',
+        templateUrl: STATIC_URL+'dashboard/project/components/sunburst/sunburst.html',
         restrict: 'E'
     };
     return directive;
