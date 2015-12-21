@@ -10,3 +10,9 @@ include setup.py
 recursive-include vitragedashboard/enabled *
 recursive-include vitragedashboard/static *
 recursive-include vitragedashboard/templates *
+
+recursive-include vitragealarms/static *
+recursive-include vitragealarms/templates *
+
+recursive-include vitrageentities/static *
+recursive-include vitrageentities/templates *
