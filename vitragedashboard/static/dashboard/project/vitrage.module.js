@@ -1,6 +1,6 @@
 (function(){
 'use strict';
 
-    angular.module('horizon.dashboard.project.vitrage',[]);
+    angular.module('horizon.dashboard.project.vitrage',['ui.bootstrap']);
 
 })();

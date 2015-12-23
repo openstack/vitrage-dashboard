@@ -1,0 +1,32 @@
+<div class="vitrage-main" ng-controller="MainController as main">
+    <tabset>
+        <tab>
+            <tab-heading>
+                <!-- TODO: I18N -->
+                <i class="fa fa-desktop"></i> Compute
+            </tab-heading>
+            <div>
+                <hz-compute></hz-compute>
+            </div>
+
+        </tab>
+
+        <tab>
+            <tab-heading>
+                <!-- TODO: I18N -->
+                <i class="fa fa-database"></i> Storage
+            </tab-heading>
+            <div>
+                <hz-storage></hz-storage>
+            </div>
+        </tab>
+
+        <tab>
+            <tab-heading>
+                <!-- TODO: I18N -->
+                <i class="fa fa-globe"></i> Network
+            </tab-heading>
+            <hz-network></hz-network>
+        </tab>
+    </tabset>
+</div>
