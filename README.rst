@@ -21,12 +21,20 @@ Project Resources
 
 How to use this package
 -----------------------
-git clone https://github.com/openstack/horizon.git
-git clone https://github.com/openstack/vitrage-dashboard.git
-cd horizon
-  ./run_tests.sh -f --docs
-  cp ./openstack_dashboard/local/local_settings.py.example ./openstack_dashboard/local/local_settings.py
-  pushd ../vitrage-dashboard
-  ../horizon/tools/with_venv.sh pip install --upgrade .
-  cp -a vitragedashboard/enabled/* ../horizon/openstack_dashboard/enabled/
-  popd
+::
+    git clone https://github.com/openstack/horizon.git
+    git clone https://github.com/openstack/vitrage-dashboard.git
+    git clone https://github.com/openstack/python-vitrageclient.git
+
+    cd pyton-vitrageclient
+    sudo pip install -e.
+    ../horizon/tools/with_venv.sh pip install --upgrade .
+
+    cd ../horizon
+    ./run_tests.sh -f --docs
+    cp ./openstack_dashboard/local/local_settings.py.example ./openstack_dashboard/local/local_settings.py
+    pushd ../vitrage-dashboard
+    ../horizon/tools/with_venv.sh pip install --upgrade .
+    cp -a vitragedashboard/enabled/* ../horizon/openstack_dashboard/enabled/
+    cp -a vitrageclient/api/* ../horizon/openstack_dashboard/api/
+    popd

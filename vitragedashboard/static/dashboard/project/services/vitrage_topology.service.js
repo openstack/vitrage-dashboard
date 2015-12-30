@@ -16,7 +16,8 @@
                     if (vitrageAPI) {
                         vitrageAPI.getTopology()
                             .success(function (data) {
-                                console.log("Success " + data);
+                                console.log("Success " , data);
+                                return data;
                             })
                             .error(function (err) {
                                     console.error(err);

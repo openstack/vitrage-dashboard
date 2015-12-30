@@ -9,26 +9,25 @@
   vitrageAPI.$inject = [
     'horizon.framework.util.http.service',
     'horizon.framework.widgets.toast.service'
+
   ];
 
   function vitrageAPI(apiService, toastService) {
 
-    return {
+    var service = {
       getTopology: getTopology
     };
 
+    return service;
+
     ///////////
-
     // Topology
-    function getTopology() {
-      console.log("****   getToplogy test ****");
-      return apiService.get('/api/nova/keypairs/')
+    function getTopology(config) {
+      return apiService.get('/api/vitrage/topology', config)
         .error(function () {
-          toastService.add('error', gettext('Unable to get the Vitrage service Topology.'));
+          toastService.add('error', gettext('Unable to fetch the Vitrage Topology service.'));
         });
-
     }
-
 
   }
 
