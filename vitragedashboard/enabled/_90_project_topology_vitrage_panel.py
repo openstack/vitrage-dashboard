@@ -25,3 +25,7 @@ ADD_INSTALLED_APPS = ['vitragedashboard']
 ADD_ANGULAR_MODULES = ['horizon.dashboard.project.vitrage']
 
 AUTO_DISCOVER_STATIC_FILES = True
+
+ADD_SCSS_FILES = [
+    'dashboard/project/vitrage.scss',
+]

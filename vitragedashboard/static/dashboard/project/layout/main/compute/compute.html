@@ -1,12 +1,29 @@
-<div class="vitrage-compute container-fluid">
-    <div class="row">
-        <div class="col-md-3">
-            <hz-information></hz-information>
-            <hz-stacks></hz-stacks>
-            <hz-alarms></hz-alarms>
-        </div>
-        <div class="col-md-9">
-            <hz-sunburst name="compute"></hz-sunburst>
+<div class="vitrage-compute">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Info.</h3>
+                    </div>
+                    <div class="panel-body">
+                        <hz-information></hz-information>
+                        <hz-stacks></hz-stacks>
+                        <hz-alarms></hz-alarms>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Topology</h3>
+                    </div>
+                    <div class="panel-body">
+                        <hz-sunburst name="compute" data="model.computeTopology" selected="model.selected"></hz-sunburst>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

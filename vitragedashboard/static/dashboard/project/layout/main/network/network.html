@@ -1,10 +1,17 @@
 <div class="vitrage-network">
     <div class="row">
         <div class="col-md-3">
-            <hz-information></hz-information>
-            <hz-stacks></hz-stacks>
-            <hz-vms></hz-vms>
-            <hz-alarms></hz-alarms>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Info.</h3>
+                </div>
+                <div class="panel-body">
+                    <hz-information></hz-information>
+                    <hz-stacks></hz-stacks>
+                    <hz-vms></hz-vms>
+                    <hz-alarms></hz-alarms>
+                </div>
+            </div>
         </div>
         <div class="col-md-9">
             <hz-sunburst sunburst name="network-sunburst"></hz-sunburst>
