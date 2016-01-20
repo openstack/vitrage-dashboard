@@ -6,7 +6,10 @@ function hzInformation() {
   var directive = {
     link: link,
     templateUrl: STATIC_URL + 'dashboard/project/components/information/information.html',
-    restrict: 'E'
+    restrict: 'E',
+    scope:{
+      selected:'='
+    }
   };
   return directive;
 

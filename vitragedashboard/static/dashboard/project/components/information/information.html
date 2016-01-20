@@ -1,3 +1,13 @@
 <div class="vitrage-information">
-    <h1>Information</h1>
+    <h1>{$ 'Information' | translate $}</h1>
+    <accordion close-others="false">
+        <accordion-group is-open="true" class="accordion-group-text">
+            <accordion-heading>{$ 'Name' | translate $} : <label ng-bind="selected.NAME"></label></accordion-heading>
+            <accordion-body ui-blocker ui-blocker-delay="0">
+                <div ng-repeat="(key,value) in selected">
+                    {$ key | translate $} : <label ng-bind="selected[key]"></label>
+                </div>
+            </accordion-body>
+        </accordion-group>
+    </accordion>
 </div>

@@ -7,7 +7,7 @@
                         <h3 class="panel-title">Info.</h3>
                     </div>
                     <div class="panel-body">
-                        <hz-information></hz-information>
+                        <hz-information selected="computeCtrl.model.selected"></hz-information>
                         <hz-stacks></hz-stacks>
                         <hz-alarms></hz-alarms>
                     </div>
@@ -19,7 +19,7 @@
                         <h3 class="panel-title">Topology</h3>
                     </div>
                     <div class="panel-body">
-                        <hz-sunburst name="compute" data="model.computeTopology" selected="model.selected"></hz-sunburst>
+                        <hz-sunburst name="compute" data="computeCtrl.model.computeTopology" selected="computeCtrl.model.selected"></hz-sunburst>
                     </div>
                 </div>
 

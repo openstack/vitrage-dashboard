@@ -52,16 +52,31 @@ function hzSunburst() {
 
         scope.$watch('data', function (newValue, oldValue) {
             if (newValue && newValue != oldValue) {
-                scope.selected = newValue;
+                scope.selected = copySelectedObject(newValue);
                 svg ? update() : init();
             }
         });
 
-
+        function copySelectedObject(d){
+          var temp = angular.copy(d);
+          delete temp.depth;
+          delete temp.dx;
+          delete temp.dy;
+          delete temp.id;
+          delete temp.parent;
+          delete temp.children;
+          delete temp.value;
+          delete temp.x;
+          delete temp.y;
+          return temp;
+        }
         function click(d) {
-            scope.selected = d;
+            var cloneSelectedData = copySelectedObject(d);
 
-            console.log("Clicked: ", d.id, ': ', d.name);
+            scope.selected = cloneSelectedData;
+            scope.$emit("sunburestClickUp",d);
+          //debugger;
+            console.log('Clicked: ', d.id, ': ', d.name);
             path.transition()
               .duration(750)
               .attrTween("d", arcTween(d));
@@ -86,7 +101,11 @@ function hzSunburst() {
         }
 
         function getColor(d) {
-            switch (d.state) {
+            if (d.state == undefined){
+              d.state = 'NULL';
+            }
+            switch (d.state.toUpperCase()) {
+                case 'TRUE':
                 case 'RUNNING':
                 case 'AVAILABLE':
                     return '#87CE53';
@@ -104,7 +123,7 @@ function hzSunburst() {
                     return 'darkorange';
                 default:
                     //'TERMINATING', 'STARTING', 'CREATING', 'SUSPENDING', 'REBUILDING'
-                    return 'lightgrey';
+                    return '#87CE53';
             }
         }
 
