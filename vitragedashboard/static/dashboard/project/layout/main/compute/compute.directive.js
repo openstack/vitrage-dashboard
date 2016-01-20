@@ -18,7 +18,6 @@ function hzCompute() {
   function link(scope, element, attrs) {
   }
 
-
   function hzComputeController($scope,vitrageTopologySrv){
       var computeCtrl = this;
       computeCtrl.model = {};
@@ -28,11 +27,10 @@ function hzCompute() {
          computeCtrl.model.computeTopology = result.data;
       });
 
-      $scope.$on('sunburestClickUp',function (event,data){
+      $scope.$on('sunburstItemClicked',function (event,data){
+        event.stopPropagation();
         $scope.$digest();
       });
-
-
 
     }
 

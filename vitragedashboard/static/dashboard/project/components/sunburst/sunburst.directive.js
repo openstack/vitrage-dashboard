@@ -1,184 +1,230 @@
 angular
-    .module('horizon.dashboard.project.vitrage')
-    .directive('hzSunburst', hzSunburst);
+  .module('horizon.dashboard.project.vitrage')
+  .directive('hzSunburst', hzSunburst);
 
 function hzSunburst() {
-    var directive = {
-        link: link,
-        scope: {
-            name: '@',
-            data: '=',
-            selected: '='
-        },
-        templateUrl: STATIC_URL+'dashboard/project/components/sunburst/sunburst.html',
-        restrict: 'E'
-    };
-    return directive;
+  var directive = {
+    link: link,
+    scope: {
+      name: '@',
+      data: '=',
+      selected: '='
+    },
+    templateUrl: STATIC_URL + 'dashboard/project/components/sunburst/sunburst.html',
+    restrict: 'E'
+  };
+  return directive;
 
-    function link(scope, element, attrs) {
+  function link(scope, element, attrs) {
 
-        /*console.log('ELEMENT HEIGHT: ',element[0].parentElement.clientHeight);
-        console.log('ELEMENT Width: ',element[0].parentElement.clientWidth);*/
+    var svg, path, partition, arc,
+      width = 500,
+      height = 500,
+      Df = {pad: 5, speed: 1000, width: width, height: height, radius: Math.min(width, height) / 2},
+      fnX = d3.scale.linear().range([0, 2 * Math.PI]),
+      fnY = d3.scale.pow().exponent(0.5).domain([0, 1]).range([0, Df.radius]),
 
-        var svg, path, partition, arc, x, y,
-          width = 500,
-          height = 500,
-          radius = Math.min(width, height) / 2;
+    partition = d3.layout.partition()
+      .value(function(d) {
+        return d.size | 1000;
+      });
 
-        x = d3.scale.linear()
-          .range([0, 2 * Math.PI]);
+    arc = d3.svg.arc()
+      .startAngle(function (d) {
+        return Math.max(0, Math.min(2 * Math.PI, fnX(d.x)));
+      })
+      .endAngle(function (d) {
+        return Math.max(0, Math.min(2 * Math.PI, fnX(d.x + d.dx)));
+      })
+      .innerRadius(function (d) {
+        return Math.max(0, fnY(d.y));
+      })
+      .outerRadius(function (d) {
+        return Math.max(0, fnY(d.y + d.dy));
+      });
 
-        y = d3.scale.sqrt()
-          .range([0, radius]);
+    scope.$watch('data', function(newValue, oldValue) {
+      if (newValue && newValue != oldValue) {
+        cloneSelectedItem(newValue);
+        svg ? update() : init();
+      }
+    });
 
-        partition = d3.layout.partition()
-          .value(function (d) {
-              return d.size | 1000;
-          });
+    function click(d) {
+      cloneSelectedItem(d);
+      console.log('Clicked: ', scope.selected);
+      scope.$emit('sunburstItemClicked', d);
 
-        arc = d3.svg.arc()
-          .startAngle(function (d) {
-              return Math.max(0, Math.min(2 * Math.PI, x(d.x)));
-          })
-          .endAngle(function (d) {
-              return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx)));
-          })
-          .innerRadius(function (d) {
-              return Math.max(0, y(d.y));
-          })
-          .outerRadius(function (d) {
-              return Math.max(0, y(d.y + d.dy));
-          });
+      path.transition()
+        .duration(750)
+        .attrTween("d", arcTween(d));
 
-        scope.$watch('data', function (newValue, oldValue) {
-            if (newValue && newValue != oldValue) {
-                scope.selected = copySelectedObject(newValue);
-                svg ? update() : init();
-            }
+      // TEXT ANIMATION
+      svg.selectAll('text')
+        .style('visibility', function (e) {
+          return isParentOf(d, e) ? null : d3.select(this).style('visibility');
+        })
+        .transition().duration(Df.speed)  // makes the effect of fade-in / fade-out
+        .attrTween('text-anchor', function (d) {
+          return function () {
+            return fnX(d.x + d.dx / 2) > Math.PI ? 'end' : 'start';
+          };
+        })
+        .attrTween('transform', function (d) {
+          return function () {
+            var angle = fnX(d.x + d.dx / 2) * 180 / Math.PI - 90;
+
+            return ['rotate(', angle, ')', //
+              'translate(', fnY(d.y) + Df.pad, ')', //
+              'rotate(', angle > 90 ? -180 : 0, ')'].join('');
+          };
+        })
+        .style('fill-opacity', function (e) {
+          return isParentOf(d, e) ? 1 : 1e-6;
+        }) //
+        .each('end', function (e) {
+          d3.select(this).style('visibility', isParentOf(d, e) ? null : 'hidden');
+        });
+    }
+
+    function cloneSelectedItem(d) {
+      scope.selected = {id: d.id, name: d.name, state: d.state};
+    }
+
+    // Interpolate the scales!
+    function arcTween(d) {
+      var xd = d3.interpolate(fnX.domain(), [d.x, d.x + d.dx]);
+      var yd = d3.interpolate(fnY.domain(), [d.y, maxY(d)]);
+      var yr = d3.interpolate(fnY.range(), [d.y ? 20 : 0, Df.radius]);
+
+      return function (d) {
+        return function (t) {
+          fnX.domain(xd(t));
+          fnY.domain(yd(t)).range(yr(t));
+          return arc(d);
+        };
+      };
+    }
+
+    function maxY(d) {
+      return d.children ? Math.max.apply(Math, d.children.map(maxY)) : d.y + d.dy;
+    }
+
+    function getColor(d) {
+      if (d.state) {
+        switch (d.state.toUpperCase()) {
+          case 'AVAILABLE':
+          case 'ACTIVE':
+            return '#87CE53';
+          default:
+            return '#D3D3D3';
+        }
+      }
+    }
+
+    function init() {
+      svg = d3.select('#' + scope.name).append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("id", scope.name + '_svg')
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
+
+      update();
+    }
+
+    function update() {
+      // Enter
+      svg.selectAll("path")
+        .data(partition.nodes(scope.data), function(d) {
+          return d.id;
+        })
+        .enter().append("path")
+        .attr("d", arc)
+        .style("fill", function(d) {
+          return getColor(d);
+        })
+        .on("click", click)
+        .each(function(d) {
+          this.x0 = d.x;
+          this.dx0 = d.dx;
         });
 
-        function copySelectedObject(d){
-          var temp = angular.copy(d);
-          delete temp.depth;
-          delete temp.dx;
-          delete temp.dy;
-          delete temp.id;
-          delete temp.parent;
-          delete temp.children;
-          delete temp.value;
-          delete temp.x;
-          delete temp.y;
-          return temp;
+      svg.selectAll('text')
+        .data(partition.nodes(scope.data), function (d) {
+          return d.id;
+        })
+        .enter().append('text')
+        .text(function(d) {
+          return substringName(d);
+        })
+        .attr({
+          'dy': '.2em',
+          'text-anchor': function (d) {
+            return fnX(d.x + d.dx / 2) > Math.PI ? 'end' : 'start';
+          },
+          'transform': function (d) {
+            var angle, rotated;
+
+            angle = fnX(d.x + d.dx / 2) * 180 / Math.PI - 90;
+            rotated = (angle > 90 ? -180 : 0);
+
+            return ['rotate(', angle, ')',
+              'translate(', fnY(d.y) + Df.pad, ')',
+              'rotate(', rotated, ')'].join('');
+          }
+        })
+        .on("click", click);
+
+      svg.selectAll('text')
+        .append("svg:title").text(function(d){
+        return createTooltipText(d);
+      });
+
+      // Exit
+      svg.selectAll("path")
+        .data(partition.nodes(scope.data), function(d) {
+          return d.id;
+        })
+        .attr("d", arc)
+        .style("fill", function(d) {
+          return getColor(d);
+        })
+        .exit().remove();
+
+      path = svg.selectAll("path");
+
+      path.append("svg:title").text(function(d) {
+          return createTooltipText(d);
         }
-        function click(d) {
-            var cloneSelectedData = copySelectedObject(d);
-
-            scope.selected = cloneSelectedData;
-            scope.$emit("sunburestClickUp",d);
-          //debugger;
-            console.log('Clicked: ', d.id, ': ', d.name);
-            path.transition()
-              .duration(750)
-              .attrTween("d", arcTween(d));
-        }
-
-        // Interpolate the scales!
-        function arcTween(d) {
-            var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
-              yd = d3.interpolate(y.domain(), [d.y, 1]),
-              yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
-            return function (d, i) {
-                return i
-                  ? function (t) {
-                    return arc(d);
-                }
-                  : function (t) {
-                    x.domain(xd(t));
-                    y.domain(yd(t)).range(yr(t));
-                    return arc(d);
-                };
-            };
-        }
-
-        function getColor(d) {
-            if (d.state == undefined){
-              d.state = 'NULL';
-            }
-            switch (d.state.toUpperCase()) {
-                case 'TRUE':
-                case 'RUNNING':
-                case 'AVAILABLE':
-                    return '#87CE53';
-                case 'ERROR':
-                case 'UNAVAILABLE':
-                case 'UNRECOGNIZED':
-                case 'FAILURE':
-                case 'UNSUPPORTED':
-                    return '#FA3C3C';
-                case 'SUSPENDED':
-                case 'TERMINATED':
-                case 'PAUSED':
-                    return '#ffdf6c';
-                case 'SUBOPTIMAL':
-                    return 'darkorange';
-                default:
-                    //'TERMINATING', 'STARTING', 'CREATING', 'SUSPENDING', 'REBUILDING'
-                    return '#87CE53';
-            }
-        }
-
-        function init() {
-            svg = d3.select('#' + scope.name).append("svg")
-              .attr("width", width)
-              .attr("height", height)
-              .attr("id", scope.name + '_svg')
-              .append("g")
-              .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
-
-
-            update();
-        }
-
-        function update() {
-            // Enter
-            svg.selectAll("path")
-              .data(partition.nodes(scope.data), function (d) {
-                  return d.id;
-              })
-              .enter().append("path")
-              .attr("d", arc)
-              .style("fill", function (d) {
-                  return getColor(d);
-              })
-              .on("click", click)
-              .each(function (d) {
-                  this.x0 = d.x;
-                  this.dx0 = d.dx;
-              });
-
-            // Exit
-            svg.selectAll("path")
-              .data(partition.nodes(scope.data), function (d) {
-                  return d.id;
-              })
-              .attr("d", arc)
-              .style("fill", function (d) {
-                  return getColor(d);
-              })
-              .exit().remove();
-
-            path = svg.selectAll("path");
-        }
-
+      );
     }
+
+    function substringName(d){
+      var name = d.name,
+      dots = '...';
+
+      if (name.length > 4) {
+        name = d.name.substring(0, 4) + dots;
+      }
+      return name;
+    }
+
+    function isParentOf(p, c) {
+      if (p === c) {
+        return true;
+      }
+      if (p.children) {
+        return p.children.some(function (d) {
+          return isParentOf(d, c);
+        });
+      }
+      return false;
+    }
+
+    function createTooltipText(d) {
+      return d.name;
+    }
+
+  }
 }
-
-/*
- //TODO:
- 1. Animate when clicking on refresh data
- 2. If we are in deep in the arcs, and new data arrive, get to the root
- 3. Understand the update (enter & exit)
-
- http://d3js.org/
- http://knowledgestockpile.blogspot.co.uk/2012/01/understanding-selectall-data-enter.html
- * */
