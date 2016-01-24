@@ -1,0 +1,2 @@
+# settings file for vitrage-dashboard plugin
+enable_service vitrage-dashboard

@@ -22,6 +22,21 @@ Project Resources
 How to use this package
 -----------------------
 
+With Devstack
+-------------
+
+Add the following to your Devstack local.conf file
+
+::
+
+  enable_plugin vitrage-dashboard https://git.openstack.org/openstack/vitrage-dashboard
+
+With Horizon
+------------
+
+::
+
+
     git clone https://github.com/openstack/horizon.git
 
     git clone https://github.com/openstack/vitrage-dashboard.git
