@@ -11,7 +11,7 @@ function install_vitrage_dashboard {
 }
 
 # check for service enabled
-if is_service_enabled vitrage_dashboard; then
+if is_service_enabled vitrage-dashboard; then
 
     if [[ "$1" == "stack" && "$2" == "pre-install" ]]; then
         # Set up system services
