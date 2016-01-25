@@ -88,7 +88,7 @@ function hzSunburst() {
     }
 
     function cloneSelectedItem(d) {
-      scope.selected = {id: d.id, name: d.name, state: d.state};
+      scope.selected = {id: d.id, name: d.name, state: d.state, type: d.type};
     }
 
     // Interpolate the scales!

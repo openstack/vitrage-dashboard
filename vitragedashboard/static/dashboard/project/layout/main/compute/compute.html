@@ -19,7 +19,12 @@
                         <h3 class="panel-title">Topology</h3>
                     </div>
                     <div class="panel-body">
-                        <hz-sunburst name="compute" data="computeCtrl.model.computeTopology" selected="computeCtrl.model.selected"></hz-sunburst>
+                        <div class="col-md-10">
+                            <hz-sunburst name="compute" data="computeCtrl.model.computeTopology" selected="computeCtrl.model.selected"></hz-sunburst>
+                        </div>
+                        <div class="col-md-2 visual-legend">
+                            <hz-sunburst-minimap selected="computeCtrl.model.selected"></hz-sunburst-minimap>
+                        </div>
                     </div>
                 </div>
 
