@@ -14,21 +14,37 @@
       vitrageAPI = $injector.get('horizon.app.core.openstack-service-api.vitrage');
 
     }
-    return {
-      getTopology: function getTopology() {
+    function getTopology() {
 
-        if (vitrageAPI) {
-          return vitrageAPI.getTopology()
-            .success(function(data) {
-              console.log("Success ", data);
-              return data;
-            })
-            .error(function(err) {
-                console.error(err);
-              }
-            )
-        }
+      if (vitrageAPI) {
+        return vitrageAPI.getTopology()
+          .success(function(data) {
+            return data;
+          })
+          .error(function(err) {
+              console.error(err);
+            }
+          )
       }
+    }
+
+    function getAlarms(vitrage_id) {
+
+      if (vitrageAPI) {
+        return vitrageAPI.getAlarms(vitrage_id)
+          .success(function(data) {
+            return data;
+          })
+          .error(function(err) {
+              console.error(err);
+            }
+          )
+      }
+    }
+
+    return {
+      getTopology: getTopology,
+      getAlarms: getAlarms
     }
   }
 })();

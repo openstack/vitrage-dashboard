@@ -1,3 +1,11 @@
 .vitrage-alarms {
+  .panel-body{
+    padding: 0;
+  }
+
+  .alarms-list{
+    max-height: 288px;
+    overflow-y: auto;
+  }
 
 }

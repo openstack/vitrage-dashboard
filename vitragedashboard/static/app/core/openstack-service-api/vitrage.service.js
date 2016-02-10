@@ -1,4 +1,3 @@
-
 (function () {
   'use strict';
 
@@ -15,7 +14,8 @@
   function vitrageAPI(apiService, toastService) {
 
     var service = {
-      getTopology: getTopology
+      getTopology: getTopology,
+      getAlarms: getAlarms
     };
 
     return service;
@@ -26,6 +26,16 @@
       return apiService.get('/api/vitrage/topology', config)
         .error(function () {
           toastService.add('error', gettext('Unable to fetch the Vitrage Topology service.'));
+        });
+    }
+
+    function getAlarms(vitrage_id) {
+      if (vitrage_id == undefined){
+        vitrage_id = 'all';
+      }
+      return apiService.get('/api/vitrage/alarms/'+vitrage_id)
+        .error(function () {
+          toastService.add('error', gettext('Unable to fetch the Vitrage Alarms service.'));
         });
     }
 

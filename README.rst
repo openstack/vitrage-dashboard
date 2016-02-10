@@ -41,7 +41,7 @@ With Horizon
 
     git clone https://github.com/openstack/vitrage-dashboard.git
 
-    git clone https://github.com/openstack/f.git
+    git clone https://github.com/openstack/python-vitrageclient.git
 
     cd ../horizon
 

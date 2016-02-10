@@ -39,3 +39,23 @@ class Topolgy(generic.View):
         """
 
         return api.vitrage.topology(request)
+
+
+@urls.register
+class Alarms(generic.View):
+    """API for vitrage alarms."""
+
+    url_regex = r'vitrage/alarms/(?P<vitrage_id>.+|default)/$'
+
+    @rest_utils.ajax()
+    def get(self, request, vitrage_id):
+        """Get a single entity's alarm with the vitrage id.
+
+        The following get alarma may be passed in the GET
+
+        :param vitrage_id the id of the vitrage entity
+
+        The result is a alarms object.
+        """
+
+        return api.vitrage.alarms(request, vitrage_id)

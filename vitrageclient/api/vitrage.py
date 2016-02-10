@@ -32,3 +32,7 @@ def vitrageclient(request, password=None):
 
 def topology(request):
     return vitrageclient(request).topology.get(graph_type='tree')
+
+
+def alarms(request, vitrage_id='all'):
+    return vitrageclient(request).alarms.list(vitrage_id=vitrage_id)

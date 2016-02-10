@@ -3,13 +3,13 @@
 {% block title %}{% trans "Topology" %}{% endblock %}
 
 {% block page_header %}
-<hz-page-header header="Alarms Vitrage" description="Alarms Vitrage Desc"></hz-page-header>
+<hz-page-header header="Alarms Analysis" ></hz-page-header>
 {% endblock page_header %}
 
 {% block main %}
 
-<!--<div ng-cloak ng-init='init({{ TOPOLOGY_VITRAGE_SETTINGS }})'>-->
-    <!--<ng-include src="'{{STATIC_URL}}dashboard/project/layout/system-health.html'"></ng-include>-->
-<!--</div>-->
+<div ng-cloak ng-init='init({{ TOPOLOGY_VITRAGE_SETTINGS }})'>
+    <ng-include src="'{{STATIC_URL}}alarms/project/layout/main/alarmList.html'"></ng-include>
+</div>
 {% endblock %}
 

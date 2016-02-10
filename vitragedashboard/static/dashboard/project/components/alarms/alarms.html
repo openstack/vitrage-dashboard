@@ -1,3 +1,14 @@
 <div class="vitrage-alarms">
     <h1>{$ 'Alarms' | translate $}</h1>
+    <div class="panel panel-default alarm-list" >
+        <ul class="panel-body list-group" ng-repeat="alarm in alarmsCtrl.computeAlarms track by $index">
+            <li class="list-group-item">
+                <h4 class="list-group-item-heading">{$alarm.name$}</h4>
+                <p class="list-group-item-text">
+                {$alarm.update_timestamp | date:"h:mma"$} |
+                {$alarm.severity$}
+                </p>
+            </li>
+        </ul>
+    </div>
 </div>

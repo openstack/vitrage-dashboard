@@ -1,0 +1,25 @@
+<div class="alarm-list" ng-controller="AlarmListController as alarmList">
+    <div class="panel panel-default" >
+
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>{$ 'TimeStamp' | translate $}</th>
+                <th>{$ 'Name' | translate $}</th>
+                <th>{$ 'Severity' | translate $}</th>
+                <th>{$ 'Type' | translate $}</th>
+                <th>{$ 'RCA' | translate $}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="alarm in alarmList.alarms track by $index">
+                <td><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | date:"h:mm a"$} </td>
+                <td>{$alarm.name$}</td>
+                <td>{$alarm.severity $}</td>
+                <td>{$alarm.type$}</td>
+                <td><i class="fa fa-sitemap"></i></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

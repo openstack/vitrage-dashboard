@@ -88,7 +88,7 @@ function hzSunburst() {
     }
 
     function cloneSelectedItem(d) {
-      scope.selected = {id: d.id, name: d.name, state: d.state, type: d.type};
+      scope.selected = {id: d.id, name: d.name, state: d.state,vitrage_id: d.vitrage_id};
     }
 
     // Interpolate the scales!
