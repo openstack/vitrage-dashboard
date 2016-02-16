@@ -1,20 +1,30 @@
 <div class="alarm-list" ng-controller="AlarmListController as alarmList">
     <div class="panel panel-default" >
-
-        <table class="table table-striped table-hover table-bordered">
+        <table st-table='alarmList.ialarms' st-safe-src="alarmList.alarms" class="table-striped table-rsp table-detail modern" hz-table>
             <thead>
             <tr>
-                <th>{$ 'TimeStamp' | translate $}</th>
-                <th>{$ 'Name' | translate $}</th>
-                <th>{$ 'Severity' | translate $}</th>
-                <th>{$ 'Type' | translate $}</th>
+                <th st-sort="update_timestamp">{$ 'TimeStamp' | translate $}</th>
+                <th st-sort="name">{$ 'Name' | translate $}</th>
+                <th st-sort="resource_type">{$ 'Resource Type' | translate $}</th>
+                <th st-sort="resource_name">{$ 'Resource Name' | translate $}</th>
+                <th st-sort="severity">{$ 'Severity' | translate $}</th>
+                <th st-sort="type">{$ 'Type' | translate $}</th>
                 <th>{$ 'RCA' | translate $}</th>
+            </tr>
+            <tr>
+                <th colspan="7">
+                    <hz-search-bar group-classes="input-group-sm"
+                                   icon-classes="fa-search">
+                    </hz-search-bar>
+                </th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="alarm in alarmList.alarms track by $index">
+            <tr ng-repeat="alarm in alarmList.ialarms track by $index">
                 <td><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | date:"h:mm a"$} </td>
                 <td>{$alarm.name$}</td>
+                <td>{$alarm.resource_type$}</td>
+                <td>{$alarm.resource_name$}</td>
                 <td>{$alarm.severity $}</td>
                 <td>{$alarm.type$}</td>
                 <td><i class="fa fa-sitemap"></i></td>
