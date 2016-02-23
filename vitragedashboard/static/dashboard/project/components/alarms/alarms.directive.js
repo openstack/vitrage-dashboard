@@ -4,31 +4,43 @@ angular
 
 function hzAlarms() {
   var directive = {
-    link: link,
     templateUrl: STATIC_URL + 'dashboard/project/components/alarms/alarms.html',
     restrict: 'E',
-    scope:{
-      selected:'='
+    scope: {
+      selected: '='
     },
-    controller : AlarmsController,
-    controllerAs : 'alarmsCtrl'
+    controller: AlarmsController,
+    controllerAs: 'alarmsCtrl'
   };
 
-  AlarmsController.$inject = ['$scope', 'vitrageTopologySrv'];
+  AlarmsController.$inject = ['$scope', '$modal', 'vitrageTopologySrv'];
   return directive;
 
-  function link(scope, element, attrs) {
-  }
-
-  function AlarmsController($scope,vitrageTopologySrv){
+  function AlarmsController($scope, $modal, vitrageTopologySrv) {
     var alarmsCtrl = this;
-    $scope.$watch('selected', function(newData,oldData) {
-      if (newData != oldData){
-        console.log('selected ',newData);
-        vitrageTopologySrv.getAlarms(newData.vitrage_id).then(function(result){
+
+    $scope.$watch('selected', function(newData, oldData) {
+      if (newData != oldData) {
+        console.log('selected ', newData);
+        vitrageTopologySrv.getAlarms(newData.vitrage_id).then(function(result) {
           alarmsCtrl.computeAlarms = result.data;
         });
       }
     });
+
+    alarmsCtrl.onAlarmClick = function(alarm) {
+      var modalOptions = {
+        animation: true,
+        templateUrl: STATIC_URL + 'dashboard/project/components/rca/rcaContainer.html',
+        controller: 'RcaContainerController',
+        windowClass: 'app-modal-window',
+        resolve: {alarm: function() {
+          return alarm;
+        }}
+      };
+
+      $modal.open(modalOptions);
+    }
   }
 }
+

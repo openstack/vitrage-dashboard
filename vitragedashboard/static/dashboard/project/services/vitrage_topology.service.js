@@ -42,9 +42,24 @@
       }
     }
 
+
+    function getRootCauseAnalysis(alarm_id) {
+      if (vitrageAPI) {
+        return vitrageAPI.getRca(alarm_id)
+          .success(function(data) {
+            return data;
+          })
+          .error(function(err) {
+              console.error(err);
+            }
+          )
+      }
+    }
+
     return {
       getTopology: getTopology,
-      getAlarms: getAlarms
+      getAlarms: getAlarms,
+      getRootCauseAnalysis: getRootCauseAnalysis
     }
   }
 })();

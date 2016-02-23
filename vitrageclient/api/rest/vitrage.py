@@ -51,7 +51,7 @@ class Alarms(generic.View):
     def get(self, request, vitrage_id):
         """Get a single entity's alarm with the vitrage id.
 
-        The following get alarma may be passed in the GET
+        The following get alarm may be passed in the GET
 
         :param vitrage_id the id of the vitrage entity
 
@@ -59,3 +59,21 @@ class Alarms(generic.View):
         """
 
         return api.vitrage.alarms(request, vitrage_id)
+
+
+@urls.register
+class Rca(generic.View):
+    """API for vitrage rca."""
+
+    url_regex = r'vitrage/rca/(?P<alarm_id>.+|default)/$'
+
+    @rest_utils.ajax()
+    def get(self, request, alarm_id):
+        """Get rca graph for an alarm.
+
+        :param alarm_id the id of the alarm
+
+        The result is an rca graph.
+        """
+
+        return api.vitrage.rca(request, alarm_id)

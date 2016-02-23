@@ -15,7 +15,8 @@
 
     var service = {
       getTopology: getTopology,
-      getAlarms: getAlarms
+      getAlarms: getAlarms,
+      getRca: getRca
     };
 
     return service;
@@ -36,6 +37,13 @@
       return apiService.get('/api/vitrage/alarms/'+vitrage_id)
         .error(function () {
           toastService.add('error', gettext('Unable to fetch the Vitrage Alarms service.'));
+        });
+    }
+
+    function getRca(alarm_id) {
+      return apiService.get('/api/vitrage/rca/'+alarm_id)
+        .error(function () {
+          toastService.add('error', gettext('Unable to fetch the Vitrage RCA service.'));
         });
     }
 
