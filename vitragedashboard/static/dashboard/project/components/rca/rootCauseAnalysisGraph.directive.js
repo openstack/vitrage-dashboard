@@ -141,7 +141,11 @@ function hzRootCauseAnalysisGraph($filter) {
         html += '<div style="line-height: 2em; padding-left: 10px">';
         html += '<div style="font-weight: 600; font-size: 20px; color: #44575e;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="'+alertName+'">' + alertName + '</div>';
         html += '<div style="font-weight: 400; color: #44575e;">' + alertInfo + '</div>';
-        html += '<div style="font-weight: 400; color: #44575e;">' + alertTimeStamp + ' | ' + alertState + ' | ' + alertSeverity + '</div>';
+        html += '<div style="font-weight: 400; color: #44575e;">' + alertTimeStamp + ' | ' + alertState + ' | ' + alertSeverity;
+        if (key.id == data.inspected_id) {
+          html+='<span style="float: right"><i title="Root cause analysis relative to this alert" style="font-size: 27px; color: #FFFFFF" class="fa fa-thumb-tack"></i></span>';
+        }
+        html += '</div>';
         html += '<div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">';
         html += '<span style="font-weight: 600; color: #44575e;">' + alertResourceType + ':</span>';
         html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis" title="' + alertResourceName + '">' + alertResourceName + '</span>';
@@ -149,9 +153,6 @@ function hzRootCauseAnalysisGraph($filter) {
         html += '<div>';
         html += '<span style="font-weight: 600; color: #44575e;">Type:</span>';
         html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e;">' + alertType + '</span>';
-        if (key.id == data.inspected_id) {
-          html+='<span style="float: right"><i title="Root cause analysis relative to this alert" style="font-size: 27px; color: #FFFFFF" class="fa fa-thumb-tack"></i></span>';
-        }
         html += '</div>';
         html += '</div></div></div>';
 
