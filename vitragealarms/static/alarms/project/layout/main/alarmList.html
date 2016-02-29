@@ -6,7 +6,7 @@
                 <th st-sort="update_timestamp">{$ 'TimeStamp' | translate $}</th>
                 <th st-sort="name">{$ 'Name' | translate $}</th>
                 <th st-sort="resource_type">{$ 'Resource Type' | translate $}</th>
-                <th st-sort="resource_name">{$ 'Resource Name' | translate $}</th>
+                <th st-sort="resource_id">{$ 'Resource ID' | translate $}</th>
                 <th st-sort="severity">{$ 'Severity' | translate $}</th>
                 <th st-sort="type">{$ 'Type' | translate $}</th>
                 <th>{$ 'RCA' | translate $}</th>
@@ -24,7 +24,7 @@
                 <td><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | date:"h:mm a"$} </td>
                 <td>{$alarm.name$}</td>
                 <td>{$alarm.resource_type$}</td>
-                <td>{$alarm.resource_name$}</td>
+                <td>{$alarm.resource_id$}</td>
                 <td>{$alarm.severity $}</td>
                 <td>{$alarm.type$}</td>
                 <td ng-click="alarmList.onRcaClick(alarm)"><i class="fa fa-sitemap"></i></td>
