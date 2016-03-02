@@ -142,7 +142,7 @@ function hzRootCauseAnalysisGraph($filter) {
         html += '<div style="font-weight: 600; font-size: 20px; color: #44575e;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="'+alertName+'">' + alertName + '</div>';
         html += '<div style="font-weight: 400; color: #44575e;">' + alertInfo + '</div>';
         html += '<div style="font-weight: 400; color: #44575e;">' + alertTimeStamp + ' | ' + alertState + ' | ' + alertSeverity;
-        if (key.id == data.inspected_id) {
+        if (key.id == data.inspected_index) {
           html+='<span style="float: right"><i title="Root cause analysis relative to this alert" style="font-size: 27px; color: #FFFFFF" class="fa fa-thumb-tack"></i></span>';
         }
         html += '</div>';
@@ -180,7 +180,7 @@ function hzRootCauseAnalysisGraph($filter) {
         setSelected(d);
       });
 
-      setSelected(data.inspected_id);
+      setSelected(data.inspected_index);
       var verticesLength = data.nodes.length;
 
       // Zoom and scale to fit
