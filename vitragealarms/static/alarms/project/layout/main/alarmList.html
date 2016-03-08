@@ -3,6 +3,7 @@
         <table st-table='alarmList.ialarms' st-safe-src="alarmList.alarms" class="table-striped table-rsp table-detail modern" hz-table>
             <thead>
             <tr>
+                <th st-sort="normalized_severity"></th>
                 <th st-sort="update_timestamp">{$ 'TimeStamp' | translate $}</th>
                 <th st-sort="name">{$ 'Name' | translate $}</th>
                 <th st-sort="resource_type">{$ 'Resource Type' | translate $}</th>
@@ -21,6 +22,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="alarm in alarmList.ialarms track by $index">
+                <td title="{$ alarm.normalized_severity $}"><i class="fa" ng-class="{'orange fa-exclamation-triangle': alarm.normalized_severity == 'SEVER', 'orange fa-exclamation-triangle': alarm.normalized_severity == 'WARNING', 'red fa-exclamation-circle': alarm.normalized_severity == 'CRITICAL', 'green fa-check': alarm.normalized_severity == 'DISABLED', 'gray fa-circle-o-notch': alarm.normalized_severity == 'UNKNOWN'}"></i></td>
                 <td><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | date:"h:mm a"$} </td>
                 <td>{$alarm.name$}</td>
                 <td>{$alarm.resource_type$}</td>

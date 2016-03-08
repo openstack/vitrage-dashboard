@@ -6,3 +6,19 @@
 @import 'components/alarms/alarms';
 @import 'components/rca/rcaContainer';
 @import 'components/rca/rootCauseAnalysisGraph';
+
+.red {
+  color: #FA3C3C;
+}
+
+.orange {
+  color: #FCD20E;
+}
+
+.green {
+  color: #87CE53;
+}
+
+.gray {
+  color: #AEAEAE;
+}
