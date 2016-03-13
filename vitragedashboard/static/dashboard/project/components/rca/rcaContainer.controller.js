@@ -17,7 +17,6 @@
       vitrageTopologySrv.getRootCauseAnalysis(alarm.vitrage_id)
         .then(
           function success(result) {
-            console.log('RCA RESULT: ', result);
             $scope.data = result.data;
           },
           function error(result) {

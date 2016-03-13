@@ -32,21 +32,23 @@ function hzRootCauseAnalysisGraph($filter) {
 
       lastSelectedNode = {id:u, value:g._nodes[u]};
       var temp = g._nodes[u];
-      temp.label = temp.label.replace("background: #ffffff;", "background: #000000");
-      temp.label = replaceAll(temp.label, "color: #44575e;", "color: #ffffff");
-      temp.label = replaceAll(temp.label, '#44575e" class="fa fa-thumb-tack', '#FFFFFF" class="fa fa-thumb-tack');
+      if (temp) {
+        temp.label = temp.label.replace("background: #ffffff;", "background: #000000");
+        temp.label = replaceAll(temp.label, "color: #44575e;", "color: #ffffff");
+        temp.label = replaceAll(temp.label, '#44575e" class="fa fa-thumb-tack', '#FFFFFF" class="fa fa-thumb-tack');
 
-      g.setNode(u, {
-        labelType: "html",
-        label: temp.label,
-        rx: 26,
-        ry: 26,
-        padding: 0,
-        class: temp.class + " selectedNode out"
-      });
+        g.setNode(u, {
+          labelType: "html",
+          label: temp.label,
+          rx: 26,
+          ry: 26,
+          padding: 0,
+          class: temp.class + " selectedNode out"
+        });
 
-      scope.selected = getSelectedObject(u);
-      inner.call(render, g);
+        scope.selected = getSelectedObject(u);
+        inner.call(render, g);
+      }
     }
 
     var replaceAll = function (str, strSearch, strReplaceWith) {
@@ -109,8 +111,9 @@ function hzRootCauseAnalysisGraph($filter) {
         alertResourceName = key.resource_name,  // host-0
         alertResourceType = key.resource_type,  // nova.host
         alertSeverity = key.severity,           //WARNING
-        alertState = key.state,                 //Active
-        alertTimeStamp = key.timestamp,         //2015-12-01T12:46:41Z
+        alertNormalizedSeverity = key.normalized_severity ? key.normalized_severity.toUpperCase() : key.normalized_severity,           //WARNING
+        alertState = key.state ? key.state.toUpperCase() : key.state,                 //Active
+        alertTimeStamp = $filter('date')(key.update_timestamp, 'MM/dd/yyyy h:mma'),         //2015-12-01T12:46:41Z
         alertType = key.type,                   //nagios
         alertVitrageId = key.vitrage_id;
 
@@ -119,36 +122,41 @@ function hzRootCauseAnalysisGraph($filter) {
         html += '<div  style="padding: 10px; text-shadow: none; width: 378px; height: 115px; color: #44575e; clear:both"';
         html+='>';
 
-        switch (alertState + '_' + alertSeverity) {
+        switch (alertState + '_' + alertNormalizedSeverity) {
+          case 'ACTIVE_CRITICAL':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_red_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+            break;
           case 'ACTIVE_WARNING':
-            html += '<img src="/static/dashboard/project/assets/bell_orange_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+          case 'ACTIVE_SEVER':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+            break;
+          case 'ACTIVE_DISABLED':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+            break;
+          case 'INACTIVE_CRITICAL':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_red_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+            break;
+          case 'INACTIVE_WARNING':
+          case 'INACTIVE_SEVER':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+            break;
+          case 'INACTIVE_DISABLED':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
             break;
           default:
-            html += '<img src="/static/dashboard/project/assets/bell_yellow_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_yellow_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
             break;
         }
-
-        // TBD: When we get the relevant statuses
-        // case 'ACTIVE_HIGH':      /static/dashboard/project/assets/bell_red_on.svg
-        // case 'Active_WARNING':   /static/dashboard/project/assets/bell_orange_on.svg
-        // case 'ACTIVE_LOW':       /static/dashboard/project/assets/bell_yellow_on.svg
-        // case 'INACTIVE_HIGH':    /static/dashboard/project/assets/bell_red_off.svg
-        // case 'INACTIVE_MEDIUM':   /static/dashboard/project/assets/bell_orange_off.svg
-        // case 'INACTIVE_LOW':  /static/dashboard/project/assets/bell_yellow_off.svg
 
         html += '<div style="height: 90px; width: 2px; background: #656a70; float: left; margin-top: 5px; margin-left: 10px;"></div>';
         html += '<div>';
         html += '<div style="line-height: 2em; padding-left: 10px">';
-        html += '<div style="font-weight: 600; font-size: 20px; color: #44575e;  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="'+alertName+'">' + alertName + '</div>';
-        html += '<div style="font-weight: 400; color: #44575e;">' + alertInfo + '</div>';
+        html += '<div style="font-weight: 600; font-size: 20px; color: #44575e; width:262px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="'+alertName+'">' + alertName + '</div>';
+        html += '<div style="font-weight: 400; color: #44575e; width:262px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' + alertInfo + '</div>';
         html += '<div style="font-weight: 400; color: #44575e;">' + alertTimeStamp + ' | ' + alertState + ' | ' + alertSeverity;
         if (key.id == data.inspected_index) {
           html+='<span style="float: right"><i title="Root cause analysis relative to this alert" style="font-size: 27px; color: #FFFFFF" class="fa fa-thumb-tack"></i></span>';
         }
-        html += '</div>';
-        html += '<div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">';
-        html += '<span style="font-weight: 600; color: #44575e;">' + alertResourceType + ':</span>';
-        html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis" title="' + alertResourceName + '">' + alertResourceName + '</span>';
         html += '</div>';
         html += '<div>';
         html += '<span style="font-weight: 600; color: #44575e;">Type:</span>';
@@ -211,7 +219,6 @@ function hzRootCauseAnalysisGraph($filter) {
     scope.$watch("data", function (newValue, oldValue) {
       console.log('data watch');
       if (scope.data) {
-        console.log('we have data:', scope.data);
         createGraph();
       }
     });

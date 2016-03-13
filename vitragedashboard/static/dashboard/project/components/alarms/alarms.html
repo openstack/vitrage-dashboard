@@ -1,12 +1,13 @@
 <div class="vitrage-alarms">
     <h1>{$ 'Alarms' | translate $}</h1>
-    <div class="panel panel-default alarm-list" >
+    <span class="panel panel-default alarm-list" >
         <ul class="panel-body list-group" ng-repeat="alarm in alarmsCtrl.computeAlarms track by $index">
             <li class="list-group-item" ng-click="alarmsCtrl.onAlarmClick(alarm)">
                 <h4 class="list-group-item-heading">{$alarm.name$}</h4>
                 <p class="list-group-item-text">
-                {$alarm.update_timestamp | date:"h:mma"$} |
-                {$alarm.severity$}
+                <span title="{$ alarm.normalized_severity $}"><i class="fa" ng-class="{'orange fa-exclamation-triangle': alarm.normalized_severity == 'SEVER', 'orange fa-exclamation-triangle': alarm.normalized_severity == 'WARNING', 'red fa-exclamation-circle': alarm.normalized_severity == 'CRITICAL', 'green fa-check': alarm.normalized_severity == 'DISABLED', 'gray fa-circle-o-notch': alarm.normalized_severity == 'UNKNOWN'}"></i></span>
+                {$alarm.severity$} |
+                {$alarm.update_timestamp | date:"h:mma"$}
                 </p>
             </li>
         </ul>
