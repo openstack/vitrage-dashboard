@@ -128,6 +128,7 @@ function hzRootCauseAnalysisGraph($filter) {
             break;
           case 'ACTIVE_WARNING':
           case 'ACTIVE_SEVER':
+          case 'ACTIVE_SEVERE':
             html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
             break;
           case 'ACTIVE_DISABLED':
@@ -137,6 +138,7 @@ function hzRootCauseAnalysisGraph($filter) {
             html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_red_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
             break;
           case 'INACTIVE_WARNING':
+          case 'INACTIVE_SEVER':
           case 'INACTIVE_SEVER':
             html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
             break;
@@ -217,7 +219,6 @@ function hzRootCauseAnalysisGraph($filter) {
     }
 
     scope.$watch("data", function (newValue, oldValue) {
-      console.log('data watch');
       if (scope.data) {
         createGraph();
       }
