@@ -27,7 +27,7 @@
                 <td>{$alarm.name$}</td>
                 <td>{$alarm.resource_type$}</td>
                 <td>{$alarm.resource_id$}</td>
-                <td>{$alarm.severity $}</td>
+                <td>{$alarm.severity | lowercase $}</td>
                 <td>{$alarm.type$}</td>
                 <td ng-click="alarmList.onRcaClick(alarm)"><i class="fa fa-sitemap"></i></td>
             </tr>
