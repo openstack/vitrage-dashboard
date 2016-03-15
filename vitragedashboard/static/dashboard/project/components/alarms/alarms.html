@@ -6,7 +6,7 @@
                 <h4 class="list-group-item-heading">{$alarm.name$}</h4>
                 <p class="list-group-item-text">
                 <span title="{$ alarm.normalized_severity $}"><i class="fa" ng-class="{'orange fa-exclamation-triangle': alarm.normalized_severity == 'SEVER' || alarm.normalized_severity == 'SEVERE', 'orange fa-exclamation-triangle': alarm.normalized_severity == 'WARNING', 'red fa-exclamation-circle': alarm.normalized_severity == 'CRITICAL', 'green fa-check': alarm.normalized_severity == 'DISABLED', 'gray fa-circle-o-notch': alarm.normalized_severity == 'UNKNOWN'}"></i></span>
-                {$alarm.severity$} |
+                {$alarm.normalized_severity$} |
                 {$alarm.update_timestamp | date:"h:mma"$}
                 </p>
             </li>
