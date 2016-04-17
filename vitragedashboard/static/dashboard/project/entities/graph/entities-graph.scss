@@ -1,0 +1,46 @@
+$blue: #428BCA;
+$vitrage_red: #FA3C3C;
+$vitrage_orange: #FCD20E;
+$vitrage_green: #87CE53;
+$vitrage_gray: #AEAEAE;
+
+.entities-graph {
+  .node {
+
+    &.selected {
+      circle {
+        stroke: $blue;
+        stroke-width: 2px;
+      }
+    }
+
+    circle {
+      r: 14px;
+      fill: #fff;
+      stroke: darkgray;
+      stroke-width: 1px;
+    }
+
+    .icon {
+      fill: none;
+      stroke: $blue;
+      font: 20px FontAwesome;
+
+      &.red {
+        stroke: $vitrage_red;
+      }
+
+      &.orange  {
+        stroke: $vitrage_orange;
+      }
+
+      &.green {
+        stroke: $vitrage_green;
+      }
+
+      &.gray {
+        stroke: $vitrage_gray;
+      }
+    }
+  }
+}

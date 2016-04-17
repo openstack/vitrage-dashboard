@@ -1,0 +1,15 @@
+<div class="entities" ng-controller="EntitiesController as vm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Graph</h3>
+                </div>
+                <div class="panel-body">
+                    <hz-entities-info item="vm.selectedItem"></hz-entities-info>
+                    <hz-entities-graph data="vm.graphData" selected="vm.model.selected" item-selected="vm.setSelected"></hz-entities-graph>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

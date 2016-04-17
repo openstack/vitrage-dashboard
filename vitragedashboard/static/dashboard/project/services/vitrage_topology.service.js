@@ -14,10 +14,10 @@
       vitrageAPI = $injector.get('horizon.app.core.openstack-service-api.vitrage');
 
     }
-    function getTopology() {
+    function getTopology(graph_type) {
 
       if (vitrageAPI) {
-        return vitrageAPI.getTopology()
+        return vitrageAPI.getTopology(graph_type)
           .success(function(data) {
             return data;
           })

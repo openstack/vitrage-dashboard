@@ -23,7 +23,15 @@
 
     ///////////
     // Topology
-    function getTopology(config) {
+    '/static/dashboard/project/topology/graph.sample.json'
+
+    function getTopology(graph_type, config) {
+      config = config || {};
+
+      if (graph_type) {
+        config.params = {graph_type: graph_type};
+      }
+
       return apiService.get('/api/vitrage/topology', config)
         .error(function () {
           toastService.add('error', gettext('Unable to fetch the Vitrage Topology service.'));

@@ -8,6 +8,9 @@
 @import 'components/rca/rcaContainer';
 @import 'components/rca/rootCauseAnalysisGraph';
 @import 'components/information/information';
+@import 'entities/graph/entities-graph.scss';
+@import 'entities/info/entities-info.scss';
+@import 'entities/entities.scss';
 
 .red {
   color: #FA3C3C;
@@ -23,4 +26,10 @@
 
 .gray {
   color: #AEAEAE;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

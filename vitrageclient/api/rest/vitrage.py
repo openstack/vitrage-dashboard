@@ -38,7 +38,12 @@ class Topolgy(generic.View):
         The result is a volume object.
         """
 
-        return api.vitrage.topology(request)
+        ''' original default is graph '''
+        graph_type = 'tree'
+        if 'graph_type' in request.GET:
+            graph_type = request.GET.get('graph_type')
+
+        return api.vitrage.topology(request, graph_type)
 
 
 @urls.register
