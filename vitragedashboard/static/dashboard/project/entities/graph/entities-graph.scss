@@ -21,10 +21,26 @@ $vitrage_gray: #AEAEAE;
       stroke-width: 1px;
     }
 
+    .pin {
+      display: none;
+      fill: none;
+      stroke: red;
+      font: 12px FontAwesome;
+    }
+
+    &.pinned .pin{
+      display: block;
+    }
+
     .icon {
       fill: none;
       stroke: $blue;
       font: 20px FontAwesome;
+
+      &.fill-only {
+        fill: $blue;
+        stroke: none;
+      }
 
       &.red {
         stroke: $vitrage_red;
