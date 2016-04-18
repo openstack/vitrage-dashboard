@@ -1,4 +1,4 @@
-var bodyElem = d3.select('body'),
+/*var bodyElem = d3.select('body'),
     jsElem = d3.select('#js'),
     jsPanel = bodyElem.append('div').attr('id', 'jsPanel');
     cssElem = d3.select('#css'),
@@ -23,3 +23,4 @@ bodyElem.append('script')
     hljs.highlightBlock(jsCode.node());
     hljs.highlightBlock(cssCode.node());
   });
+*/
