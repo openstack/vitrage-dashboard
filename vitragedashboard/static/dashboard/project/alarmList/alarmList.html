@@ -1,5 +1,10 @@
 <div class="alarm-list" ng-controller="AlarmListController as alarmList">
+    <div class="themable-checkbox refreshBtn">
+        <input type="checkbox" ng-model="alarmList.checkboxAutoRefresh" id="themable-checkbox" ng-change="alarmList.autoRefreshChanged()">
+        <label for="themable-checkbox" translate>Auto Refresh</label>
+    </div>
     <div class="panel panel-default" >
+
         <table st-table='alarmList.ialarms' st-safe-src="alarmList.alarms" class="table-striped table-rsp table-detail modern" hz-table>
             <thead>
             <tr>
