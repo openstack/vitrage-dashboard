@@ -1,6 +1,9 @@
 .vitrage-information {
   .info-table {
     width: 100%;
+    overflow: hidden;
+    table-layout: fixed;
+
 
     tr:nth-child(odd) {
       background-color: #f1f1f1;
@@ -11,12 +14,29 @@
     }
 
     td {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
       padding-left: 16px;
       padding: 6px 8px;
       display: table-cell;
       text-align: left;
       vertical-align: top;
       border: none;
+    }
+
+    .key-col {
+      width:6px;
+    }
+
+    .value-col {
+      width:24px;
+    }
+
+    .bla {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
 

@@ -3,7 +3,12 @@
         <accordion-group is-open="true" class="accordion-group-text">
             <accordion-heading>{$ 'Alarms' | translate $}</accordion-heading>
             <accordion-body ui-blocker ui-blocker-delay="0">
-                <table st-table='alarmList.ialarms' st-safe-src="alarmList.alarms" class="table-striped table-rsp table-detail modern" hz-table>
+                <label ng-show="alarmsCtrl.computeAlarms.length == 0">{$ 'No alarms for ' + selected.name | translate $}</label>
+
+                <table ng-show="alarmsCtrl.computeAlarms.length > 0"
+                       st-table='alarmsCtrl.computeAlarms'
+                       class="table-striped table-rsp table-detail modern"
+                       hz-table>
                     <thead>
                     <tr>
                         <th class="state-col" st-sort="normalized_severity"></th>
@@ -21,6 +26,7 @@
                     </tr>
                     </tbody>
                 </table>
+
            </accordion-body>
         </accordion-group>
     </accordion>

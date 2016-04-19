@@ -5,9 +5,13 @@
             <accordion-body ui-blocker ui-blocker-delay="0">
 
                 <table class="info-table">
+                    <tr>
+                        <th class="key-col"></th>
+                        <th class="value-col"></th>
+                    </tr>
                     <tr ng-repeat="(key,value) in parseSelected track by $index">
-                        <td>{$ key | translate $}</td>
-                        <td>{$ parseSelected[key] | titleCase $}</td>
+                        <td title="{$ key | translate $}">{$ key | translate $}</td>
+                        <td title="{$ parseSelected[key] | titleCase $}">{$ parseSelected[key] | titleCase $}</td>
                     </tr>
                 </table>
 
