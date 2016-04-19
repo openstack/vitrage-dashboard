@@ -1,12 +1,16 @@
 <div class="vitrage-information">
-    <h1>{$ 'Information' | translate $}</h1>
     <accordion close-others="false">
         <accordion-group is-open="true" class="accordion-group-text">
-            <accordion-heading>{$ 'Name' | translate $} : <label ng-bind="selected.NAME"></label></accordion-heading>
+            <accordion-heading>{$ 'Information' | translate $}</accordion-heading>
             <accordion-body ui-blocker ui-blocker-delay="0">
-                <div ng-repeat="(key,value) in selected">
-                    {$ key | translate $} : <label ng-bind="selected[key]"></label>
-                </div>
+
+                <table class="info-table">
+                    <tr ng-repeat="(key,value) in parseSelected track by $index">
+                        <td>{$ key | translate $}</td>
+                        <td>{$ parseSelected[key] | titleCase $}</td>
+                    </tr>
+                </table>
+
             </accordion-body>
         </accordion-group>
     </accordion>

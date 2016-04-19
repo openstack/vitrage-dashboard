@@ -1,15 +1,27 @@
 <div class="vitrage-alarms">
-    <h1>{$ 'Alarms' | translate $}</h1>
-    <span class="panel panel-default alarm-list" >
-        <ul class="panel-body list-group" ng-repeat="alarm in alarmsCtrl.computeAlarms track by $index">
-            <li class="list-group-item" ng-click="alarmsCtrl.onAlarmClick(alarm)">
-                <h4 class="list-group-item-heading">{$alarm.name$}</h4>
-                <p class="list-group-item-text">
-                <span title="{$ alarm.normalized_severity $}"><i class="fa" ng-class="{'orange fa-exclamation-triangle': alarm.normalized_severity == 'SEVER' || alarm.normalized_severity == 'SEVERE', 'orange fa-exclamation-triangle': alarm.normalized_severity == 'WARNING', 'red fa-exclamation-circle': alarm.normalized_severity == 'CRITICAL', 'green fa-check': alarm.normalized_severity == 'DISABLED', 'gray fa-circle-o-notch': alarm.normalized_severity == 'UNKNOWN'}"></i></span>
-                {$alarm.normalized_severity$} |
-                {$alarm.update_timestamp | date:"h:mma"$}
-                </p>
-            </li>
-        </ul>
-    </div>
+    <accordion close-others="false">
+        <accordion-group is-open="true" class="accordion-group-text">
+            <accordion-heading>{$ 'Alarms' | translate $}</accordion-heading>
+            <accordion-body ui-blocker ui-blocker-delay="0">
+                <table st-table='alarmList.ialarms' st-safe-src="alarmList.alarms" class="table-striped table-rsp table-detail modern" hz-table>
+                    <thead>
+                    <tr>
+                        <th class="state-col" st-sort="normalized_severity"></th>
+                        <th class="timestamp-col" st-sort="update_timestamp">{$ 'TimeStamp' | translate $}</th>
+                        <th class="name-col" st-sort="name">{$ 'Name' | translate $}</th>
+                        <th class="rca-col">{$ 'RCA' | translate $}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="alarm in alarmsCtrl.computeAlarms track by $index">
+                        <td title="{$ alarm.normalized_severity $}"><i class="fa" ng-class="{'orange fa-exclamation-triangle': alarm.normalized_severity == 'SEVER' || alarm.normalized_severity == 'SEVERE', 'orange fa-exclamation-triangle': alarm.normalized_severity == 'WARNING', 'red fa-exclamation-circle': alarm.normalized_severity == 'CRITICAL', 'green fa-check': alarm.normalized_severity == 'DISABLED', 'gray fa-circle-o-notch': alarm.normalized_severity == 'UNKNOWN'}"></i></td>
+                        <td title="{$alarm.update_timestamp | date:'yyyy-MM-dd hh:mm:ss'$}"><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | date:"yyyy-MM-dd hh:mm:ss"$} </td>
+                        <td class="ellipsis" title="{$alarm.name$}">{$alarm.name$}</td>
+                        <td title="{$ 'Root Cause Analysis' | translate $}" ng-click="alarmsCtrl.onAlarmClick(alarm)"><i class="fa fa-sitemap"></i></td>
+                    </tr>
+                    </tbody>
+                </table>
+           </accordion-body>
+        </accordion-group>
+    </accordion>
 </div>

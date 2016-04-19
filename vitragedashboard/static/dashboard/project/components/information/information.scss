@@ -1,3 +1,24 @@
 .vitrage-information {
+  .info-table {
+    width: 100%;
+
+    tr:nth-child(odd) {
+      background-color: #f1f1f1;
+    }
+
+    tr {
+      border-bottom: 1px solid #ddd;
+    }
+
+    td {
+      padding-left: 16px;
+      padding: 6px 8px;
+      display: table-cell;
+      text-align: left;
+      vertical-align: top;
+      border: none;
+    }
+  }
+
 
 }

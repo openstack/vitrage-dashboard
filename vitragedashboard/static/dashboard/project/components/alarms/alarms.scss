@@ -15,17 +15,29 @@
 
 
 .vitrage-alarms {
-  .panel-body{
-    padding: 0;
+  table {
+    overflow: hidden;
+    table-layout: fixed;
   }
 
-  .alarms-list{
-    max-height: 288px;
-    overflow-y: auto;
+  .state-col {
+    width:13px;
   }
 
-  li {
-    cursor: pointer;
+  .timestamp-col {
+    width:65px;
   }
 
+  .name-col {
+    width:40px;
+  }
+
+  .rca-col {
+    width:17px;
+  }
+
+  .ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }

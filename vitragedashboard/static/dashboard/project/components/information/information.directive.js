@@ -14,6 +14,13 @@ function hzInformation() {
   return directive;
 
   function link(scope, element, attrs) {
-
+    scope.$watch('selected', function(newValue, oldValue) {
+      scope.parseSelected = {
+        "Name": newValue.name,
+        "ID": newValue.id,
+        "Type": newValue.type,
+        "State": newValue.state
+      }
+    })
   }
 }
