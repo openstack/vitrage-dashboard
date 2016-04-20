@@ -22,10 +22,14 @@ function hzEntitiesGraph() {
         var min_zoom = 0.3,
             max_zoom = 4,
             linkWidth = 1.5,
+            circleRadius = 14,
+            circlePadding = 1,
+            pinned = horizon.cookies.get('pinned') || [],
             zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]);
 
         scope.$watch('data', function(newVal, oldVal) {
             if (newVal) {
+                prepareData();
                 createGraph();
             }
         })
@@ -46,6 +50,34 @@ function hzEntitiesGraph() {
             .gravity(0.05)
             .distance(100)
             .charge(-100)
+            /*.charge(function(d) {
+                var charge;
+                var category = (d.category || 'no_category').toLowerCase(),
+                    icon_size;
+
+                if (category === 'alarm') {
+                    charge = -100;
+                } else {
+                    var type = (d.type || 'no_type').toLowerCase();
+
+                    switch (type) {
+                        case 'openstack.cluster':
+                            charge = -10000;
+                            break;
+                        case 'nova.zone':
+                            charge = -5000;
+                        case 'nova.host':
+                            charge = -5000;
+                        case 'nova.instance':
+                        case 'neutron.port':
+                        case 'cinder.volume':
+                        case 'neutron.network':
+                        default:
+                            charge = -500;
+                    }
+                }
+                return charge;
+            }) //-100*/
             //.friction(0.8)
             .linkDistance(function(d) {
                 if (d.relationship_type === 'on') {
@@ -60,24 +92,63 @@ function hzEntitiesGraph() {
                 return 0.5;
             });
 
-        window.force = force;
-
         var drag = force.drag()
+            .on('dragend', nodeDragend);
             //.on('dragstart', nodeDragstart);
 
         resize();
         d3.select(window).on('resize', resize);
 
         function resize() {
-            svg.attr('height', window.innerHeight - 200 + 'px')
+            svg.attr('height', window.innerHeight - 168 + 'px')
             force.size([angular.element(svg[0]).width(),
                 angular.element(svg[0]).height()])
                 .resume();
         }
 
+        function prepareData() {
+            _.each(pinned, function(pin) {
+                var node = _.find(scope.data.nodes, function(node) {
+                    return pin.id === node.id;
+                });
+
+                if (node) {
+                    node.fixed = true;
+                    node.x = pin.x;
+                    node.y = pin.y;
+                }
+            })
+        }
+
         function createGraph() {
 
             var json = scope.data;
+
+            function collide(alpha) {
+                var quadtree = d3.geom.quadtree(json.nodes);
+                return function(d) {
+                    var rb = 2 * circleRadius + circlePadding,
+                        nx1 = d.x - rb,
+                        nx2 = d.x + rb,
+                        ny1 = d.y - rb,
+                        ny2 = d.y + rb;
+                    quadtree.visit(function(quad, x1, y1, x2, y2) {
+                        if (quad.point && (quad.point !== d)) {
+                            var x = d.x - quad.point.x,
+                                y = d.y - quad.point.y,
+                                l = Math.sqrt(x * x + y * y);
+                            if (l < rb) {
+                                l = (l - rb) / l * alpha;
+                                d.x -= x *= l;
+                                d.y -= y *= l;
+                                quad.point.x += x;
+                                quad.point.y += y;
+                            }
+                        }
+                        return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+                    });
+                };
+            }
 
             force
                 .nodes(json.nodes)
@@ -93,6 +164,7 @@ function hzEntitiesGraph() {
                 .data(json.nodes)
                 .enter().append('g')
                 .attr('class', 'node')
+                .classed('pinned', function(d) { return d.fixed; })
                 .call(force.drag)
                 .on('click', nodeClick)
                 .on('mousedown', function(d) { d3.event.stopPropagation() })
@@ -102,7 +174,8 @@ function hzEntitiesGraph() {
             var content = node.append('g')
                             .classed('node-contenet', true);
 
-            content.append('circle');
+            content.append('circle')
+                .attr('r', circleRadius + 'px');
 
             content.append('text')
                 .attr('text-anchor', 'middle')
@@ -202,7 +275,7 @@ function hzEntitiesGraph() {
                                 icon = '\uf0c2'; //fa-cloud
                                 break;
                             default:
-                                icon = '';
+                                icon = '\uf013'; //fa-cog
                                 break;
                         }
                     }
@@ -232,6 +305,8 @@ function hzEntitiesGraph() {
                 node.attr('transform', function(d) {
                     return 'translate(' + d.x + ',' + d.y + ')';
                 });
+
+                node.each(collide(0.5));
             });
 
             zoom.on('zoom', function() {
@@ -286,6 +361,8 @@ function hzEntitiesGraph() {
 
             if (node) {
                 node.classed('pinned', d.fixed = d.fixed ? false : true);
+
+                updatePinnedCookie(d);
             }
 
             d3.event.stopImmediatePropagation();
@@ -295,6 +372,31 @@ function hzEntitiesGraph() {
             setTimeout(function() {
                 force.resume()
             }, 100)
+        }
+
+        function updatePinnedCookie(d) {
+            var pinIndex = -1;
+            pinned.forEach(function(pin, i) {
+                if (pin.id === d.id) {
+                    pinIndex = i
+                }
+            })
+
+            if (pinIndex > -1) {
+                pinned.splice(pinIndex, 1);
+            }
+
+            if (d.fixed) {
+                pinned.push({id: d.id, x: d.x, y: d.y});
+            }
+
+            horizon.cookies.put('pinned', pinned);
+        }
+
+        function nodeDragend(d) {
+            if (d.fixed) {
+                updatePinnedCookie(d);
+            }
         }
 
         /*function nodeDragstart(d) {

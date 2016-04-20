@@ -14,10 +14,6 @@ function hzEntitiesInfo() {
     return directive;
 
     function link(scope, element, attrs) {
-        /*scope.$watch('item', function(newVal, oldVal) {
-            console.log('seletectedItem dierctive', newVal);
-        })*/
-
         scope.blackList = ['name', 'is_deleted', 'is_placeholder', 'index', 'graph_index',
             'fixed', 'weight', 'px', 'py', 'x', 'y'];
     }
