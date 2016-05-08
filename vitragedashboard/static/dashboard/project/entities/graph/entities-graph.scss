@@ -3,8 +3,27 @@ $vitrage_red: #FA3C3C;
 $vitrage_orange: #FCD20E;
 $vitrage_green: #87CE53;
 $vitrage_gray: #AEAEAE;
+$dark_gray: darkgray;
 
 .entities-graph {
+  .empty-note {
+    position: absolute;
+    left: 0;
+    top: 48%;
+    right: 0;
+    text-align: center;
+  }
+  
+  .graph-spinner {
+    position: absolute;
+    left: 0;
+    top: 47%;
+    right: 0;
+    text-align: center;
+    color: $blue;
+
+  }
+
   .node {
 
     &.selected {
@@ -16,14 +35,14 @@ $vitrage_gray: #AEAEAE;
 
     circle {
       fill: #fff;
-      stroke: darkgray;
+      stroke: $dark_gray;
       stroke-width: 1px;
     }
 
     .pin {
       display: none;
       fill: none;
-      stroke: red;
+      stroke: $dark_gray;
       font: 12px FontAwesome;
     }
 

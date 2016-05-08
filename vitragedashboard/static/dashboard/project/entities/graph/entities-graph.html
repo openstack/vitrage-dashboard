@@ -1,3 +1,7 @@
 <div class="entities-graph">
+    <div ng-if="isEmpty()" class="empty-note">Graph is empty</div>
+    <div ng-if="!data" class="graph-spinner">
+        <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
+    </div>
     <svg></svg>
 </div>

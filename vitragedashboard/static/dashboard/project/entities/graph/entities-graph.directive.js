@@ -19,20 +19,33 @@ function hzEntitiesGraph() {
     function link(scope, element, attrs) {
 
 
-        var min_zoom = 0.3,
-            max_zoom = 4,
+        var minZoom = 0.3,
+            maxZoom = 4,
             linkWidth = 1.5,
             circleRadius = 14,
             circlePadding = 1,
             pinned = horizon.cookies.get('pinned') || [],
-            zoom = d3.behavior.zoom().scaleExtent([min_zoom, max_zoom]);
+            zoom = d3.behavior.zoom().scaleExtent([minZoom, maxZoom]),
+            graphCreated,
+            node,
+            link,
+            content;
 
-        scope.$watch('data', function(newVal, oldVal) {
+        scope.$watch('data.ts', function(newVal, oldVal) {
             if (newVal) {
                 prepareData();
-                createGraph();
+
+                if (!graphCreated) {
+                    createGraph();
+                } else {
+                    drawGraph();
+                }
             }
-        })
+        });
+
+        scope.isEmpty = function() {
+          return scope.data && scope.data.nodes && scope.data.nodes.length === 0;
+        };
 
         var svg = d3.select(element[0]).select('svg')
             .style('cursor', 'move')
@@ -46,38 +59,14 @@ function hzEntitiesGraph() {
             .attr('width', '100%')
             .attr('height', '100%')
 
+        link = svg_g.selectAll('.link');
+
+        node = svg_g.selectAll('.node');
+
         var force = d3.layout.force()
             .gravity(0.05)
             .distance(100)
             .charge(-100)
-            /*.charge(function(d) {
-                var charge;
-                var category = (d.category || 'no_category').toLowerCase(),
-                    icon_size;
-
-                if (category === 'alarm') {
-                    charge = -100;
-                } else {
-                    var type = (d.type || 'no_type').toLowerCase();
-
-                    switch (type) {
-                        case 'openstack.cluster':
-                            charge = -10000;
-                            break;
-                        case 'nova.zone':
-                            charge = -5000;
-                        case 'nova.host':
-                            charge = -5000;
-                        case 'nova.instance':
-                        case 'neutron.port':
-                        case 'cinder.volume':
-                        case 'neutron.network':
-                        default:
-                            charge = -500;
-                    }
-                }
-                return charge;
-            }) //-100*/
             //.friction(0.8)
             .linkDistance(function(d) {
                 if (d.relationship_type === 'on') {
@@ -122,10 +111,10 @@ function hzEntitiesGraph() {
 
         function createGraph() {
 
-            var json = scope.data;
+            graphCreated = true;
 
             function collide(alpha) {
-                var quadtree = d3.geom.quadtree(json.nodes);
+                var quadtree = d3.geom.quadtree(scope.data.nodes);
                 return function(d) {
                     var rb = 2 * circleRadius + circlePadding,
                         nx1 = d.x - rb,
@@ -150,18 +139,55 @@ function hzEntitiesGraph() {
                 };
             }
 
-            force
-                .nodes(json.nodes)
-                .links(json.links)
-                .start();
+            force.nodes(scope.data.nodes)
+                .links(scope.data.links);
 
-            var link = svg_g.selectAll('.link')
-                .data(json.links)
+            force.on('tick', function() {
+                link.attr('x1', function(d) { return d.source.x; })
+                    .attr('y1', function(d) { return d.source.y; })
+                    .attr('x2', function(d) { return d.target.x; })
+                    .attr('y2', function(d) { return d.target.y; });
+
+                node.attr('transform', function(d) {
+                    return 'translate(' + d.x + ',' + d.y + ')';
+                });
+
+                node.each(collide(0.5));
+            });
+
+            zoom.on('zoom', function() {
+                var strokeWidth = linkWidth / zoom.scale();
+                if (strokeWidth > linkWidth) {
+                    strokeWidth = linkWidth;
+                }
+
+                link.style('stroke-width', strokeWidth);
+
+                var scale = 1 / (zoom.scale() / 1.2);
+                if (scale > 1) {
+                    scale = 1;
+                }
+                //content.attr('transform', 'scale(' + scale + ')');
+                svg_g.selectAll('.node-content').attr('transform', 'scale(' + scale + ')');
+
+                svg_g.attr('transform', 'translate(' + d3.event.translate + ')scale(' + d3.event.scale + ')');
+
+            });
+
+            drawGraph();
+        }
+
+        window.drawGraph = drawGraph;
+
+        function drawGraph() {
+            link = link.data(force.links(), function(d) { return d.source.id + '-' + d.target.id; });
+            link
                 .enter().append('line')
-                .attr('class', 'link');
+                .attr('class', 'link')
+            link.exit().remove();
 
-            var node = svg_g.selectAll('.node')
-                .data(json.nodes)
+            node = node.data(force.nodes(), function(d) { return d.id;});
+            content = node
                 .enter().append('g')
                 .attr('class', 'node')
                 .classed('pinned', function(d) { return d.fixed; })
@@ -169,10 +195,27 @@ function hzEntitiesGraph() {
                 .on('click', nodeClick)
                 .on('mousedown', function(d) { d3.event.stopPropagation() })
                 .on('dblclick', pinNode)
-                .call(drag);
+                .call(drag)
+                .append('g')
+                .classed('node-content', true);
 
-            var content = node.append('g')
-                            .classed('node-contenet', true);
+
+            //Only for updates
+            /*content
+                .attr('transform', 'scale(0)')
+                .transition(750)
+                .attr('transform', 'scale(1)');*/
+
+            node.exit()
+                .select('.node-content')
+                .transition()
+                .duration(750)
+                .attr('transform', 'scale(0)')
+
+            node.exit()
+                .transition()
+                .duration(750)
+                .remove();
 
             content.append('circle')
                 .attr('r', circleRadius + 'px');
@@ -289,43 +332,14 @@ function hzEntitiesGraph() {
                 .text('\uf08d')
                 .on('click', pinNode)
 
-            //var label = node.append('text')
             content.append('text')
                 .classed('.label', true)
                 .attr('dx', 18)
                 .attr('dy', '.35em')
                 .text(function(d) { return d.name });
 
-            force.on('tick', function() {
-                link.attr('x1', function(d) { return d.source.x; })
-                    .attr('y1', function(d) { return d.source.y; })
-                    .attr('x2', function(d) { return d.target.x; })
-                    .attr('y2', function(d) { return d.target.y; });
 
-                node.attr('transform', function(d) {
-                    return 'translate(' + d.x + ',' + d.y + ')';
-                });
-
-                node.each(collide(0.5));
-            });
-
-            zoom.on('zoom', function() {
-                var strokeWidth = linkWidth / zoom.scale();
-                if (strokeWidth > linkWidth) {
-                    strokeWidth = linkWidth;
-                }
-
-                link.style('stroke-width', strokeWidth);
-
-                var scale = 1 / (zoom.scale() / 1.2);
-                if (scale > 1) {
-                    scale = 1;
-                }
-                content.attr('transform', 'scale(' + scale + ')');
-
-                svg_g.attr('transform', 'translate(' + d3.event.translate + ')scale(' + d3.event.scale + ')');
-
-            })
+            force.start();
         }
 
         function nodeClick(d) {
@@ -360,7 +374,7 @@ function hzEntitiesGraph() {
             }
 
             if (node) {
-                node.classed('pinned', d.fixed = d.fixed ? false : true);
+                node.classed('pinned', d.fixed = (d.fixed ? false : true));
 
                 updatePinnedCookie(d);
             }
