@@ -18,5 +18,5 @@ import horizon
 
 
 class EntitiesVitrage(horizon.Panel):
-    name = _("Entity graph")
+    name = _("Entity Graph")
     slug = "vitrageentities"
