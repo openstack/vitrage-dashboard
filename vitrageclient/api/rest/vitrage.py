@@ -43,7 +43,20 @@ class Topolgy(generic.View):
         if 'graph_type' in request.GET:
             graph_type = request.GET.get('graph_type')
 
-        return api.vitrage.topology(request, graph_type)
+        ''' Default query - get computes, used by Sunburst'''
+        query = '{"and": [{"==": {"category": "RESOURCE"}},' \
+                '{"==": {"is_deleted": false}},' \
+                '{"==": {"is_placeholder": false}},' \
+                '{"or": [{"==": {"type": "openstack.cluster"}},' \
+                '{"==": {"type": "nova.instance"}},' \
+                '{"==": {"type": "nova.host"}},' \
+                '{"==": {"type": "nova.zone"}}]}]}'
+
+        if 'query' in request.GET:
+            query = request.GET.get('query')
+
+        return api.vitrage.topology(request=request, query=query,
+                                    graph_type=graph_type)
 
 
 @urls.register
