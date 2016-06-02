@@ -27,12 +27,12 @@
             </thead>
             <tbody>
             <tr ng-repeat="alarm in alarmList.ialarms track by $index">
-                <td title="{$ alarm.normalized_severity $}"><i class="fa" ng-class="{'orange fa-exclamation-triangle': alarm.normalized_severity == 'SEVER' || alarm.normalized_severity == 'SEVERE', 'orange fa-exclamation-triangle': alarm.normalized_severity == 'WARNING', 'red fa-exclamation-circle': alarm.normalized_severity == 'CRITICAL', 'green fa-check': alarm.normalized_severity == 'DISABLED', 'gray fa-circle-o-notch': alarm.normalized_severity == 'UNKNOWN'}"></i></td>
+                <td title="{$ alarm.aggregated_severity $}"><i class="fa first-column" ng-class="{'orange fa-exclamation-triangle': alarm.operational_severity == 'SEVERE', 'yellow fa-exclamation-triangle': alarm.operational_severity == 'WARNING', 'red fa-exclamation-circle': alarm.operational_severity == 'CRITICAL', 'green fa-check': alarm.operational_severity == 'OK', 'gray fa-circle-o-notch': alarm.operational_severity == 'N/A'}"></i></td>
                 <td><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | date:"yyyy-MM-dd hh:mm:ss"$} </td>
                 <td>{$alarm.name$}</td>
                 <td>{$alarm.resource_type$}</td>
                 <td>{$alarm.resource_id$}</td>
-                <td>{$alarm.normalized_severity | lowercase$}</td>
+                <td>{$alarm.aggregated_severity | lowercase$}</td>
                 <td>{$alarm.type$}</td>
                 <td ng-click="alarmList.onRcaClick(alarm)"><i class="fa fa-sitemap"></i></td>
             </tr>

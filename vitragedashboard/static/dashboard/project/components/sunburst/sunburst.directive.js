@@ -111,24 +111,22 @@ function hzSunburst() {
     }
 
     function getColor(d) {
-      if (d.aggregated_state) {
-        switch (d.aggregated_state.toUpperCase()) {
+      if (d.operational_state) {
+        switch (d.operational_state.toUpperCase()) {
           case 'ERROR':
+          case 'DELETED':
             return '#FA3C3C';
             break;
-          case 'TERMINATED':
-          case 'SUSPEND':
-          case 'RESCUED':
-          case 'RESIZED':
           case 'SUBOPTIMAL':
             return '#FCD20E';
             break;
-          case 'RUNNING':
+          case 'OK':
             return '#87CE53';
             break;
           case 'TRANSIENT':
-          case 'UNRECOGNIZED':
-          case 'UNDEFINED':
+            return '#97A560';
+            break;
+          case 'N/A':
             return '#AEAEAE';
             break;
           default:

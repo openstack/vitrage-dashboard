@@ -226,15 +226,23 @@ function hzEntitiesGraph() {
                 .attr('transform', 'scale(1)')
                 .attr('class', function(d) {
                     var cls = '';
-                    var severity = d.severity || d.normalized_severity;
+                    var severity = d.operational_severity;
                     if (severity) {
                         switch (severity.toLowerCase()) {
                             case 'critical':
-                            case 'severe':
                                 cls = 'red';
                                 break;
-                            case 'warning':
+                            case 'severe':
                                 cls = 'orange';
+                                break;
+                            case 'warning':
+                                cls = 'yellow';
+                                break;
+                            case 'ok':
+                                cls = 'green';
+                                break;
+                            case 'n/a':
+                                cls = 'gray';
                                 break;
                             default: //'DISABLED', 'UNKNOWN', 'UNDEFINED'
                                 cls = 'gray';

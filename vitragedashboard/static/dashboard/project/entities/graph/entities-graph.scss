@@ -1,6 +1,7 @@
 $blue: #428BCA;
 $vitrage_red: #FA3C3C;
-$vitrage_orange: #FCD20E;
+$vitrage_orange: #fc9100;
+$vitrage_yellow: #FCD20E;
 $vitrage_green: #87CE53;
 $vitrage_gray: #AEAEAE;
 $dark_gray: darkgray;
@@ -66,6 +67,10 @@ $dark_gray: darkgray;
 
       &.orange  {
         stroke: $vitrage_orange;
+      }
+
+      &.yellow  {
+        stroke: $vitrage_yellow;
       }
 
       &.green {

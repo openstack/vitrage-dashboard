@@ -111,7 +111,7 @@ function hzRootCauseAnalysisGraph($filter) {
         alertResourceName = key.resource_name,  // host-0
         alertResourceType = key.resource_type,  // nova.host
         alertSeverity = key.severity,           //WARNING
-        alertNormalizedSeverity = key.normalized_severity ? key.normalized_severity.toUpperCase() : key.normalized_severity,           //WARNING
+        alertOperationalSeverity = key.operational_severity ? key.operational_severity.toUpperCase() : key.operational_severity,           //WARNING
         alertState = key.state ? key.state.toUpperCase() : key.state,                 //Active
         alertTimeStamp = $filter('date')(key.update_timestamp, 'MM/dd/yyyy h:mma'),         //2015-12-01T12:46:41Z
         alertType = key.type,                   //nagios
@@ -122,28 +122,36 @@ function hzRootCauseAnalysisGraph($filter) {
         html += '<div  style="padding: 10px; text-shadow: none; width: 378px; height: 115px; color: #44575e; clear:both"';
         html+='>';
 
-        switch (alertState + '_' + alertNormalizedSeverity) {
+        switch (alertState + '_' + alertOperationalSeverity) {
           case 'ACTIVE_CRITICAL':
             html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_red_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
             break;
           case 'ACTIVE_WARNING':
-          case 'ACTIVE_SEVER':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_yellow_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+            break;
           case 'ACTIVE_SEVERE':
             html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
             break;
-          case 'ACTIVE_DISABLED':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+          case 'ACTIVE_N/A':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_gray_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+            break;
+          case 'ACTIVE_OK':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_green_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
             break;
           case 'INACTIVE_CRITICAL':
             html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_red_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
             break;
           case 'INACTIVE_WARNING':
-          case 'INACTIVE_SEVER':
-          case 'INACTIVE_SEVER':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_yellow_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+            break;
+          case 'INACTIVE_SEVERE':
             html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
             break;
-          case 'INACTIVE_DISABLED':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+          case 'INACTIVE_N/A':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_gray_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+            break;
+          case 'INACTIVE_OK':
+            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_green_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
             break;
           default:
             html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_yellow_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';

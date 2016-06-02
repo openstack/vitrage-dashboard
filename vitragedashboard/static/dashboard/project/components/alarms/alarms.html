@@ -11,7 +11,7 @@
                        hz-table>
                     <thead>
                     <tr>
-                        <th class="state-col" st-sort="normalized_severity"></th>
+                        <th class="state-col" st-sort="aggregated_state"></th>
                         <th class="timestamp-col" st-sort="update_timestamp">{$ 'Time' | translate $}</th>
                         <th class="name-col" st-sort="name">{$ 'Name' | translate $}</th>
                         <th class="rca-col">{$ 'RCA' | translate $}</th>
@@ -19,7 +19,7 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="alarm in alarmsCtrl.computeAlarms track by $index">
-                        <td title="{$ alarm.normalized_severity $}"><i class="fa" ng-class="{'orange fa-exclamation-triangle': alarm.normalized_severity == 'SEVER' || alarm.normalized_severity == 'SEVERE', 'orange fa-exclamation-triangle': alarm.normalized_severity == 'WARNING', 'red fa-exclamation-circle': alarm.normalized_severity == 'CRITICAL', 'green fa-check': alarm.normalized_severity == 'DISABLED', 'gray fa-circle-o-notch': alarm.normalized_severity == 'UNKNOWN'}"></i></td>
+                        <td title="{$ alarm.aggregated_state $}"><i class="fa" ng-class="{'orange fa-exclamation-triangle': alarm.operational_severity == 'SEVERE', 'yellow fa-exclamation-triangle': alarm.operational_severity == 'WARNING', 'red fa-exclamation-circle': alarm.operational_severity == 'CRITICAL', 'green fa-check': alarm.operational_severity == 'OK', 'gray fa-circle-o-notch': alarm.operational_severity == 'N/A'}"></i></td>
                         <td title="{$alarm.update_timestamp | date:'yyyy-MM-dd hh:mm:ss'$}"><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | date:"yyyy-MM-dd hh:mm:ss"$} </td>
                         <td class="ellipsis" title="{$alarm.name$}">{$alarm.name$}</td>
                         <td title="{$ 'Root Cause Analysis' | translate $}" ng-click="alarmsCtrl.onAlarmClick(alarm)"><i class="fa fa-sitemap"></i></td>
