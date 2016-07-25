@@ -16,4 +16,4 @@ import pbr.version
 
 
 __version__ = pbr.version.VersionInfo(
-    'vitragedashboard').version_string()
+    'vitrage-dashboard').version_string()
