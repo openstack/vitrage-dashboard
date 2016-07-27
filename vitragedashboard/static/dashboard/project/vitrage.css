@@ -1,0 +1,34 @@
+@import 'layout/main/compute/compute.css';
+@import "alarmList/alarmList.css";
+@import 'components/sunburst/sunburst.css';
+@import 'components/rca/rootCauseAnalysisGraph.css';
+@import 'components/rca/rcaContainer.css';
+@import 'components/alarms/alarms.css';
+@import 'components/rca/rcaContainer.css';
+@import 'components/rca/rootCauseAnalysisGraph.css';
+@import 'components/information/information.css';
+@import 'entities/graph/entities-graph.css';
+@import 'entities/info/entities-info.css';
+@import 'entities/entities.css';
+
+.red {
+  color: #FA3C3C;
+}
+
+.orange {
+  color: #FCD20E;
+}
+
+.green {
+  color: #87CE53;
+}
+
+.gray {
+  color: #AEAEAE;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

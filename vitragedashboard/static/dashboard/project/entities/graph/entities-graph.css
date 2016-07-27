@@ -1,0 +1,55 @@
+.entities-graph .empty-note {
+  position: absolute;
+  left: 0;
+  top: 48%;
+  right: 0;
+  text-align: center;
+}
+.entities-graph .graph-spinner {
+  position: absolute;
+  left: 0;
+  top: 47%;
+  right: 0;
+  text-align: center;
+  color: #428BCA;
+}
+.entities-graph .node.selected circle {
+  stroke: #428BCA;
+  stroke-width: 2px;
+}
+.entities-graph .node circle {
+  fill: #fff;
+  stroke: darkgray;
+  stroke-width: 1px;
+}
+.entities-graph .node .pin {
+  display: none;
+  fill: none;
+  stroke: darkgray;
+  font: 12px FontAwesome;
+}
+.entities-graph .node.pinned .pin {
+  display: block;
+}
+.entities-graph .node .icon {
+  fill: none;
+  stroke: #428BCA;
+  font: 20px FontAwesome;
+}
+.entities-graph .node .icon.fill-only {
+  fill: #428BCA;
+  stroke: none;
+}
+.entities-graph .node .icon.red {
+  stroke: #FA3C3C;
+}
+.entities-graph .node .icon.orange {
+  stroke: #FCD20E;
+}
+.entities-graph .node .icon.green {
+  stroke: #87CE53;
+}
+.entities-graph .node .icon.gray {
+  stroke: #AEAEAE;
+}
+

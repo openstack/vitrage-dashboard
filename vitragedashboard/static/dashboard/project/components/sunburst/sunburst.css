@@ -1,0 +1,13 @@
+.vitrage-sunburst {
+  text-align: center;
+  padding-top: 7.5%;
+  padding-bottom: 7.5%;
+}
+
+  .vitrage-sunburst path {
+    stroke: #313a44;
+    stroke-width: 2;
+    stroke-opacity: 0.1;
+    fill-rule: evenodd;
+  }
+

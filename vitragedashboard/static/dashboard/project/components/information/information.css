@@ -1,0 +1,42 @@
+  .vitrage-information .info-table {
+    width: 100%;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+    .vitrage-information .info-table tr:nth-child(odd) {
+      background-color: #f1f1f1;
+    }
+
+    .vitrage-information .info-table tr {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .vitrage-information .info-table td {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding-left: 16px;
+      padding: 6px 8px;
+      display: table-cell;
+      text-align: left;
+      vertical-align: top;
+      border: none;
+    }
+
+    .vitrage-information .info-table .key-col {
+      width:6px;
+    }
+
+    .vitrage-information .info-table .value-col {
+      width:24px;
+    }
+
+    .vitrage-information .info-table .bla {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+
+

@@ -1,0 +1,42 @@
+/* ------ GLOBAL ------ */
+
+.app-modal-window .modal-dialog{
+  height: 90%;
+  width: 90%;
+}
+.app-modal-window .modal-content{
+  height: 100%;
+  width: 100%;
+  opacity: 0.9;
+}
+
+/* ------ GLOBAL ------ */
+
+
+
+.vitrage-alarms table {
+    overflow: hidden;
+    table-layout: fixed;
+  }
+
+  .vitrage-alarms .state-col {
+    width:13px;
+  }
+
+  .vitrage-alarms .timestamp-col {
+    width:65px;
+  }
+
+  .vitrage-alarms .name-col {
+    width:40px;
+  }
+
+  .vitrage-alarms .rca-col {
+    width:17px;
+  }
+
+  .vitrage-alarms .ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
