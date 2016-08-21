@@ -36,7 +36,7 @@ def topology(request, query=None, graph_type='tree'):
 
 
 def alarms(request, vitrage_id='all'):
-    return vitrageclient(request).alarms.list(vitrage_id=vitrage_id)
+    return vitrageclient(request).alarm.list(vitrage_id=vitrage_id)
 
 
 def rca(request, alarm_id):
