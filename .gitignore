@@ -53,3 +53,6 @@ ChangeLog
 .*.swp
 .*sw?
 *.iml
+
+# JetBrains IDEA
+.idea
