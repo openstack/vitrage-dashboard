@@ -65,7 +65,7 @@ class Topolgy(generic.View):
 class Alarms(generic.View):
     """API for vitrage alarms."""
 
-    url_regex = r'vitrage/alarms/(?P<vitrage_id>.+|default)/$'
+    url_regex = r'vitrage/alarm/(?P<vitrage_id>.+|default)/$'
 
     @rest_utils.ajax()
     def get(self, request, vitrage_id):

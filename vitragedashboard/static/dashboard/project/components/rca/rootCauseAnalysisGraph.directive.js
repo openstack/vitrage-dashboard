@@ -172,6 +172,10 @@ function hzRootCauseAnalysisGraph($filter) {
         html += '<span style="font-weight: 600; color: #44575e;">Type:</span>';
         html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e;">' + alertType + '</span>';
         html += '</div>';
+        html += '<div>';
+        html += '<span style="font-weight: 600; color: #44575e;">Resource ID:</span>';
+        html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e;">' + alertResourceId + '</span>';
+        html += '</div>';
         html += '</div></div></div>';
 
         g.setNode(value, {

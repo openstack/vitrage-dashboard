@@ -42,7 +42,7 @@
       if (vitrage_id == undefined){
         vitrage_id = 'all';
       }
-      return apiService.get('/api/vitrage/alarms/'+vitrage_id)
+      return apiService.get('/api/vitrage/alarm/'+vitrage_id)
         .error(function () {
           toastService.add('error', gettext('Unable to fetch the Vitrage Alarms service.'));
         });
