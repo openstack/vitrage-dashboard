@@ -346,10 +346,14 @@ function hzEntitiesGraph() {
                 .attr('dx', 18)
                 .attr('dy', '.35em')
                 .text(function(d) {
-                    if(d.name.length > ellipsisChars) {
-                        return d.name.substring(0, ellipsisChars) + '...';
-                    } else {
-                        return d.name;
+                    if (d.name ){
+                        if(d.name.length > ellipsisChars) {
+                            return d.name.substring(0, ellipsisChars) + '...';
+                        } else {
+                            return d.name;
+                        }
+                    }else{
+                        return '';
                     }
                 })
                 .append('title')
