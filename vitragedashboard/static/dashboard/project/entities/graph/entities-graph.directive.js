@@ -26,6 +26,7 @@ function hzEntitiesGraph() {
             circlePadding = 1,
             pinned = horizon.cookies.get('pinned') || [],
             zoom = d3.behavior.zoom().scaleExtent([minZoom, maxZoom]),
+            ellipsisChars = 15,
             graphCreated,
             node,
             link,
@@ -65,8 +66,8 @@ function hzEntitiesGraph() {
 
         var force = d3.layout.force()
             .gravity(0.05)
-            .distance(100)
-            .charge(-100)
+            .distance(200)
+            .charge(-1000)
             //.friction(0.8)
             .linkDistance(function(d) {
                 if (d.relationship_type === 'on') {
@@ -344,7 +345,19 @@ function hzEntitiesGraph() {
                 .classed('.label', true)
                 .attr('dx', 18)
                 .attr('dy', '.35em')
-                .text(function(d) { return d.name });
+                .text(function(d) {
+                    if (d.name ){
+                        if(d.name.length > ellipsisChars) {
+                            return d.name.substring(0, ellipsisChars) + '...';
+                        } else {
+                            return d.name;
+                        }
+                    }else{
+                        return '';
+                    }
+                })
+                .append('title')
+                .text(function(d) { return d.name; });
 
 
             force.start();
