@@ -25,6 +25,10 @@ $dark_gray: darkgray;
 
   }
 
+  .link {
+    stroke-opacity: 0.8;
+  }
+
   .node {
 
     &.selected {
@@ -38,6 +42,11 @@ $dark_gray: darkgray;
       fill: #fff;
       stroke: $dark_gray;
       stroke-width: 1px;
+    }
+
+    .text-bg {
+      fill: #ececec;
+      fill-opacity: 0.8;
     }
 
     .pin {

@@ -15,6 +15,6 @@ function hzEntitiesInfo() {
 
     function link(scope, element, attrs) {
         scope.blackList = ['name', 'is_deleted', 'is_placeholder', 'index', 'graph_index',
-            'fixed', 'weight', 'px', 'py', 'x', 'y'];
+            'fixed', 'weight', 'px', 'py', 'x', 'y', 'width', 'height', 'bbox'];
     }
 }
