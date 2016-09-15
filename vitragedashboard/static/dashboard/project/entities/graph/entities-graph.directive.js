@@ -21,12 +21,12 @@ function hzEntitiesGraph() {
 
         var minZoom = 0.3,
             maxZoom = 4,
-            linkWidth = 1.5,
+            linkWidth = 1,
             circleRadius = 14,
             circlePadding = 1,
             pinned = horizon.cookies.get('pinned') || [],
             zoom = d3.behavior.zoom().scaleExtent([minZoom, maxZoom]),
-            ellipsisChars = 15,
+            ellipsisWidth = 80,
             graphCreated,
             node,
             link,
@@ -65,15 +65,15 @@ function hzEntitiesGraph() {
         node = svg_g.selectAll('.node');
 
         var force = d3.layout.force()
-            .gravity(0.05)
-            .distance(200)
+            .gravity(0.15)
+            //.distance(200)
             .charge(-1000)
             //.friction(0.8)
             .linkDistance(function(d) {
                 if (d.relationship_type === 'on') {
                     return 80;
                 }
-                return 160;
+                return 120;
             })
             .linkStrength(function(d) {
                 if (d.relationship_type === 'on') {
@@ -114,7 +114,47 @@ function hzEntitiesGraph() {
 
             graphCreated = true;
 
-            function collide(alpha) {
+            function collide(node) {
+                return function(quad, x1, y1, x2, y2) {
+                    var updated = false;
+                    if (quad.point && (quad.point !== node)) {
+
+                        var x = node.x - quad.point.x,
+                            y = node.y - quad.point.y,
+                            xSpacing = (quad.point.width + node.width) / 2,
+                            ySpacing = (quad.point.height + node.height) / 2,
+                            absX = Math.abs(x),
+                            absY = Math.abs(y),
+                            l,
+                            lx,
+                            ly;
+
+                        if (absX < xSpacing && absY < ySpacing) {
+                            l = Math.sqrt(x * x + y * y);
+
+                            lx = (absX - xSpacing) / l;
+                            ly = (absY - ySpacing) / l;
+
+                            // the one that's barely within the bounds probably triggered the collision
+                            if (Math.abs(lx) > Math.abs(ly)) {
+                                lx = 0;
+                            } else {
+                                ly = 0;
+                            }
+
+                            node.x -= x *= lx;
+                            node.y -= y *= ly;
+                            quad.point.x += x;
+                            quad.point.y += y;
+
+                            updated = true;
+                        }
+                    }
+                    return updated;
+                };
+            }
+
+            /*function collide(alpha) {
                 var quadtree = d3.geom.quadtree(scope.data.nodes);
                 return function(d) {
                     var rb = 2 * circleRadius + circlePadding,
@@ -138,7 +178,7 @@ function hzEntitiesGraph() {
                         return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
                     });
                 };
-            }
+            }*/
 
             force.nodes(scope.data.nodes)
                 .links(scope.data.links);
@@ -153,7 +193,16 @@ function hzEntitiesGraph() {
                     return 'translate(' + d.x + ',' + d.y + ')';
                 });
 
-                node.each(collide(0.5));
+                //node.each(collide(0.5));
+
+                var nodes = scope.data.nodes;
+
+                var q = d3.geom.quadtree(nodes),
+                    i = 0,
+                    n = nodes.length;
+                while (++i < n) {
+                    q.visit(collide(nodes[i]));
+                }
             });
 
             zoom.on('zoom', function() {
@@ -341,24 +390,38 @@ function hzEntitiesGraph() {
                 .text('\uf08d')
                 .on('click', pinNode)
 
-            content.append('text')
+            var textNode = content.append('text')
                 .classed('.label', true)
                 .attr('dx', 18)
                 .attr('dy', '.35em')
                 .text(function(d) {
-                    if (d.name ){
-                        if(d.name.length > ellipsisChars) {
-                            return d.name.substring(0, ellipsisChars) + '...';
-                        } else {
-                            return d.name;
+                    return d.name;
+                })
+                .call(function(textNodes) {
+                    textNodes.each(function(d) {
+                        if (d.name) {
+                            setEllipsis(this, d.name, ellipsisWidth);
+                            d.bbox = this.getBBox();
                         }
-                    }else{
-                        return '';
-                    }
+                        d.width = 2 * (circleRadius + circlePadding) + (d.bbox ? d.bbox.width * 2 : 0);
+                        d.height = 2 * (circleRadius + circlePadding);
+                    })
                 })
                 .append('title')
                 .text(function(d) { return d.name; });
 
+            content.insert('rect', 'text.pin')
+                .attr('width', function(d) {
+                    return d.bbox ? d.bbox.width + 4: 0;
+                })
+                .attr('height', function(d) {
+                    return d.bbox ? d.bbox.height + 2 : 0;
+                })
+                .attr('x', 16)
+                .attr('y', -8)
+                .attr('rx', 4)
+                .attr('ry', 4)
+                .classed('text-bg', true);
 
             force.start();
         }
@@ -404,9 +467,9 @@ function hzEntitiesGraph() {
             d3.event.preventDefault();
 
             //fixing some bug with unpinning
-            setTimeout(function() {
+            /*setTimeout(function() {
                 force.resume()
-            }, 100)
+            }, 100)*/
         }
 
         function updatePinnedCookie(d) {
@@ -433,6 +496,26 @@ function hzEntitiesGraph() {
                 updatePinnedCookie(d);
             }
         }
+
+        function setEllipsis(el, text, width) {
+
+            el.textContent = text;
+
+            if (el.getSubStringLength(0, text.length) >= width) {
+
+                for (var x = text.length - 3; x > 0; x -= 3){
+
+                    if (el.getSubStringLength(0, x) <= width){
+
+                        el.textContent = text.substring(0, x) + '...';
+                        return;
+                    }
+                }
+
+                el.textContent = '...';
+            }
+        };
+
 
         /*function nodeDragstart(d) {
             d3.select(this).classed('pinned', d.fixed = true);
