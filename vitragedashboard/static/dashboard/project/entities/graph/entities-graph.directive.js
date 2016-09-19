@@ -421,6 +421,8 @@ function hzEntitiesGraph() {
                 .attr('y', -8)
                 .attr('rx', 4)
                 .attr('ry', 4)
+                .style('fill', '#ececec')
+                .style('fill-opacity', 0.8)
                 .classed('text-bg', true);
 
             force.start();
