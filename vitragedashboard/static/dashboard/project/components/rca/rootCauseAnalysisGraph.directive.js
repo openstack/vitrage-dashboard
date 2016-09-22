@@ -47,7 +47,7 @@ function hzRootCauseAnalysisGraph($filter) {
         });
 
         scope.selected = getSelectedObject(u);
-        inner.call(render, g);
+        //inner.call(render, g);
       }
     }
 
@@ -75,8 +75,8 @@ function hzRootCauseAnalysisGraph($filter) {
       }
     }
 
-    function createGraph() {
-      draw(scope.data);
+    function createGraph(newGraph) {
+      draw(scope.data,newGraph);
     }
 
     // Set up zoom support
@@ -100,109 +100,110 @@ function hzRootCauseAnalysisGraph($filter) {
       marginy: 20
     });
 
-    function draw(data) {
-      angular.forEach(data.nodes, function (key, value) {
-        var className = " clickable";
+    function draw(data,newGraph) {
+      if (newGraph) {
+        angular.forEach(data.nodes, function(key, value) {
+          var className = " clickable";
 
-        var alertName = key.name,               // CPU load
-        alertCategory = key.category,           // ALARM
-        alertInfo = key.info || '',             // WARNING - 15min load 1.66 at 32 CPUs
-        alertResourceId = key.resource_id,      // host-0
-        alertResourceName = key.resource_name,  // host-0
-        alertResourceType = key.resource_type,  // nova.host
-        alertSeverity = key.severity,           //WARNING
-        alertOperationalSeverity = key.operational_severity ? key.operational_severity.toUpperCase() : key.operational_severity,           //WARNING
-        alertState = key.state ? key.state.toUpperCase() : key.state,                 //Active
-        alertTimeStamp = $filter('date')(key.update_timestamp, 'MM/dd/yyyy h:mma'),         //2015-12-01T12:46:41Z
-        alertType = key.type,                   //nagios
-        alertVitrageId = key.vitrage_id;
+          var alertName = key.name,               // CPU load
+            alertCategory = key.category,           // ALARM
+            alertInfo = key.info || '',             // WARNING - 15min load 1.66 at 32 CPUs
+            alertResourceId = key.resource_id,      // host-0
+            alertResourceName = key.resource_name,  // host-0
+            alertResourceType = key.resource_type,  // nova.host
+            alertSeverity = key.severity,           //WARNING
+            alertOperationalSeverity = key.operational_severity ? key.operational_severity.toUpperCase() : key.operational_severity,           //WARNING
+            alertState = key.state ? key.state.toUpperCase() : key.state,                 //Active
+            alertTimeStamp = $filter('date')(key.update_timestamp, 'MM/dd/yyyy h:mma'),         //2015-12-01T12:46:41Z
+            alertType = key.type,                   //nagios
+            alertVitrageId = key.vitrage_id;
 
-        var html = '';
+          var html = '';
 
-        html += '<div  style="padding: 10px; text-shadow: none; width: 378px; height: 115px; color: #44575e; clear:both"';
-        html+='>';
+          html += '<div  style="padding: 10px; text-shadow: none; width: 378px; height: 115px; color: #44575e; clear:both"';
+          html += '>';
 
-        switch (alertState + '_' + alertOperationalSeverity) {
-          case 'ACTIVE_CRITICAL':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_red_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
-            break;
-          case 'ACTIVE_WARNING':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_yellow_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
-            break;
-          case 'ACTIVE_SEVERE':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
-            break;
-          case 'ACTIVE_N/A':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_gray_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
-            break;
-          case 'ACTIVE_OK':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_green_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
-            break;
-          case 'INACTIVE_CRITICAL':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_red_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
-            break;
-          case 'INACTIVE_WARNING':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_yellow_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
-            break;
-          case 'INACTIVE_SEVERE':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
-            break;
-          case 'INACTIVE_N/A':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_gray_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
-            break;
-          case 'INACTIVE_OK':
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_green_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
-            break;
-          default:
-            html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_yellow_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
-            break;
-        }
+          switch (alertState + '_' + alertOperationalSeverity) {
+            case 'ACTIVE_CRITICAL':
+              html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_red_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+              break;
+            case 'ACTIVE_WARNING':
+              html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_yellow_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+              break;
+            case 'ACTIVE_SEVERE':
+              html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+              break;
+            case 'ACTIVE_N/A':
+              html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_gray_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+              break;
+            case 'ACTIVE_OK':
+              html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_green_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+              break;
+            case 'INACTIVE_CRITICAL':
+              html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_red_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+              break;
+            case 'INACTIVE_WARNING':
+              html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_yellow_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+              break;
+            case 'INACTIVE_SEVERE':
+              html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_orange_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+              break;
+            case 'INACTIVE_N/A':
+              html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_gray_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+              break;
+            case 'INACTIVE_OK':
+              html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_green_off.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+              break;
+            default:
+              html += '<img src="' + STATIC_URL + 'dashboard/project/assets/bell_yellow_on.svg" style="width: 80px; height: 80px; padding-top: 10px;float: left;">';
+              break;
+          }
 
-        html += '<div style="height: 90px; width: 2px; background: #656a70; float: left; margin-top: 5px; margin-left: 10px;"></div>';
-        html += '<div>';
-        html += '<div style="line-height: 2em; padding-left: 10px">';
-        html += '<div style="font-weight: 600; font-size: 20px; color: #44575e; width:262px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="'+alertName+'">' + alertName + '</div>';
-        html += '<div style="font-weight: 400; color: #44575e; width:262px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' + alertInfo + '</div>';
-        html += '<div style="font-weight: 400; color: #44575e;">' + alertTimeStamp + ' | ' + alertState + ' | ' + alertSeverity;
-        if (key.id == data.inspected_index) {
-          html+='<span style="float: right"><i title="Root cause analysis relative to this alert" style="font-size: 27px; color: #FFFFFF" class="fa fa-thumb-tack"></i></span>';
-        }
-        html += '</div>';
-        html += '<div>';
-        html += '<span style="font-weight: 600; color: #44575e;">Type:</span>';
-        html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e;">' + alertType + '</span>';
-        html += '</div>';
-        html += '<div>';
-        html += '<span style="font-weight: 600; color: #44575e;">Resource ID:</span>';
-        html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e;">' + alertResourceId + '</span>';
-        html += '</div>';
-        html += '</div></div></div>';
+          html += '<div style="height: 90px; width: 2px; background: #656a70; float: left; margin-top: 5px; margin-left: 10px;"></div>';
+          html += '<div>';
+          html += '<div style="line-height: 2em; padding-left: 10px">';
+          html += '<div style="font-weight: 600; font-size: 20px; color: #44575e; width:262px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="' + alertName + '">' + alertName + '</div>';
+          html += '<div style="font-weight: 400; color: #44575e; width:262px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' + alertInfo + '</div>';
+          html += '<div style="font-weight: 400; color: #44575e;">' + alertTimeStamp + ' | ' + alertState + ' | ' + alertSeverity;
+          if (key.id == data.inspected_index) {
+            html += '<span style="float: right"><i title="Root cause analysis relative to this alert" style="font-size: 27px; color: #FFFFFF" class="fa fa-thumb-tack"></i></span>';
+          }
+          html += '</div>';
+          html += '<div>';
+          html += '<span style="font-weight: 600; color: #44575e;">Type:</span>';
+          html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e;">' + alertType + '</span>';
+          html += '</div>';
+          html += '<div>';
+          html += '<span style="font-weight: 600; color: #44575e;">Resource ID:</span>';
+          html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e;">' + alertResourceId + '</span>';
+          html += '</div>';
+          html += '</div></div></div>';
 
-        g.setNode(value, {
-          labelType: "html",
-          label: html,
-          rx: 26,
-          ry: 26,
-          padding: 0,
-          class: className
+          g.setNode(value, {
+            labelType: "html",
+            label: html,
+            rx: 26,
+            ry: 26,
+            padding: 0,
+            class: className
+          });
         });
-      });
 
-      angular.forEach(data.links, function (key, value) {
-        g.setEdge(key.source, key.target, {
-          label: "",
-          width: 20
+        angular.forEach(data.links, function(key, value) {
+          g.setEdge(key.source, key.target, {
+            label: "",
+            width: 20
+          });
         });
-      });
 
-      inner.call(render, g);
+        inner.call(render, g);
 
-      inner.selectAll(".clickable:not(.update)").
-      on("click", function(d) {
-        setSelected(d);
-      });
+        inner.selectAll(".clickable:not(.update)").on("click", function(d) {
+          setSelected(d);
+        });
 
-      setSelected(data.inspected_index);
+        setSelected(data.inspected_index);
+      }
       var verticesLength = data.nodes.length;
 
       // Zoom and scale to fit
@@ -225,21 +226,20 @@ function hzRootCauseAnalysisGraph($filter) {
       zoom.event(d3.select("#root-cause-analysis-graph svg"));
     }
 
-    function centerGraph() {
+    function centerGraph(newGraph) {
       cleanGraph();
-      draw(scope.data);
+      draw(scope.data,newGraph);
     }
 
     scope.$watch("data", function (newValue, oldValue) {
       if (scope.data) {
-        createGraph();
+        createGraph(true);
       }
     });
 
     scope.onCenterGraph = function() {
-      centerGraph();
-    }
+      centerGraph(false);
+    };
   }
 }
-
 
