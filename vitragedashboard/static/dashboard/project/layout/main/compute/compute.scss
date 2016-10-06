@@ -1,11 +1,48 @@
 .vitrage-compute {
 
   .visual-legend {
-    width: 264px;
-    height: 100px;
-    position: absolute;
-    right: 40px;
-    margin-top: 20px;
+    bottom: 25px;
   }
 
+  .legend-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .floating-to-the-left {
+    float: left;
+    margin-right:10px;
+  }
+
+  .more-margin {
+    margin-right:35px;
+  }
+
+  .circle {
+    width: 16px;
+    height: 16px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+  }
+
+  .green {
+    background: #3DAA00;
+  }
+
+  .yellow {
+    background: #FCD20E;
+  }
+
+  .red {
+    background: #BE0006;
+  }
+
+  .gray {
+    background: #AEAEAE;
+  }
+
+  .sunburst-container {
+    position: relative;
+  }
 }

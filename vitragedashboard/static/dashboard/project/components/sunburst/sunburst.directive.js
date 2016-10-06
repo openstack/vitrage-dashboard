@@ -115,7 +115,7 @@ function hzSunburst() {
         switch (d.operational_state.toUpperCase()) {
           case 'ERROR':
           case 'DELETED':
-            return '#FA3C3C';
+            return '#BE0006';
             break;
           case 'SUBOPTIMAL':
             return '#FCD20E';
