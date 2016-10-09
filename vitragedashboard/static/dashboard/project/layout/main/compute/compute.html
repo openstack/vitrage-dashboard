@@ -19,12 +19,27 @@
                         <h3 class="panel-title">{$ 'Topology' |translate$}</h3>
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-10">
+                        <div class="col-md-12 sunburst-container">
                             <hz-sunburst name="compute" data="computeCtrl.model.computeTopology" selected="computeCtrl.model.selected"></hz-sunburst>
+
+                            <div class="col-md-9">
+                                <div class="legend-container">
+                                    <div class="circle green floating-to-the-left"></div>
+                                    <div class="floating-to-the-left more-margin">OK/TRANSIENT</div>
+                                    <div class="circle yellow floating-to-the-left"></div>
+                                    <div class="floating-to-the-left more-margin">SUBOPTIMAL</div>
+                                    <div class="circle red floating-to-the-left"></div>
+                                    <div class="floating-to-the-left more-margin">ERROR</div>
+                                    <div class="circle gray floating-to-the-left"></div>
+                                    <div class="floating-to-the-left more-margin">N/A</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 visual-legend">
+                                <hz-sunburst-minimap selected="computeCtrl.model.selected"></hz-sunburst-minimap>
+                            </div>
                         </div>
-                        <div class="col-md-2 visual-legend">
-                            <hz-sunburst-minimap selected="computeCtrl.model.selected"></hz-sunburst-minimap>
-                        </div>
+
                     </div>
                 </div>
 
