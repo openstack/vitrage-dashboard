@@ -24,13 +24,33 @@ function hzEntitiesGraph() {
             linkWidth = 1,
             circleRadius = 14,
             circlePadding = 1,
-            pinned = horizon.cookies.get('pinned') || [],
             zoom = d3.behavior.zoom().scaleExtent([minZoom, maxZoom]),
             ellipsisWidth = 80,
+            hightlightDepth = 2,
+            heightOffset,
+            pinned,
             graphCreated,
             node,
             link,
+            linksMap,
             content;
+
+        (function() {
+            var p = $('.panel.panel-primary');
+            heightOffset = (p.length ? p.offset().top : 180) + 75;
+
+            pinned = horizon.cookies.get('pinned') || [];
+            if (_.isString(pinned)) {
+                try {
+                    pinned = JSON.parse(pinned);
+                }
+                catch(ex) {
+                    pinned = [];
+                    console.error('Failed to parse the pinned cookie');
+                }
+             }
+        })();
+
 
         scope.$watch('data.ts', function(newVal, oldVal) {
             if (newVal) {
@@ -43,6 +63,22 @@ function hzEntitiesGraph() {
                 }
             }
         });
+
+        scope.$on('toolbox-pin', function () {
+            pinAll();
+        });
+
+        scope.$on('toolbox-unpin', function () {
+            unpinAll();
+        })
+
+        scope.$on('toolbox-zoom-to-fit', function () {
+            console.log('on toolbox-pin', arguments)
+        });
+
+        scope.$on('toolbox-toggle-fullscreen', function () {
+            console.log('on toolbox-unpin', arguments)
+        })
 
         scope.isEmpty = function() {
           return scope.data && scope.data.nodes && scope.data.nodes.length === 0;
@@ -90,7 +126,7 @@ function hzEntitiesGraph() {
         d3.select(window).on('resize', resize);
 
         function resize() {
-            svg.attr('height', window.innerHeight - 168 + 'px')
+            svg.attr('height', window.innerHeight - heightOffset + 'px')
             force.size([angular.element(svg[0]).width(),
                 angular.element(svg[0]).height()])
                 .resume();
@@ -108,6 +144,11 @@ function hzEntitiesGraph() {
                     node.y = pin.y;
                 }
             })
+
+            linksMap = {};
+            _.each(scope.data.links, function(link) {
+                linksMap[link.source.id + ',' + link.target.id] = true;
+            });
         }
 
         function createGraph() {
@@ -228,6 +269,7 @@ function hzEntitiesGraph() {
         }
 
         window.drawGraph = drawGraph;
+        window.dforce = force;
 
         function drawGraph() {
             link = link.data(force.links(), function(d) { return d.source.id + '-' + d.target.id; });
@@ -275,28 +317,47 @@ function hzEntitiesGraph() {
                 .attr('dominant-baseline', 'central')
                 .attr('transform', 'scale(1)')
                 .attr('class', function(d) {
-                    var cls = '';
-                    var severity = d.operational_severity;
-                    if (severity) {
-                        switch (severity.toLowerCase()) {
-                            case 'critical':
-                                cls = 'red';
-                                break;
-                            case 'severe':
-                                cls = 'orange';
-                                break;
-                            case 'warning':
-                                cls = 'yellow';
-                                break;
-                            case 'ok':
-                                cls = 'green';
-                                break;
-                            case 'n/a':
-                                cls = 'gray';
-                                break;
-                            default: //'DISABLED', 'UNKNOWN', 'UNDEFINED'
-                                cls = 'gray';
-                                break;
+                    var category = d.category,
+                        cls = '';
+
+                    if (category && category.toLowerCase() === 'alarm') {
+                        var severity = d.operational_severity;
+                        if (severity) {
+                            switch (severity.toLowerCase()) {
+                                case 'critical':
+                                    cls = 'red';
+                                    break;
+                                case 'severe':
+                                    cls = 'orange';
+                                    break;
+                                case 'warning':
+                                    cls = 'yellow';
+                                    break;
+                                case 'ok':
+                                    cls = 'green';
+                                    break;
+                                case 'n/a':
+                                    cls = 'gray';
+                                    break;
+                                default: //'DISABLED', 'UNKNOWN', 'UNDEFINED'
+                                    cls = 'gray';
+                                    break;
+                            }
+                        }
+                    } else {
+                        var state = d.operational_state;
+                        if (state) {
+                            switch (state.toLowerCase()) {
+                                case 'error':
+                                    cls = 'red';
+                                    break;
+                                case 'suboptimal':
+                                    cls = 'yellow';
+                                    break;
+                                case 'n/a':
+                                    cls = 'gray';
+                                    break;
+                            }
                         }
                     }
                     return cls;
@@ -442,8 +503,38 @@ function hzEntitiesGraph() {
 
 
             if ($(this).is('.node')) {
-                d3.select(this).classed('selected', true);
+                //d3.select(this).classed('selected', true);
+
+                findHighlight(d);
             }
+        }
+
+        function findHighlight(rootNode) {
+
+            _.each(scope.data.nodes, function(node) {
+                node.high = false;
+            })
+
+            var depth = hightlightDepth;
+
+            findNodes(rootNode, depth, scope.data.nodes, linksMap);
+
+            _.each(scope.data.links, function(link) {
+                link.high = false;
+            })
+
+            svg_g.selectAll('.node')
+                .classed('selected', function(d) {
+                    return d.high;
+                })
+                .select('circle')
+                .style('stroke-width', function(d) {
+                    return d.high ? (Math.max(d.highDepth + 1, 1) * 2) : null;
+                })
+
+            svg_g.selectAll('.link').classed('selected', function(d) {
+                return d.source.high && d.target.high;
+            })
         }
 
         function selectNone(d) {
@@ -451,6 +542,9 @@ function hzEntitiesGraph() {
         }
 
         function pinNode(d) {
+            d3.event.stopImmediatePropagation();
+            d3.event.preventDefault();
+
             var node;
 
             if ($(this).is('.node')) {
@@ -465,9 +559,6 @@ function hzEntitiesGraph() {
                 updatePinnedCookie(d);
             }
 
-            d3.event.stopImmediatePropagation();
-            d3.event.preventDefault();
-
             //fixing some bug with unpinning
             /*setTimeout(function() {
                 force.resume()
@@ -478,7 +569,7 @@ function hzEntitiesGraph() {
             var pinIndex = -1;
             pinned.forEach(function(pin, i) {
                 if (pin.id === d.id) {
-                    pinIndex = i
+                    pinIndex = i;
                 }
             })
 
@@ -490,13 +581,46 @@ function hzEntitiesGraph() {
                 pinned.push({id: d.id, x: d.x, y: d.y});
             }
 
-            horizon.cookies.put('pinned', pinned);
+            horizon.cookies.put('pinned', JSON.stringify(pinned));
         }
 
         function nodeDragend(d) {
             if (d.fixed) {
                 updatePinnedCookie(d);
             }
+        }
+
+        function pinAll() {
+            pinned = [];
+
+            svg_g.selectAll('.node')
+                .classed('pinned', true)
+                .each(function(d) {
+                    d.fixed = true;
+                    pinned.push({id: d.id, x: d.x, y: d.y});
+                })
+
+            horizon.cookies.put('pinned', JSON.stringify(pinned));
+        }
+
+        function unpinAll() {
+            pinned = [];
+
+            svg_g.selectAll('.node')
+                .classed('pinned', false)
+                .each(function(d) {
+                    d.fixed = false;
+                })
+
+            horizon.cookies.put('pinned', JSON.stringify([]));
+
+            setTimeout(function() {
+                force.resume()
+            }, 100)
+        }
+
+        function pinAllNodes(isPin) {
+
         }
 
         function setEllipsis(el, text, width) {
@@ -518,6 +642,30 @@ function hzEntitiesGraph() {
             }
         };
 
+        function findNodes(rootNode, depth, allNodes, linksMap) {
+            if (rootNode) {
+                rootNode.high = true;
+                rootNode.highDepth = depth;
+                depth--;
+
+                _.each(allNodes, function(node) {
+                    if (linksMap[node.id + ',' + rootNode.id] || linksMap[rootNode.id + ',' + node.id]) {
+
+                        if (depth > -1 && !node.high) {
+                            findNodes(node, depth, allNodes, linksMap);
+                        } else if (depth <= -1) {
+                            //Always find 'depth' + alarms & (sdns + alarms)
+                            if (node.category.toLowerCase() === 'alarm') {
+                                node.high = true;
+                                node.highDepth = 0;
+                            } else if (!node.high && node.type && node.type.toLowerCase() === 'sdn_controller') {
+                                findNodes(node, depth, allNodes, linksMap);
+                            }
+                        }
+                    }
+                });
+            }
+        }
 
         /*function nodeDragstart(d) {
             d3.select(this).classed('pinned', d.fixed = true);

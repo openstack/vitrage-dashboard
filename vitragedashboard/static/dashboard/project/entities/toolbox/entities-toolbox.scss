@@ -1,0 +1,17 @@
+.entities-toolbox {
+  position: absolute;
+  right: 18px;
+  margin: 12px;
+  padding:8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+
+  .btn-group {
+    margin-right: 6px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

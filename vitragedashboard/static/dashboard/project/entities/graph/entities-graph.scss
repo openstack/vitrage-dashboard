@@ -27,6 +27,11 @@ $dark_gray: darkgray;
 
   .link {
     stroke-opacity: 0.8;
+
+    &.selected {
+      stroke: $blue;
+      stroke-width: 2 !important;
+    }
   }
 
   .node {
