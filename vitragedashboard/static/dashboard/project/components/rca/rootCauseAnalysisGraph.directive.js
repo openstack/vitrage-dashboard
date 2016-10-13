@@ -47,7 +47,7 @@ function hzRootCauseAnalysisGraph($filter) {
         });
 
         scope.selected = getSelectedObject(u);
-        //inner.call(render, g);
+        inner.call(render, g);
       }
     }
 
@@ -75,8 +75,8 @@ function hzRootCauseAnalysisGraph($filter) {
       }
     }
 
-    function createGraph(newGraph) {
-      draw(scope.data,newGraph);
+    function createGraph() {
+      draw(scope.data,true);
     }
 
     // Set up zoom support
@@ -159,26 +159,26 @@ function hzRootCauseAnalysisGraph($filter) {
               break;
           }
 
-          html += '<div style="height: 90px; width: 2px; background: #656a70; float: left; margin-top: 5px; margin-left: 10px;"></div>';
+          html += '<div style="height: 90px; width: 2px; background: #656a70; float: left; margin: 5px 10px 0px 3px;"></div>';
           html += '<div>';
-          html += '<div style="line-height: 2em; padding-left: 10px">';
+          html += '<div style="line-height: 2em; padding-left: 10px;text-align: left">';
           html += '<div style="font-weight: 600; font-size: 20px; color: #44575e; width:262px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="' + alertName + '">' + alertName + '</div>';
+          html += '<span style="font-weight: 400; color: #44575e;">' + alertResourceType + '</span>';
+          html += '<div>';
+          html += '<span style="font-weight: 600; color: #44575e;">Resource ID:</span>';
+          html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e;">' + alertResourceId + '</span>';
+          html += '</div>';
+          html += '<div>';
+          html += '<span style="font-weight: 600; color: #44575e;">Type:</span>';
+          html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e;">' + alertType + '</span>';
+          html += '</div>';
           html += '<div style="font-weight: 400; color: #44575e; width:262px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' + alertInfo + '</div>';
           html += '<div style="font-weight: 400; color: #44575e;">' + alertTimeStamp + ' | ' + alertState + ' | ' + alertSeverity;
           if (key.id == data.inspected_index) {
             html += '<span style="float: right"><i title="Root cause analysis relative to this alert" style="font-size: 27px; color: #FFFFFF" class="fa fa-thumb-tack"></i></span>';
           }
           html += '</div>';
-          html += '<div>';
-          html += '<span style="font-weight: 600; color: #44575e;">Type:</span>';
-          html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e;">' + alertType + '</span>';
-          html += '</div>';
-          html += '<div>';
-          html += '<span style="font-weight: 600; color: #44575e;">Resource ID:</span>';
-          html += '<span style="font-weight: 400; padding-left: 5px; color: #44575e;">' + alertResourceId + '</span>';
-          html += '</div>';
           html += '</div></div></div>';
-
           g.setNode(value, {
             labelType: "html",
             label: html,
@@ -198,9 +198,9 @@ function hzRootCauseAnalysisGraph($filter) {
 
         inner.call(render, g);
 
-        inner.selectAll(".clickable:not(.update)").on("click", function(d) {
-          setSelected(d);
-        });
+        //inner.selectAll(".clickable:not(.update)").on("click", function(d) {
+        //  setSelected(d);
+        //});
 
         setSelected(data.inspected_index);
       }
