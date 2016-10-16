@@ -97,3 +97,23 @@ class Rca(generic.View):
         """
 
         return api.vitrage.rca(request, alarm_id)
+
+
+@urls.register
+class Templates(generic.View):
+    """API for vitrage templates."""
+
+    url_regex = r'vitrage/template/'
+
+    @rest_utils.ajax()
+    def get(self, request):
+        """Get a single template with the vitrage id.
+
+        The following get template may be passed in the GET
+
+        :param template_id the id of the vitrage template
+
+        The result is a template object.
+        """
+
+        return api.vitrage.templates(request)

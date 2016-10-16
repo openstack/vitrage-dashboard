@@ -42,6 +42,20 @@
       }
     }
 
+    function getTemplates() {
+
+      if (vitrageAPI) {
+        return vitrageAPI.getTemplates()
+          .success(function(data) {
+            return data;
+          })
+          .error(function(err) {
+              console.error(err);
+            }
+          )
+      }
+    }
+
 
     function getRootCauseAnalysis(alarm_id) {
       if (vitrageAPI) {
@@ -59,7 +73,8 @@
     return {
       getTopology: getTopology,
       getAlarms: getAlarms,
-      getRootCauseAnalysis: getRootCauseAnalysis
+      getRootCauseAnalysis: getRootCauseAnalysis,
+      getTemplates: getTemplates
     }
   }
 })();

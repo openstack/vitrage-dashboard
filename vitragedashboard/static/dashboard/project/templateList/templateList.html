@@ -1,0 +1,34 @@
+<div class="template-list" ng-controller="TemplateListController as templateList">
+    <div class="themable-checkbox refreshBtn">
+        <input type="checkbox" ng-model="templateList.checkboxAutoRefresh" id="themable-checkbox" ng-change="templateList.autoRefreshChanged()">
+        <label for="themable-checkbox" translate>Auto Refresh</label>
+    </div>
+    <div class="panel panel-default" >
+
+        <table st-table='templateList.itemplates' st-safe-src="templateList.templates" class="table-striped table-rsp table-detail modern" hz-table>
+            <thead>
+            <tr>
+                <th st-sort="name" style="padding-left: 15px;">{$ 'Name' | translate $}</th>
+                <th st-sort="status">{$ 'Status' | translate $}</th>
+                <th st-sort="details">{$ 'Details' | translate $}</th>
+                <th st-sort="timestamp">{$ 'Timestamp' | translate $}</th>
+            </tr>
+            <tr>
+                <th colspan="4">
+                    <hz-search-bar group-classes="input-group-sm"
+                                   icon-classes="fa-search">
+                    </hz-search-bar>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="template in templateList.itemplates track by $index">
+                <td style="padding-left: 15px;">{$template.name$}</td>
+                <td>{$template.status$}</td>
+                <td>{$template["status details"]$}</td>
+                <td><i class="fa fa-clock-o"></i> {$template.date | date:"yyyy-MM-dd hh:mm:ss"$} </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
