@@ -16,3 +16,6 @@ recursive-include vitragealarms/templates *
 
 recursive-include vitrageentities/static *
 recursive-include vitrageentities/templates *
+
+recursive-include vitragetemplates/static *
+recursive-include vitragetemplates/templates *

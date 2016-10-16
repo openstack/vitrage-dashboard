@@ -1,5 +1,5 @@
 @import 'layout/main/compute/compute';
-@import "alarmList/alarmList.scss";
+@import 'alarmList/alarmList.scss';
 @import 'components/sunburst/sunburst';
 @import 'components/alarms/alarms.scss';
 @import 'components/rca/rootCauseAnalysisGraph.scss';
@@ -12,6 +12,7 @@
 @import 'entities/info/entities-info.scss';
 @import 'entities/toolbox/entities-toolbox.scss';
 @import 'entities/entities.scss';
+@import 'templateList/templateList.scss';
 
 .red {
   color: #FA3C3C;
