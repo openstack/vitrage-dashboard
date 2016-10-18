@@ -43,5 +43,7 @@ def rca(request, alarm_id):
     return vitrageclient(request).rca.get(alarm_id=alarm_id)
 
 
-def templates(request):
-    return vitrageclient(request).template.list()
+def templates(request, template_id='all'):
+    if template_id == 'all':
+        return vitrageclient(request).template.list()
+    return vitrageclient(request).template.show(template_id)
