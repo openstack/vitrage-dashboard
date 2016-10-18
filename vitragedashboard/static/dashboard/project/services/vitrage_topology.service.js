@@ -42,10 +42,10 @@
       }
     }
 
-    function getTemplates() {
+    function getTemplates(template_id) {
 
       if (vitrageAPI) {
-        return vitrageAPI.getTemplates()
+        return vitrageAPI.getTemplates(template_id)
           .success(function(data) {
             return data;
           })

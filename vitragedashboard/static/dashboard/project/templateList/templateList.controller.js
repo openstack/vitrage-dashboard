@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('horizon.dashboard.project.vitrage')
-    .controller('TemplateListController', TemplateListController);
+      .module('horizon.dashboard.project.vitrage')
+      .controller('TemplateListController', TemplateListController);
 
   TemplateListController.$inject = ['$scope', '$modal', 'vitrageTopologySrv','$interval'];
 
@@ -45,9 +45,23 @@
     }
 
     function getData() {
-      vitrageTopologySrv.getTemplates().then(function(result){
+      vitrageTopologySrv.getTemplates('all').then(function(result){
         templateList.templates = result.data;
       });
+
+      templateList.onShowClick = function(template) {
+        var modalOptions = {
+          animation: true,
+          templateUrl: STATIC_URL + 'dashboard/project/components/template/templateContainer.html',
+          controller: 'TemplateContainerController',
+          windowClass: 'app-modal-window',
+          resolve: {template: function() {
+            return template;
+          }}
+        };
+
+        $modal.open(modalOptions);
+      }
     }
   }
 

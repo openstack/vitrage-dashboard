@@ -1,0 +1,64 @@
+<div class="template-container">
+    <h2 class="tabbed"><b>Template: </b>{$ data.metadata.name $}</h2>
+    <div class="definition-block">
+        <h3>Entities</h3>
+        <table class="table-striped table-rsp table-detail modern tabbed">
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Type</th>
+            </tr>
+            <tr ng-repeat="entity in data.definitions.entities | orderBy: 'entity.category'">
+                <td> <b>{$ entity.entity.template_id | lowercase$}</b></td>
+                <td>{$ entity.entity.category | lowercase$}</td>
+                <td>{$ entity.entity.type | lowercase$}</td>
+            </tr>
+        </table>
+        <br>
+    </div>
+    <div class="definition-block">
+        <h3>Relationships</h3>
+        <table class="table-striped table-rsp table-detail modern">
+            <tr>
+                <th>ID</th>
+                <th>Source</th>
+                <th>Relationship</th>
+                <th>Target</th>
+            </tr>
+            <tr ng-repeat="relationship in data.definitions.relationships">
+                <td><b>{$ relationship.relationship.template_id | lowercase$}</b></td>
+                <td>{$ relationship.relationship.source | lowercase$}</td>
+                <td>{$ relationship.relationship.relationship_type | lowercase$}</td>
+                <td>{$ relationship.relationship.target | lowercase$}</td>
+            </tr>
+        </table>
+        <br>
+    </div>
+    <div class="definition-block">
+        <h3>Scenarios</h3>
+            <ol class="scenario-list">
+                <li ng-repeat="scenario in data.scenarios">
+                    <h4><b>Scenario: </b>{$ scenario.scenario.condition $}</h4>
+                    <div class="tabbed">
+                        <b>Actions</b>
+                        <ol>
+                            <div  ng-repeat="action in scenario.scenario.actions">
+                                <li>
+                                    <ul>
+                                        <li><b>action:</b> {$ action.action.action_type  | lowercase$}</li>
+                                        <li  ng-repeat="(key, value) in action.action.action_target">
+                                            <b>{$ key $}:</b> {$ value  | lowercase$}
+                                        </li>
+                                        <li ng-repeat="(property, value) in action.action.properties">
+                                            <b>{$ property $}:</b> {$ value  | lowercase$}
+                                        </li>
+                                    </ul>
+                                </li>
+                            </div>
+                        </ol>
+                    </div>
+                </li>
+            </ol>
+        <br>
+    </div>
+</div>
