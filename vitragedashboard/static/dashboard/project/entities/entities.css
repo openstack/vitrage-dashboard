@@ -1,5 +1,3 @@
-.entities {
-  .panel-body {
-    padding: 3px;
-  }
+.entities .panel-body {
+  padding: 6px;
 }

@@ -1,0 +1,26 @@
+.template-container {
+    overflow: auto;
+    height: 100%;
+    background: #ffffff;
+    opacity: 0.8;
+}
+.template-container ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+.template-container ol.scenario-list {
+    list-style-type: upper-roman;
+}
+.template-container th {
+    font-size: 14px;
+}
+
+.tabbed {
+    padding-left: 2em;
+}
+
+.definition-block {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}

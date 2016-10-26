@@ -1,7 +1,7 @@
 .entities-info {
   position: absolute;
   margin: 12px;
-  padding:6px 10px;
+  padding: 6px 10px;
   width: 240px;
   min-height: 120px;
   max-height: 400px;
@@ -10,22 +10,16 @@
   overflow: hidden;
   background: rgba(255, 255, 255, 0.8);
 }
-  .entities-info .info {
-    margin: 0 0 1px 0;
-  }
-
-  .entities-info .key {
-    width: 40%;
-  }
-
-  .entities-info .value {
-    width: 60%;
-    padding-left: 4px;
+.entities-info .info {
+  margin: 0 0 1px 0;
 }
-
-    .entities-info .value .name {
-      font-weight: bold;
-    }
-
-
-
+.entities-info .key {
+  width: 40%;
+}
+.entities-info .value {
+  width: 60%;
+  padding-left: 4px;
+}
+.entities-info .value.name {
+  font-weight: bold;
+}

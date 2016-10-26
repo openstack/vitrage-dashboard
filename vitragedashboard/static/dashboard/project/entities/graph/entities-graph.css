@@ -13,6 +13,13 @@
   text-align: center;
   color: #428BCA;
 }
+.entities-graph .link {
+  stroke-opacity: 0.8;
+}
+.entities-graph .link.selected {
+  stroke: #428BCA;
+  stroke-width: 2 !important;
+}
 .entities-graph .node.selected circle {
   stroke: #428BCA;
   stroke-width: 2px;
@@ -21,6 +28,10 @@
   fill: #fff;
   stroke: darkgray;
   stroke-width: 1px;
+}
+.entities-graph .node .text-bg {
+  fill: #ececec;
+  fill-opacity: 0.8;
 }
 .entities-graph .node .pin {
   display: none;
@@ -44,6 +55,9 @@
   stroke: #FA3C3C;
 }
 .entities-graph .node .icon.orange {
+  stroke: #fc9100;
+}
+.entities-graph .node .icon.yellow {
   stroke: #FCD20E;
 }
 .entities-graph .node .icon.green {
@@ -52,4 +66,3 @@
 .entities-graph .node .icon.gray {
   stroke: #AEAEAE;
 }
-

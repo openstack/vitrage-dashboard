@@ -1,7 +1,36 @@
-  .visual-legend {
-    width: 264px;
-    height: 100px;
-    position: absolute;
-    right: 40px;
-    margin-top: 20px;
+.vitrage-compute .visual-legend {
+    bottom: 25px;
+}
+.vitrage-compute .legend-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.vitrage-compute .floating-to-the-left {
+    float: left;
+    margin-right: 10px;
+}
+.vitrage-compute .more-margin {
+    margin-right: 35px;
+}
+.vitrage-compute .circle {
+    width: 16px;
+    height: 16px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+}
+.vitrage-compute .green-background {
+    background: #3DAA00;
+}
+.vitrage-compute .yellow-background {
+    background: #FCD20E;
+}
+.vitrage-compute .red-background {
+    background: #BE0006;
+}
+.vitrage-compute .gray-background {
+    background: #AEAEAE;
+}
+.vitrage-compute .sunburst-container {
+    position: relative;
 }

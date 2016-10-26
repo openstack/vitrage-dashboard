@@ -10,6 +10,8 @@
 @import 'entities/graph/entities-graph.css';
 @import 'entities/info/entities-info.css';
 @import 'entities/entities.css';
+@import 'entities/toolbox/entities-toolbox.css';
+@import 'components/template/templateContainer.css';
 
 .red {
   color: #FA3C3C;
