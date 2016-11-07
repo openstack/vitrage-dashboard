@@ -1,5 +1,8 @@
 <div class="root-cause-analysis-graph"  id="root-cause-analysis-graph">
-    <i class="center-button fa fa-refresh" ng-click="onCenterGraph()"></i>
+    <div class="controls">
+        <i class="fa fa-refresh" ng-click="onCenterGraph()"></i>
+        <i class="fa fa-times" ng-click="closeModal()"></i>
+    </div>
     <svg>
         <g class="diagram"></g>
     </svg>

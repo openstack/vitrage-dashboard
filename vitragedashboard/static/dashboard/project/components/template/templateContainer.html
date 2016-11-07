@@ -1,38 +1,46 @@
 <div class="template-container">
-    <h2 class="tabbed"><b>Template: </b>{$ data.metadata.name $}</h2>
-    <div class="definition-block">
-        <h3>Entities</h3>
-        <div ng-repeat="entity in data.definitions.entities | orderBy: 'entity.category' track by entity.entity.template_id">
-            <details>
-                <summary>{$ entity.entity.template_id $}</summary>
-                <div class="tabbed">
-                    <ul>
-                        <li ng-repeat="(property, value) in entity.entity track by $index">
-                            <b>{$ property $}:</b> {$ value $}
-                        </li>
-                    </ul>
-                </div>
-            </details>
-        </div>
-        <br>
+    <div class="controls">
+        <i class="fa" ng-class="{'fa-file-text':!yaml_view, 'fa-list':yaml_view}" ng-click="yaml_view = !yaml_view;"></i>
+        <i class="fa fa-times" ng-click="closeModal()"></i>
     </div>
-    <div class="definition-block">
-        <h3>Relationships</h3>
-        <div ng-repeat="rel in data.definitions.relationships track by rel.relationship.template_id">
-            <details>
-                <summary>{$ rel.relationship.template_id $}</summary>
-                <div class="tabbed">
-                    <ul>
-                        <li ng-repeat="(property, value) in rel.relationship track by $index">
-                            <b>{$ property $}:</b> {$ value $}
-                        </li>
-                    </ul>
-                </div>
-            </details>
+    <h2 class="tabbed">
+        <b>Template: </b>
+        <span id="template_name">{$ data.metadata.name $}</span>
+    </h2>
+    <div ng-hide="yaml_view">
+        <div class="definition-block">
+            <h3>Entities</h3>
+            <div ng-repeat="entity in data.definitions.entities | orderBy: 'entity.category' track by entity.entity.template_id">
+                <details>
+                    <summary>{$ entity.entity.template_id $}</summary>
+                    <div class="tabbed">
+                        <ul>
+                            <li ng-repeat="(property, value) in entity.entity track by $index">
+                                <b>{$ property $}:</b> {$ value $}
+                            </li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+            <br>
         </div>
-        <br>
-    </div>
-    <div class="definition-block">
+        <div class="definition-block">
+            <h3>Relationships</h3>
+            <div ng-repeat="rel in data.definitions.relationships track by rel.relationship.template_id">
+                <details>
+                    <summary>{$ rel.relationship.template_id $}</summary>
+                    <div class="tabbed">
+                        <ul>
+                            <li ng-repeat="(property, value) in rel.relationship track by $index">
+                                <b>{$ property $}:</b> {$ value $}
+                            </li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+            <br>
+        </div>
+        <div class="definition-block">
         <h3>Scenarios</h3>
             <div ng-repeat="scenario in data.scenarios track by $index">
                 <details>
@@ -58,5 +66,11 @@
                 </details>
             </div>
         <br>
+    </div>
+    </div>
+    <div ng-show="yaml_view" class="definition-block">
+        <pre contentEditable="false">
+            {$ str_data $}
+        </pre>
     </div>
 </div>

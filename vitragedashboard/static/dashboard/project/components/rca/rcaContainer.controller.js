@@ -5,12 +5,16 @@
     .module('horizon.dashboard.project.vitrage')
     .controller('RcaContainerController', RcaContainerController);
 
-  RcaContainerController.$inject = ['alarm', '$scope', 'vitrageTopologySrv'];
+  RcaContainerController.$inject = ['alarm', '$scope', 'modalSrv', 'vitrageTopologySrv'];
 
-  function RcaContainerController(alarm, $scope, vitrageTopologySrv) {
+  function RcaContainerController(alarm, $scope, modalSrv, vitrageTopologySrv) {
     var vm = this;
     $scope.STATIC_URL = STATIC_URL;
     vm.isLoading = true;
+
+    $scope.closeModal = function () {
+      modalSrv.close();
+    };
 
     var getData = function() {
       vm.isLoading = true;

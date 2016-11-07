@@ -5,9 +5,9 @@
     .module('horizon.dashboard.project.vitrage')
     .controller('AlarmListController', AlarmListController);
 
-  AlarmListController.$inject = ['$scope', '$modal', 'vitrageTopologySrv','$interval'];
+  AlarmListController.$inject = ['$scope', 'modalSrv', 'vitrageTopologySrv','$interval'];
 
-  function AlarmListController($scope, $modal, vitrageTopologySrv,$interval) {
+  function AlarmListController($scope, modalSrv, vitrageTopologySrv,$interval) {
     var alarmList = this;
     alarmList.alarms = [];
     alarmList.ialarms = [];
@@ -33,7 +33,7 @@
     }
     $scope.$on('$destroy',function(){
       alarmList.stopCollectData();
-    })
+    });
 
     alarmList.autoRefreshChanged = function(){
       if (alarmList.checkboxAutoRefresh){
@@ -42,7 +42,7 @@
       }else{
         stopCollectData();
       }
-    }
+    };
 
     function getData() {
       vitrageTopologySrv.getAlarms('all').then(function(result){
@@ -61,7 +61,7 @@
         }}
       };
 
-      $modal.open(modalOptions);
+      modalSrv.show(modalOptions);
     }
   }
 

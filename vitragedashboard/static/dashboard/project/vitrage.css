@@ -1,16 +1,15 @@
 @import 'layout/main/compute/compute.css';
-@import "alarmList/alarmList.css";
+@import 'alarmList/alarmList.css';
 @import 'components/sunburst/sunburst.css';
-@import 'components/rca/rootCauseAnalysisGraph.css';
-@import 'components/rca/rcaContainer.css';
 @import 'components/alarms/alarms.css';
-@import 'components/rca/rcaContainer.css';
 @import 'components/rca/rootCauseAnalysisGraph.css';
+@import 'components/rca/rcaContainer.css';
 @import 'components/information/information.css';
 @import 'entities/graph/entities-graph.css';
 @import 'entities/info/entities-info.css';
-@import 'entities/entities.css';
 @import 'entities/toolbox/entities-toolbox.css';
+@import 'entities/entities.css';
+@import 'templateList/templateList.css';
 @import 'components/template/templateContainer.css';
 
 .red {
