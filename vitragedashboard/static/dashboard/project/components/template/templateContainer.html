@@ -1,7 +1,9 @@
 <div class="template-container">
     <div class="controls">
-        <i class="fa" ng-class="{'fa-file-text':!yaml_view, 'fa-list':yaml_view}" ng-click="yaml_view = !yaml_view;"></i>
-        <i class="fa fa-times" ng-click="closeModal()"></i>
+        <i title="{$ yaml_view ? 'Simple View' : 'Yaml View' $}"
+           class="fa" ng-class="{'fa-file-text':!yaml_view, 'fa-list':yaml_view}"
+           ng-click="yaml_view = !yaml_view;"></i>
+        <i title="Close" class="fa fa-times" ng-click="closeModal()"></i>
     </div>
     <h2 class="tabbed">
         <b>Template: </b>
