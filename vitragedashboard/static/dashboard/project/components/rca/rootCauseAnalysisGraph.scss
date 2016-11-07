@@ -54,9 +54,18 @@
   #arrowhead {
     fill: #656a70 !important;
   }
+
   .fa{
     display: inline;
   }
+
+  .controls {
+    padding: 15px;
+    float: right;
+    font-size:30px;
+    cursor: pointer;
+  }
+
   .center-button {
     float: right;
     margin: 10px 10px 0 0;

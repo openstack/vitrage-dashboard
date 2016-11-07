@@ -13,10 +13,10 @@ function hzAlarms() {
     controllerAs: 'alarmsCtrl'
   };
 
-  AlarmsController.$inject = ['$scope', '$modal', 'vitrageTopologySrv'];
+  AlarmsController.$inject = ['$scope', 'modalSrv', 'vitrageTopologySrv'];
   return directive;
 
-  function AlarmsController($scope, $modal, vitrageTopologySrv) {
+  function AlarmsController($scope, modalSrv, vitrageTopologySrv) {
     var alarmsCtrl = this;
 
     $scope.$watch('selected', function(newData, oldData) {
@@ -39,7 +39,7 @@ function hzAlarms() {
         }}
       };
 
-      $modal.open(modalOptions);
+      modalSrv.show(modalOptions);
     }
   }
 }

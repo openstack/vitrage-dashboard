@@ -242,7 +242,7 @@ function hzRootCauseAnalysisGraph($filter) {
 
     scope.onCenterGraph = function() {
       centerGraph(false);
-    }
+    };
   }
 }
 

@@ -1,8 +1,4 @@
 <div class="template-list" ng-controller="TemplateListController as templateList">
-    <div class="themable-checkbox refreshBtn">
-        <input type="checkbox" ng-model="templateList.checkboxAutoRefresh" id="themable-checkbox" ng-change="templateList.autoRefreshChanged()">
-        <label for="themable-checkbox" translate>Auto Refresh</label>
-    </div>
     <div class="panel panel-default" >
 
         <table st-table='templateList.itemplates' st-safe-src="templateList.templates" class="table-striped table-rsp table-detail modern" hz-table>
@@ -28,7 +24,7 @@
                 <td>{$template.status$}</td>
                 <td>{$template["status details"]$}</td>
                 <td><i class="fa fa-clock-o"></i> {$template.date | date:"yyyy-MM-dd hh:mm:ss"$} </td>
-                <td ng-click="templateList.onShowClick(template)"><i class="fa fa-sitemap"></i></td>
+                <td ng-click="templateList.onShowClick(template)"><i class="fa fa-list"></i></td>
             </tr>
             </tbody>
         </table>

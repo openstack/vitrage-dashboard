@@ -1,13 +1,10 @@
-@import 'layout/main/compute/compute';
+@import 'layout/main/compute/compute.scss';
 @import 'alarmList/alarmList.scss';
-@import 'components/sunburst/sunburst';
+@import 'components/sunburst/sunburst.scss';
 @import 'components/alarms/alarms.scss';
 @import 'components/rca/rootCauseAnalysisGraph.scss';
 @import 'components/rca/rcaContainer.scss';
-@import 'components/alarms/alarms';
-@import 'components/rca/rcaContainer';
-@import 'components/rca/rootCauseAnalysisGraph';
-@import 'components/information/information';
+@import 'components/information/information.scss';
 @import 'entities/graph/entities-graph.scss';
 @import 'entities/info/entities-info.scss';
 @import 'entities/toolbox/entities-toolbox.scss';

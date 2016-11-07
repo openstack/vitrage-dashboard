@@ -18,8 +18,19 @@
   }
 }
 
+.controls {
+  padding: 15px;
+  float: right;
+  font-size:30px;
+  cursor: pointer;
+}
+
+.fa{
+  display: inline;
+}
+
 .tabbed {
-  padding-left:2em;
+  padding-left:1em;
 }
 
 .definition-block {
@@ -35,6 +46,10 @@
 
   summary:focus {
     outline: none;
+  }
+
+  pre {
+    color: #000;
   }
 }
 
