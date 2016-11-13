@@ -1,69 +1,73 @@
-.root-cause-analysis-graph .clickable {
-    cursor: pointer;
-  }
-
-  .root-cause-analysis-graph  .selectedNode rect{
-    fill: #4d545c !important;
-    color: #FFFFFF;
-  }
-
 .root-cause-analysis-graph {
   width: 100%;
   height: 100%;
+  /* Override path marker color */;
 }
 
-  .root-cause-analysis-graph svg {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
+.root-cause-analysis-graph .clickable {
+  cursor: pointer;
+}
 
-  .root-cause-analysis-graph  text {
-    font-size: 14px;
-  }
+.root-cause-analysis-graph .selectedNode rect {
+  fill: #4d545c !important;
+  color: #FFFFFF;
+}
 
-  .root-cause-analysis-graph  .node rect {
-    width:400px;
-    stroke-width: 4px;
-    stroke: #bbb;
-    fill: #ffffff;
-    color: #455660;
-  }
+.root-cause-analysis-graph svg {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
-  .root-cause-analysis-graph  .node g div span.consumers {
-    display: inline-block;
-    width: 280px;
-  }
+.root-cause-analysis-graph text {
+  font-size: 14px;
+}
 
-  .root-cause-analysis-graph  .edgeLabel rect {
-    fill: none;
-  }
+.root-cause-analysis-graph .node rect {
+  width: 400px;
+  stroke-width: 4px;
+  stroke: #455660;
+  fill: #ffffff;
+  color: #455660;
+}
 
-  .root-cause-analysis-graph .edgeLabel div {
-    width: 50px;
-    color: #44575e;
-  }
+.root-cause-analysis-graph .node g div span.consumers {
+  display: inline-block;
+  width: 280px;
+}
 
-  .root-cause-analysis-graph .edgePath path {
-    stroke: #656a70;
-    stroke-width: 2.5px;
-    fill: #656a70;
-  }
+.root-cause-analysis-graph .edgeLabel rect {
+  fill: none;
+}
 
-  /* Override path marker color */
-  .root-cause-analysis-graph #arrowhead {
-    fill: #656a70 !important;
-  }
+.root-cause-analysis-graph .edgeLabel div {
+  width: 50px;
+  color: #44575e;
+}
 
-  .root-cause-analysis-graph .fa{
-    display: inline;
-  }
+.root-cause-analysis-graph .edgePath path {
+  stroke: #656a70;
+  stroke-width: 2.5px;
+  fill: #656a70;
+}
 
-  .root-cause-analysis-graph .center-button {
-    position: relative;
-    top: 9px;
-    left: 90%;
-    color: #FFFFFF;
-    background-color: #38424B;
-  }
+.root-cause-analysis-graph #arrowhead {
+  fill: #656a70 !important;
+}
 
+.root-cause-analysis-graph .fa {
+  display: inline;
+}
+
+.root-cause-analysis-graph .controls {
+  padding: 15px;
+  float: right;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.root-cause-analysis-graph .center-button {
+  float: right;
+  margin: 10px 10px 0 0;
+  cursor: pointer;
+}

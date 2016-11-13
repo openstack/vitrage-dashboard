@@ -4,23 +4,51 @@
     background: #ffffff;
     opacity: 0.8;
 }
+
 .template-container ul {
     padding-left: 0;
     list-style-type: none;
 }
+
 .template-container ol.scenario-list {
     list-style-type: upper-roman;
 }
+
 .template-container th {
     font-size: 14px;
 }
 
+.controls {
+    padding: 15px;
+    float: right;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.fa {
+    display: inline;
+}
+
 .tabbed {
-    padding-left: 2em;
+    padding-left: 1em;
 }
 
 .definition-block {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.definition-block summary {
+    font-weight: bold;
+    font-size: medium;
+    cursor: pointer;
+}
+
+.definition-block summary:focus {
+    outline: none;
+}
+
+.definition-block pre {
+    color: #000;
 }
