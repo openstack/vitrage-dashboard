@@ -15,10 +15,12 @@
 
 from django.views import generic
 
-from openstack_dashboard import api
+
 from openstack_dashboard.api.rest import utils as rest_utils
 
 from openstack_dashboard.api.rest import urls
+
+from vitrage_dashboard.api import vitrage
 
 
 @urls.register
@@ -56,9 +58,9 @@ class Topolgy(generic.View):
                     '{"==": {"type": "nova.host"}},' \
                     '{"==": {"type": "nova.zone"}}]}]}'
 
-        return api.vitrage.topology(request=request,
-                                    query=query,
-                                    graph_type=graph_type)
+        return vitrage.topology(request=request,
+                                query=query,
+                                graph_type=graph_type)
 
 
 @urls.register
@@ -78,7 +80,7 @@ class Alarms(generic.View):
         The result is a alarms object.
         """
 
-        return api.vitrage.alarms(request, vitrage_id)
+        return vitrage.alarms(request, vitrage_id)
 
 
 @urls.register
@@ -96,7 +98,7 @@ class Rca(generic.View):
         The result is an rca graph.
         """
 
-        return api.vitrage.rca(request, alarm_id)
+        return vitrage.rca(request, alarm_id)
 
 
 @urls.register
@@ -116,4 +118,4 @@ class Templates(generic.View):
         The result is a template object.
         """
 
-        return api.vitrage.templates(request, template_id)
+        return vitrage.templates(request, template_id)

@@ -55,8 +55,6 @@ With Horizon
 
     cp -a vitragedashboard/enabled/* ../horizon/openstack_dashboard/enabled/
 
-    cp -a vitrageclient/api/* ../horizon/openstack_dashboard/api/
-
     popd
 
     cd python-vitrageclient

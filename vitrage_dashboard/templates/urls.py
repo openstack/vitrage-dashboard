@@ -14,7 +14,7 @@
 
 from django.conf import urls
 
-from vitrageentities import views
+from vitrage_dashboard.templates import views
 
 urlpatterns = urls.patterns(
     '',

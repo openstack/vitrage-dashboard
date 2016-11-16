@@ -11,16 +11,16 @@
 # limitations under the License.
 
 # The name of the panel to be added to HORIZON_CONFIG. Required.
-PANEL = 'alarms_vitrage_panel'
+PANEL = 'templates_vitrage_panel'
 # The name of the dashboard the PANEL associated with. Required.
 PANEL_DASHBOARD = 'project'
 # The name of the panel group the PANEL is associated with.
 PANEL_GROUP = 'vitrage_panel_group'
 
 # Python panel class of the PANEL to be added.
-ADD_PANEL = 'vitragealarms.panel.AlarmsVitrage'
+ADD_PANEL = 'vitrage_dashboard.templates.panel.TemplatesVitrage'
 
-ADD_INSTALLED_APPS = ['vitragealarms']
+ADD_INSTALLED_APPS = ['vitrage_dashboard.templates']
 
 ADD_ANGULAR_MODULES = ['horizon.dashboard.project.vitrage']
 

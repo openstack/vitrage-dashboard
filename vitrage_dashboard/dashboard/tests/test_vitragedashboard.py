@@ -19,7 +19,7 @@ test_vitragedashboard
 Tests for `vitragedashboard` module.
 """
 
-from vitragedashboard.tests import base
+from vitrage_dashboard.dashboard.tests import base
 
 
 class TestVitragedashboard(base.TestCase):

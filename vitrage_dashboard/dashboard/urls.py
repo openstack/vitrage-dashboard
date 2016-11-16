@@ -14,7 +14,8 @@
 
 from django.conf import urls
 
-from vitragealarms import views
+import vitrage_dashboard.api.vitrage_rest_api  # noqa
+from vitrage_dashboard.dashboard import views
 
 urlpatterns = urls.patterns(
     '',

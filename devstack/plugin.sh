@@ -5,9 +5,7 @@ VITRAGE_DASHBOARD_DIR=$(cd $(dirname $BASH_SOURCE)/.. && pwd)
 
 function install_vitrage_dashboard {
     sudo pip install --upgrade ${VITRAGE_DASHBOARD_DIR}
-    cp -a ${VITRAGE_DASHBOARD_DIR}/vitragedashboard/static ${DEST}/horizon/
-    cp -a ${VITRAGE_DASHBOARD_DIR}/vitragedashboard/enabled/* ${DEST}/horizon/openstack_dashboard/enabled/
-    cp -a ${VITRAGE_DASHBOARD_DIR}/vitrageclient/api/* ${DEST}/horizon/openstack_dashboard/api/
+    cp -a ${VITRAGE_DASHBOARD_DIR}/enabled/* ${DEST}/horizon/openstack_dashboard/enabled/
     python ${DEST}/horizon/manage.py compress --force
 }
 
