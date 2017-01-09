@@ -3,6 +3,7 @@ $vitrage_red: #FA3C3C;
 $vitrage_orange: #fc9100;
 $vitrage_yellow: #FCD20E;
 $vitrage_green: #87CE53;
+$vitrage_olive: #97A560;
 $vitrage_gray: #AEAEAE;
 $dark_gray: darkgray;
 
@@ -89,6 +90,10 @@ $dark_gray: darkgray;
 
       &.green {
         stroke: $vitrage_green;
+      }
+
+      &.olive {
+        stroke: $vitrage_olive;
       }
 
       &.gray {
