@@ -1449,7 +1449,7 @@ module.exports = resolveConflicts;
  * constraint graph this function will resolve any conflicts between the
  * constraint graph and the barycenters for the entries. If the barycenters for
  * an entry would violate a constraint in the constraint graph then we coalesce
- * the nodes in the conflict into a new node that respects the contraint and
+ * the nodes in the conflict into a new node that respects the constraint and
  * aggregates barycenter and weight information.
  *
  * This implementation is based on the description in Forster, "A Fast and
