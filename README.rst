@@ -61,7 +61,7 @@ With Horizon
 
     pushd ../vitrage-dashboard
 
-    ../horizon/tools/with_venv.sh pip install --upgrade .
+    ../horizon/tools/with_venv.sh pip install -e.
 
     cp -a vitragedashboard/enabled/* ../horizon/openstack_dashboard/enabled/
 
@@ -69,6 +69,4 @@ With Horizon
 
     cd python-vitrageclient
 
-    sudo pip install -e.
-
-    ../horizon/tools/with_venv.sh pip install --upgrade .
+    ../horizon/tools/with_venv.sh pip install -e.

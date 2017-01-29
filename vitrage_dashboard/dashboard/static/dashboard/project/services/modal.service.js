@@ -5,13 +5,13 @@
         .module('horizon.dashboard.project.vitrage')
         .service('modalSrv', ModalSrv);
 
-    ModalSrv.$inject = ['$modal'];
+    ModalSrv.$inject = ['$uibModal'];
 
-    function ModalSrv($modal) {
+    function ModalSrv($uibModal) {
         var modalInstance = null;
 
         function show(modalOptions) {
-            modalInstance = $modal.open(modalOptions);
+            modalInstance = $uibModal.open(modalOptions);
         }
 
         function close() {
