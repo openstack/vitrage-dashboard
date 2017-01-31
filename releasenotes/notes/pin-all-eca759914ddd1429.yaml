@@ -1,0 +1,7 @@
+---
+features:
+  - Added ``Pin All`` functionality. In Newton, the user was able to pin an
+    entity in the Vitrage Entity Graph by double-clicking it.
+    In Ocata, by clicking the ``Pin All`` button the user can pin all entities,
+    so their locations will not change if the page is being reloaded or if new
+    entities are added to the graph.

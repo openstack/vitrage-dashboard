@@ -1,0 +1,6 @@
+---
+features:
+  - Added the ``Templates View`` under the Vitrage tab in Horizon. This view
+    shows a list of the currently loaded templates in Vitrage, with their
+    statuses. The user can view the contents of each template and understand
+    the effect it has on the alarms correlation.
