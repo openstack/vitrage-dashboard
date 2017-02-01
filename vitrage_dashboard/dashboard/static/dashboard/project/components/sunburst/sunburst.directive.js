@@ -217,7 +217,7 @@ function hzSunburst() {
       var name = d.name,
       dots = '...';
 
-      if (name.length > 4) {
+      if (name && name.length > 4) {
         name = d.name.substring(0, 4) + dots;
       }
       return name;
