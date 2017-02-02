@@ -1,0 +1,6 @@
+---
+features:
+  - Added ``highlight`` functionality. When a user selects a vertex in the
+    Vitrage Entity Graph, the vertex is highlighted together with its
+    neighbors. It helps the user focus on the relevant area in the graph and
+    understand the topology.
