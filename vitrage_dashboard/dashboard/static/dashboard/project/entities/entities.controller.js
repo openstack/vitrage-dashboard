@@ -496,21 +496,18 @@
             return icon
 
           });
-
-
-
-
-
-
-
-
-
-
-
-
-
       }
 
+      // we need to updated the selected info
+      if (_this.selectedItem && _this.selectedItem.vitrage_id && _this.selectedItem.vitrage_id !== '') {
+        for (var i=0; i < data.nodes.length; i++) {
+          var val = data.nodes[i];
+          if (val && val.vitrage_id && val.vitrage_id == _this.selectedItem.vitrage_id) {
+            _this.selectedItem = val;
+            break;
+          }
+        }
+      }
     }
 
 
