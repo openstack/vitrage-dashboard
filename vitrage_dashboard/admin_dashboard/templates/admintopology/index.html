@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% block title %}{% trans "Topology" %}{% endblock %}
+
+{% block page_header %}
+{% include "horizon/common/_page_header.html" with title=_("Topology") %}
+<!--<hz-page-header header="Topology Vitrage" description="Topology Vitrage Desc"></hz-page-header>-->
+{% endblock page_header %}
+
+{% block main %}
+
+<div ng-cloak ng-init='init({{ TOPOLOGY_VITRAGE_SETTINGS }})'>
+    <ng-include src="'{{STATIC_URL}}dashboard/project/layout/main/main.html'"></ng-include>
+</div>
+
+<script src="{{STATIC_URL}}vendor/d3/d3.js"></script>
+<script src="{{STATIC_URL}}vendor/lodash/dist/lodash.js"></script>
+<script src="{{STATIC_URL}}vendor/graphlib/dist/graphlib.core.js"></script>
+<script src="{{STATIC_URL}}vendor/dagre/dist/dagre.core.js"></script>
+<script src="{{STATIC_URL}}vendor/dagre-d3/dist/dagre-d3.core.js"></script>
+
+{% endblock %}
+

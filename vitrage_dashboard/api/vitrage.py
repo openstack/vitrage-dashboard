@@ -30,17 +30,20 @@ def vitrageclient(request, password=None):
     return vitrage_client.Client('1', session)
 
 
-def topology(request, query=None, graph_type='tree'):
+def topology(request, query=None, graph_type='tree', all_tenants='false'):
     return vitrageclient(request).topology.get(query=query,
-                                               graph_type=graph_type)
+                                               graph_type=graph_type,
+                                               all_tenants=all_tenants)
 
 
-def alarms(request, vitrage_id='all'):
-    return vitrageclient(request).alarm.list(vitrage_id=vitrage_id)
+def alarms(request, vitrage_id='all', all_tenants='false'):
+    return vitrageclient(request).alarm.list(vitrage_id=vitrage_id,
+                                             all_tenants=all_tenants)
 
 
-def rca(request, alarm_id):
-    return vitrageclient(request).rca.get(alarm_id=alarm_id)
+def rca(request, alarm_id, all_tenants='false'):
+    return vitrageclient(request).rca.get(alarm_id=alarm_id,
+                                          all_tenants=all_tenants)
 
 
 def templates(request, template_id='all'):

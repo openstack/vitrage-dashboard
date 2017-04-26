@@ -14,10 +14,10 @@
       vitrageAPI = $injector.get('horizon.app.core.openstack-service-api.vitrage');
 
     }
-    function getTopology(graph_type) {
+    function getTopology(graph_type,config,admin) {
 
       if (vitrageAPI) {
-        return vitrageAPI.getTopology(graph_type)
+        return vitrageAPI.getTopology(graph_type,config,admin)
           .success(function(data) {
             return data;
           })
@@ -28,10 +28,10 @@
       }
     }
 
-    function getAlarms(vitrage_id) {
+    function getAlarms(vitrage_id,admin) {
 
       if (vitrageAPI) {
-        return vitrageAPI.getAlarms(vitrage_id)
+        return vitrageAPI.getAlarms(vitrage_id,admin)
           .success(function(data) {
             return data;
           })
@@ -57,9 +57,9 @@
     }
 
 
-    function getRootCauseAnalysis(alarm_id) {
+    function getRootCauseAnalysis(alarm_id,adminState) {
       if (vitrageAPI) {
-        return vitrageAPI.getRca(alarm_id)
+        return vitrageAPI.getRca(alarm_id,adminState)
           .success(function(data) {
             return data;
           })

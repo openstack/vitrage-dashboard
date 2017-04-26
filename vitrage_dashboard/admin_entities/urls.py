@@ -1,3 +1,5 @@
+# Copyright 2015 IBM Corp.
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -10,18 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# The name of the panel to be added to HORIZON_CONFIG. Required.
-PANEL = 'alarms_vitrage_panel'
-# The name of the dashboard the PANEL associated with. Required.
-PANEL_DASHBOARD = 'project'
-# The name of the panel group the PANEL is associated with.
-PANEL_GROUP = 'vitrage_panel_group'
+from django.conf import urls
 
-# Python panel class of the PANEL to be added.
-ADD_PANEL = 'vitrage_dashboard.entities.panel.EntitiesVitrage'
+from vitrage_dashboard.admin_entities import views
 
-ADD_INSTALLED_APPS = ['vitrage_dashboard.entities']
-
-ADD_ANGULAR_MODULES = ['horizon.dashboard.project.vitrage']
-
-AUTO_DISCOVER_STATIC_FILES = True
+urlpatterns = urls.patterns(
+    '',
+    urls.url(r'^$', views.IndexView.as_view(), name='index'),
+)

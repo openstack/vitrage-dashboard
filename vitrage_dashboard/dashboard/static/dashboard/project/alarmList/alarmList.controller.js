@@ -5,9 +5,9 @@
     .module('horizon.dashboard.project.vitrage')
     .controller('AlarmListController', AlarmListController);
 
-  AlarmListController.$inject = ['$scope', 'modalSrv', 'vitrageTopologySrv','$interval'];
+  AlarmListController.$inject = ['$scope', 'modalSrv', 'vitrageTopologySrv','$interval','$location'];
 
-  function AlarmListController($scope, modalSrv, vitrageTopologySrv,$interval) {
+  function AlarmListController($scope, modalSrv, vitrageTopologySrv,$interval,$location) {
     var alarmList = this;
     alarmList.alarms = [];
     alarmList.ialarms = [];
@@ -45,10 +45,12 @@
     };
 
     function getData() {
-      vitrageTopologySrv.getAlarms('all').then(function(result){
-        alarmList.alarms = result.data;
-      });
+      var url = $location.absUrl();
+      vitrageTopologySrv.getAlarms('all',url.indexOf('admin') != -1).then(function(result){
+          alarmList.alarms = result.data;
+      })
     }
+
 
     alarmList.onRcaClick = function(alarm) {
       var modalOptions = {

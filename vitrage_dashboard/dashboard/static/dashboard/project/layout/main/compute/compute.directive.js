@@ -11,19 +11,20 @@ function hzCompute() {
     controllerAs: 'computeCtrl'
   };
 
-  hzComputeController.$inject = ['$scope','vitrageTopologySrv'];
+  hzComputeController.$inject = ['$scope','vitrageTopologySrv','$location'];
 
   return directive;
 
   function link(scope, element, attrs) {
   }
 
-  function hzComputeController($scope,vitrageTopologySrv){
+  function hzComputeController($scope,vitrageTopologySrv,$location){
       var computeCtrl = this;
       computeCtrl.model = {};
       computeCtrl.model.computeTopology = [];
       computeCtrl.model.selected = {};
-      vitrageTopologySrv.getTopology().then(function(result){
+      var url = $location.absUrl();
+      vitrageTopologySrv.getTopology(null,null,url.indexOf('admin') != -1).then(function(result){
          computeCtrl.model.computeTopology = result.data;
       });
 

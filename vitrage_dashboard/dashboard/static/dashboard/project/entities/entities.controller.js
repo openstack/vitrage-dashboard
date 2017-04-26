@@ -14,12 +14,12 @@
 
 
 
-  EntitiesController.$inject = ['$scope', 'vitrageTopologySrv', '$interval'];
+  EntitiesController.$inject = ['$scope', 'vitrageTopologySrv', '$interval','$location'];
 
 
 
 
-  function EntitiesController($scope, vitrageTopologySrv, $interval) {
+  function EntitiesController($scope, vitrageTopologySrv, $interval,$location) {
 
 
 
@@ -70,17 +70,17 @@
 
 
     function loadData() {
+      var url = $location.absUrl();
+      var admin = false;
 
-      vitrageTopologySrv.getTopology('graph')
+      if (url.indexOf('admin') != -1) admin = true;
+      vitrageTopologySrv.getTopology('graph',null,admin)
 
         .then(function(res) {
 
           var nodes = res.data.nodes,
 
             links = res.data.links;
-
-
-
 
           _.each(links, function(link) {
 
@@ -89,12 +89,6 @@
             link.target = nodes[link.target];
 
           });
-
-
-
-
-
-
 
           if (_this.graphData) {
 
@@ -107,8 +101,6 @@
             _this.graphData.ts = Date.now();
 
           }
-
-
 
 
           errorCount = 0;

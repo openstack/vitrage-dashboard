@@ -42,8 +42,11 @@ class Topolgy(generic.View):
 
         ''' original default is graph '''
         graph_type = 'tree'
+        all_tenants = 'false'
         if 'graph_type' in request.GET:
             graph_type = request.GET.get('graph_type')
+        if 'all_tenants' in request.GET:
+                        all_tenants = request.GET.get('all_tenants')
 
         query = None
         if 'query' in request.GET:
@@ -60,17 +63,19 @@ class Topolgy(generic.View):
 
         return vitrage.topology(request=request,
                                 query=query,
-                                graph_type=graph_type)
+                                graph_type=graph_type,
+                                all_tenants=all_tenants)
 
 
 @urls.register
 class Alarms(generic.View):
     """API for vitrage alarms."""
 
-    url_regex = r'vitrage/alarm/(?P<vitrage_id>.+|default)/$'
+    url_regex = r'vitrage/alarm/(?P<vitrage_id>.+|default)/' \
+                '(?P<all_tenants>.+|default)/$'
 
     @rest_utils.ajax()
-    def get(self, request, vitrage_id):
+    def get(self, request, vitrage_id, all_tenants):
         """Get a single entity's alarm with the vitrage id.
 
         The following get alarm may be passed in the GET
@@ -80,17 +85,18 @@ class Alarms(generic.View):
         The result is a alarms object.
         """
 
-        return vitrage.alarms(request, vitrage_id)
+        return vitrage.alarms(request, vitrage_id, all_tenants)
 
 
 @urls.register
 class Rca(generic.View):
     """API for vitrage rca."""
 
-    url_regex = r'vitrage/rca/(?P<alarm_id>.+|default)/$'
+    url_regex = r'vitrage/rca/(?P<alarm_id>.+|default)/' \
+                '(?P<all_tenants>.+|default)/$'
 
     @rest_utils.ajax()
-    def get(self, request, alarm_id):
+    def get(self, request, alarm_id, all_tenants):
         """Get rca graph for an alarm.
 
         :param alarm_id the id of the alarm
@@ -98,7 +104,7 @@ class Rca(generic.View):
         The result is an rca graph.
         """
 
-        return vitrage.rca(request, alarm_id)
+        return vitrage.rca(request, alarm_id, all_tenants)
 
 
 @urls.register

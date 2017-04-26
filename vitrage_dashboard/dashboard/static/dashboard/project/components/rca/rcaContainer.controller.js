@@ -5,9 +5,9 @@
     .module('horizon.dashboard.project.vitrage')
     .controller('RcaContainerController', RcaContainerController);
 
-  RcaContainerController.$inject = ['alarm', '$scope', 'modalSrv', 'vitrageTopologySrv'];
+  RcaContainerController.$inject = ['alarm', '$scope', 'modalSrv', 'vitrageTopologySrv','$location'];
 
-  function RcaContainerController(alarm, $scope, modalSrv, vitrageTopologySrv) {
+  function RcaContainerController(alarm, $scope, modalSrv, vitrageTopologySrv,$location) {
     var vm = this;
     $scope.STATIC_URL = STATIC_URL;
     vm.isLoading = true;
@@ -18,7 +18,8 @@
 
     var getData = function() {
       vm.isLoading = true;
-      vitrageTopologySrv.getRootCauseAnalysis(alarm.vitrage_id)
+      var url = $location.absUrl();
+      vitrageTopologySrv.getRootCauseAnalysis(alarm.vitrage_id,(url.indexOf('admin') != -1))
         .then(
           function success(result) {
             $scope.data = result.data;

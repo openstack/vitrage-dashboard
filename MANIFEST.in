@@ -19,3 +19,12 @@ recursive-include vitrageentities/templates *
 
 recursive-include vitragetemplates/static *
 recursive-include vitragetemplates/templates *
+
+recursive-include vitrageadminalarms/static *
+recursive-include vitrageadminalarms/templates *
+
+recursive-include vitrageadminentities/static *
+recursive-include vitrageadminentities/templates *
+
+recursive-include vitrageadmindashboard/static *
+recursive-include vitrageadmindashboard/templates *

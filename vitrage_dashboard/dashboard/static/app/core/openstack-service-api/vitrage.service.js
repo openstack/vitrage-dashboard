@@ -26,11 +26,14 @@
     // Topology
     '/static/dashboard/project/topology/graph.sample.json'
 
-    function getTopology(graph_type, config) {
+    function getTopology(graph_type, config,admin) {
       config = config || {};
 
       if (graph_type) {
         config.params = {graph_type: graph_type};
+      }
+      if (admin){
+        (!config.params) ? config.params = {all_tenants: true} : config.params.all_tenants = true;
       }
 
       return apiService.get('/api/vitrage/topology/', config)
@@ -39,18 +42,25 @@
           });
     }
 
-    function getAlarms(vitrage_id) {
+    function getAlarms(vitrage_id,adminState) {
       if (vitrage_id == undefined){
         vitrage_id = 'all';
       }
-      return apiService.get('/api/vitrage/alarm/'+vitrage_id)
-          .error(function () {
-            toastService.add('error', gettext('Unable to fetch the Vitrage Alarms service.'));
-          });
+      var url = '/api/vitrage/alarm/' + vitrage_id;
+      if (adminState) {
+        url += '/true';
+      }else {
+        url += '/false';
+      }
+      return apiService.get(url)
+        .error(function() {
+          toastService.add('error', gettext('Unable to fetch the Vitrage Alarms service.'));
+        });
+
     }
 
-    function getRca(alarm_id) {
-      return apiService.get('/api/vitrage/rca/'+alarm_id)
+    function getRca(alarm_id,adminState) {
+      return apiService.get('/api/vitrage/rca/'+alarm_id+"/"+adminState)
           .error(function () {
             toastService.add('error', gettext('Unable to fetch the Vitrage RCA service.'));
           });
