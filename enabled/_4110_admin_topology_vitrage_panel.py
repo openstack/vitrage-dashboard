@@ -22,7 +22,7 @@ ADD_PANEL = 'vitrage_dashboard.dashboard.panel.TopologyAdminVitrage'
 
 ADD_INSTALLED_APPS = ['vitrage_dashboard.admin_dashboard']
 
-ADD_ANGULAR_MODULES = ['horizon.dashboard.project.admin_vitrage']
+ADD_ANGULAR_MODULES = ['horizon.dashboard.project.vitrage']
 
 AUTO_DISCOVER_STATIC_FILES = True
 

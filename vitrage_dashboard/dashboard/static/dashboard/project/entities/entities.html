@@ -7,8 +7,11 @@
                 </div>
                 <div class="panel-body">
                     <hz-entities-info item="vm.selectedItem"></hz-entities-info>
-                    <hz-entities-toolbox></hz-entities-toolbox>
-                    <hz-entities-graph data="vm.graphData" selected="vm.model.selected" item-selected="vm.setSelected"></hz-entities-graph>
+                    <hz-entities-toolbox search-text="searchText" auto-refresh="automaticRefresh"></hz-entities-toolbox>
+                    <hz-entities-graph data="vm.graphData"
+                                       selected="vm.model.selected"
+                                       search-item="searchText"
+                                       item-selected="vm.setSelected"></hz-entities-graph>
                 </div>
             </div>
         </div>

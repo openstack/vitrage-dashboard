@@ -9,9 +9,28 @@
 
   .btn-group {
     margin-right: 6px;
+    margin-top: 10px;
 
     &:last-child {
       margin-right: 0;
     }
+  }
+
+  .search {
+    width: 150px;
+  }
+
+  .search-icon {
+    width: inherit;
+  }
+
+  .refreshBtn{
+    text-align: right;
+  }
+
+  .auto-refresh {
+    float: right;
+    padding-left: 5px;
+    padding-top: 2px;
   }
 }

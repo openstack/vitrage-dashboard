@@ -1,12 +1,22 @@
 <div class="entities-toolbox">
+
+    <div class="input-group input-group-xs">
+        <span class="input-group-addon search-icon">
+            <span class="fa fa-search"></span>
+        </span>
+        <input type="text" ng-model="searchText" class="form-control search" placeholder="Search">
+    </div>
+
     <div class="btn-group btn-group-xs" role="group">
         <a href="#" class="btn btn-default" ng-click="broadcast('pin')"><span class="fa fa-thumb-tack"></span> Pin</a>
         <a href="#" class="btn btn-default" ng-click="broadcast('unpin')">Unpin</a>
+
+        <div class="themable-checkbox refreshBtn auto-refresh">
+            <input type="checkbox" ng-model="autoRefresh" id="themable-checkbox">
+            <label for="themable-checkbox" translate>Auto Refresh</label>
+        </div>
     </div>
-    <!--<div class="btn-group btn-group-xs" role="group">
-        <a href="#" class="btn btn-default" ng-click="broadcast('zoom-to-fit')"><span class="fa fa-expand"></span> Zoom to fit</a>
-    </div>
-    <div class="btn-group btn-group-xs" role="group">
-        <a href="#" class="btn btn-default" ng-click="broadcast('toggle-fullscreen')"><span class="fa fa-square-o"></span> Toggle fullscreen</a>
-    </div>-->
+
+
+
 </div>

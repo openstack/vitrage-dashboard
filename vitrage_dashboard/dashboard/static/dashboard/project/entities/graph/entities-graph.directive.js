@@ -9,7 +9,8 @@ function hzEntitiesGraph() {
             data: '=',
             selected: '=',
             itemSelected: '&',
-            search: '='
+            search: '=',
+            searchItem: '='
         },
         templateUrl: STATIC_URL + 'dashboard/project/entities/graph/entities-graph.html',
         restrict: 'E'
@@ -51,6 +52,46 @@ function hzEntitiesGraph() {
              }
         })();
 
+        scope.$watch('searchItem', function(newData, oldData) {
+         if (newData != oldData) {
+             console.log('searching for node: ', newData);
+             searchNode(newData);
+         }
+        });
+
+        function searchNode(value) {
+            value = value.toLowerCase();
+            var allNodes = d3.select("svg g").selectAll("g")
+              .filter(function(d, i){ return this.classList.contains("node"); })
+              .selectAll("circle");
+
+            //console.log('all nodes: ', allNodes.length);
+
+            allNodes
+              .transition()
+              .duration(200)
+              .style("stroke", "darkgray")
+              .style("stroke-width", "1")
+              .style("fill", "#FFFFFF")
+              .attr('r', function(item) { return 14; });
+
+            // Set special style to the found node
+            if (value && value !== '') {
+                var theNodes = d3.select("svg g").selectAll("g")
+                  .filter(function(d, i){ return this.classList.contains("node"); })
+                  .filter(function(d, i){ return d.name ? d.name.toLowerCase().indexOf(value) > -1 : ''; })
+                  .selectAll("circle");
+
+                theNodes
+                  .transition()
+                  .duration(400)
+                  .style("stroke", "#006600")
+                  .style("stroke-width", "3")
+                  .style("fill", "#51EFD2")
+                  .attr('r', function(item) { return 40; });
+            }
+
+        }
 
         scope.$watch('data.ts', function(newVal, oldVal) {
             if (newVal) {
@@ -282,6 +323,9 @@ function hzEntitiesGraph() {
             content = node
                 .enter().append('g')
                 .attr('class', 'node')
+                .attr('name', function(d) {
+                    return d.name;
+                })
                 .classed('pinned', function(d) { return d.fixed; })
                 .call(force.drag)
                 .on('click', nodeClick)
