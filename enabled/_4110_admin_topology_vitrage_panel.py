@@ -18,7 +18,7 @@ PANEL_DASHBOARD = 'admin'
 PANEL_GROUP = 'admin_vitrage_panel_group'
 
 # Python panel class of the PANEL to be added.
-ADD_PANEL = 'vitrage_dashboard.dashboard.panel.TopologyAdminVitrage'
+ADD_PANEL = 'vitrage_dashboard.admin_dashboard.panel.TopologyAdminVitrage'
 
 ADD_INSTALLED_APPS = ['vitrage_dashboard.admin_dashboard']
 
