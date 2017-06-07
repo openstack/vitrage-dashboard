@@ -1,0 +1,5 @@
+---
+features:
+  - A new ``Vitrage Admin Menu`` was added, to handle authorize managment of
+    tanents from the administrator prespective. When a regular user will login,
+    he will see just his own tanent.
