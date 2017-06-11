@@ -365,7 +365,7 @@ function hzEntitiesGraph() {
                         cls = '';
 
                     if (category && category.toLowerCase() === 'alarm') {
-                        var severity = d.operational_severity;
+                        var severity = d.vitrage_operational_severity;
                         if (severity) {
                             switch (severity.toLowerCase()) {
                                 case 'critical':
@@ -389,7 +389,7 @@ function hzEntitiesGraph() {
                             }
                         }
                     } else {
-                        var state = d.operational_state;
+                        var state = d.vitrage_operational_state;
                         if (state) {
                             switch (state.toLowerCase()) {
                                 case 'error':
@@ -413,7 +413,7 @@ function hzEntitiesGraph() {
                     if (category && category.toLowerCase() === 'alarm') {
                         icon_size = '18px';
                     } else {
-                        var type = d.type || 'no_type';
+                        var type = d.vitrage_type || 'no_type';
                         switch(type.toLowerCase()) {
                             case 'nova.instance':
                             case 'nova.host':
@@ -445,7 +445,7 @@ function hzEntitiesGraph() {
                 })
                 .classed('icon', true)
                 .classed('fill-only', function(d) {
-                    var type = (d.type || '').toLowerCase();
+                    var type = (d.vitrage_type || '').toLowerCase();
                     if (type && type === 'nova.host' || type === 'cinder.volume') {
                         return true;
                     }
@@ -457,7 +457,7 @@ function hzEntitiesGraph() {
                     if (category && category.toLowerCase() === 'alarm') {
                         icon = '\uf0f3'; //\uf0a2'; //bell-o
                     } else {
-                        var type = d.type || 'no_type';
+                        var type = d.vitrage_type || 'no_type';
                         switch(type.toLowerCase()) {
                             case 'nova.instance':
                                 icon = '\uf108'; //fa-desktop
@@ -700,7 +700,7 @@ function hzEntitiesGraph() {
                             if (node.category.toLowerCase() === 'alarm') {
                                 node.high = true;
                                 node.highDepth = 0;
-                            } else if (!node.high && node.type && node.type.toLowerCase() === 'sdn_controller') {
+                            } else if (!node.high && node.vitrage_type && node.vitrage_type.toLowerCase() === 'sdn_controller') {
                                 findNodes(node, depth, allNodes, linksMap);
                             }
                         }

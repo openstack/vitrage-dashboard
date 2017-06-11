@@ -88,7 +88,7 @@ function hzSunburst() {
     }
 
     function cloneSelectedItem(d) {
-      scope.selected = {id: d.id, name: d.name, state: d.aggregated_state,vitrage_id: d.vitrage_id, type: d.type};
+      scope.selected = {id: d.id, name: d.name, state: d.vitrage_aggregated_state,vitrage_id: d.vitrage_id, type: d.vitrage_type};
     }
 
     // Interpolate the scales!
@@ -111,8 +111,8 @@ function hzSunburst() {
     }
 
     function getColor(d) {
-      if (d.operational_state) {
-        switch (d.operational_state.toUpperCase()) {
+      if (d.vitrage_operational_state) {
+        switch (d.vitrage_operational_state.toUpperCase()) {
           case 'ERROR':
           case 'DELETED':
             return '#BE0006';

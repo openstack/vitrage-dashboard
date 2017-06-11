@@ -12,9 +12,9 @@
                 <th st-sort="update_timestamp">{$ 'TimeStamp' | translate $}</th>
                 <th st-sort="name">{$ 'Name' | translate $}</th>
                 <th st-sort="resource_type">{$ 'Resource Type' | translate $}</th>
-                <th st-sort="resource_id">{$ 'Resource ID' | translate $}</th>
+                <th st-sort="vitrage_resource_id">{$ 'Resource ID' | translate $}</th>
                 <th st-sort="severity">{$ 'Severity' | translate $}</th>
-                <th st-sort="type">{$ 'Type' | translate $}</th>
+                <th st-sort="vitrage_type">{$ 'Type' | translate $}</th>
                 <th>{$ 'RCA' | translate $}</th>
             </tr>
             <tr>
@@ -27,13 +27,13 @@
             </thead>
             <tbody>
             <tr ng-repeat="alarm in alarmList.ialarms track by $index">
-                <td title="{$ alarm.aggregated_severity $}"><i class="fa first-column" ng-class="{'orange fa-exclamation-triangle': alarm.operational_severity == 'SEVERE', 'yellow fa-exclamation-triangle': alarm.operational_severity == 'WARNING', 'red fa-exclamation-circle': alarm.operational_severity == 'CRITICAL', 'green fa-check': alarm.operational_severity == 'OK', 'gray fa-circle-o-notch': alarm.operational_severity == 'N/A'}"></i></td>
+                <td title="{$ alarm.vitrage_aggregated_severity $}"><i class="fa first-column" ng-class="{'orange fa-exclamation-triangle': alarm.vitrage_operational_severity == 'SEVERE', 'yellow fa-exclamation-triangle': alarm.vitrage_operational_severity == 'WARNING', 'red fa-exclamation-circle': alarm.vitrage_operational_severity == 'CRITICAL', 'green fa-check': alarm.vitrage_operational_severity == 'OK', 'gray fa-circle-o-notch': alarm.vitrage_operational_severity == 'N/A'}"></i></td>
                 <td><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | date:"yyyy-MM-dd hh:mm:ss"$} </td>
                 <td>{$alarm.name$}</td>
                 <td>{$alarm.resource_type$}</td>
-                <td>{$alarm.resource_id$}</td>
-                <td>{$alarm.aggregated_severity | lowercase$}</td>
-                <td>{$alarm.type$}</td>
+                <td>{$alarm.vitrage_resource_id$}</td>
+                <td>{$alarm.vitrage_aggregated_severity | lowercase$}</td>
+                <td>{$alarm.vitrage_type$}</td>
                 <td ng-click="alarmList.onRcaClick(alarm)"><i class="fa fa-sitemap"></i></td>
             </tr>
             </tbody>

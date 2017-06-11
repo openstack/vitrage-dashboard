@@ -14,7 +14,7 @@ function hzEntitiesInfo() {
     return directive;
 
     function link(scope, element, attrs) {
-        scope.blackList = ['name', 'is_deleted', 'is_placeholder', 'index', 'graph_index',
+        scope.blackList = ['name', 'vitrage_is_deleted', 'vitrage_is_placeholder', 'index', 'graph_index',
             'fixed', 'weight', 'px', 'py', 'x', 'y', 'width', 'height', 'bbox', 'high', 'highDepth'];
     }
 }

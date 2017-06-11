@@ -106,16 +106,16 @@ function hzRootCauseAnalysisGraph($filter) {
           var className = " clickable";
 
           var alertName = key.name,               // CPU load
-            alertCategory = key.category,           // ALARM
+            alertCategory = key.vitrage_category,           // ALARM
             alertInfo = key.info || '',             // WARNING - 15min load 1.66 at 32 CPUs
-            alertResourceId = key.resource_id,      // host-0
+            alertResourceId = key.vitrage_resource_id,      // host-0
             alertResourceName = key.resource_name,  // host-0
             alertResourceType = key.resource_type,  // nova.host
             alertSeverity = key.severity,           //WARNING
-            alertOperationalSeverity = key.operational_severity ? key.operational_severity.toUpperCase() : key.operational_severity,           //WARNING
+            alertOperationalSeverity = key.vitrage_operational_severity ? key.vitrage_operational_severity.toUpperCase() : key.vitrage_operational_severity,           //WARNING
             alertState = key.state ? key.state.toUpperCase() : key.state,                 //Active
             alertTimeStamp = $filter('date')(key.update_timestamp, 'MM/dd/yyyy h:mma'),         //2015-12-01T12:46:41Z
-            alertType = key.type,                   //nagios
+            alertType = key.vitrage_type,                   //nagios
             alertVitrageId = key.vitrage_id;
 
           var html = '';
