@@ -17,6 +17,5 @@ from django.conf.urls import url
 from vitrage_dashboard.admin_entities import views
 
 urlpatterns = [
-    '',
     url(r'^$', views.IndexView.as_view(), name='index'),
 ]

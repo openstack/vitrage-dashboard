@@ -18,6 +18,5 @@ import vitrage_dashboard.api.vitrage_rest_api  # noqa
 from vitrage_dashboard.dashboard import views
 
 urlpatterns = [
-    '',
     url(r'^$', views.IndexView.as_view(), name='index'),
 ]
