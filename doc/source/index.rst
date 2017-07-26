@@ -6,20 +6,27 @@
 Welcome to vitrage-dashboard's documentation!
 =============================================
 
-Contents:
+Developer Guide
+---------------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   readme
-   installation
-   usage
-   contributing
+   contributor/readme
+   contributor/installation
+   contributor/usage
+   contributor/contributing
+
+.. # NOTE(ifat-afek): Hide files we don't want to see in the table of contents.
+   # sphinx build fails if a file is not included in the toctree.
+.. toctree::
+   :hidden:
+
+   contributor/index
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
