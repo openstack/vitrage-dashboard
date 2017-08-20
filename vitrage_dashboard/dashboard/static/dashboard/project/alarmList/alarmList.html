@@ -30,7 +30,7 @@
                 <td title="{$ alarm.vitrage_aggregated_severity $}"><i class="fa first-column" ng-class="{'orange fa-exclamation-triangle': alarm.vitrage_operational_severity == 'SEVERE', 'yellow fa-exclamation-triangle': alarm.vitrage_operational_severity == 'WARNING', 'red fa-exclamation-circle': alarm.vitrage_operational_severity == 'CRITICAL', 'green fa-check': alarm.vitrage_operational_severity == 'OK', 'gray fa-circle-o-notch': alarm.vitrage_operational_severity == 'N/A'}"></i></td>
                 <td><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | date:"yyyy-MM-dd hh:mm:ss"$} </td>
                 <td>{$alarm.name$}</td>
-                <td>{$alarm.resource_type$}</td>
+                <td>{$alarm.vitrage_resource_type$}</td>
                 <td>{$alarm.vitrage_resource_id$}</td>
                 <td>{$alarm.vitrage_aggregated_severity | lowercase$}</td>
                 <td>{$alarm.vitrage_type$}</td>
