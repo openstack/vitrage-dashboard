@@ -23,7 +23,7 @@ function hzEntitiesGraph() {
         var minZoom = 0.3,
             maxZoom = 4,
             linkWidth = 1,
-            circleRadius = 14,
+            circleRadius = 18,
             circlePadding = 1,
             zoom = d3.behavior.zoom().scaleExtent([minZoom, maxZoom]),
             ellipsisWidth = 80,
@@ -361,7 +361,7 @@ function hzEntitiesGraph() {
                 .attr('dominant-baseline', 'central')
                 .attr('transform', 'scale(1)')
                 .attr('class', function(d) {
-                    var category = d.category,
+                    var category = d.vitrage_category,
                         cls = '';
 
                     if (category && category.toLowerCase() === 'alarm') {
@@ -407,7 +407,7 @@ function hzEntitiesGraph() {
                     return cls;
                 })
                 .style('font-size', function(d) {
-                    var category = d.category || 'no_category',
+                    var category = d.vitrage_category || 'no_category',
                         icon_size;
 
                     if (category && category.toLowerCase() === 'alarm') {
@@ -437,11 +437,11 @@ function hzEntitiesGraph() {
                     return icon_size;
                 })
                 .style('stroke', function(d) {
-                    var category = d.category;
+                    var category = d.vitrage_category;
                     if (category && category.toLowerCase() === 'alarm') {
-                        return '18px'
+                        return '18px';
                     }
-                    return '20px'
+                    return '20px';
                 })
                 .classed('icon', true)
                 .classed('fill-only', function(d) {
@@ -451,7 +451,7 @@ function hzEntitiesGraph() {
                     }
                 })
                 .text(function(d) {
-                    var category = d.category,
+                    var category = d.vitrage_category,
                         icon;
 
                     if (category && category.toLowerCase() === 'alarm') {
@@ -480,12 +480,15 @@ function hzEntitiesGraph() {
                             case 'openstack.cluster':
                                 icon = '\uf0c2'; //fa-cloud
                                 break;
+                            case 'heat.stack':
+                                icon = '\uf1b3'; //fa-cubes
+                                break;
                             default:
                                 icon = '\uf013'; //fa-cog
                                 break;
                         }
                     }
-                    return icon
+                    return icon;
                 });
 
             content.append('text')
@@ -493,7 +496,7 @@ function hzEntitiesGraph() {
                 .attr('dx', '-18px')
                 .attr('dy', '-12px')
                 .text('\uf08d')
-                .on('click', pinNode)
+                .on('click', pinNode);
 
             var textNode = content.append('text')
                 .classed('.label', true)
@@ -510,7 +513,7 @@ function hzEntitiesGraph() {
                         }
                         d.width = 2 * (circleRadius + circlePadding) + (d.bbox ? d.bbox.width * 2 : 0);
                         d.height = 2 * (circleRadius + circlePadding);
-                    })
+                    });
                 })
                 .append('title')
                 .text(function(d) { return d.name; });
@@ -576,7 +579,7 @@ function hzEntitiesGraph() {
 
             svg_g.selectAll('.link').classed('selected', function(d) {
                 return d.source.high && d.target.high;
-            })
+            });
         }
 
         function selectNone(d) {
@@ -697,7 +700,7 @@ function hzEntitiesGraph() {
                             findNodes(node, depth, allNodes, linksMap);
                         } else if (depth <= -1) {
                             //Always find 'depth' + alarms & (sdns + alarms)
-                            if (node.category.toLowerCase() === 'alarm') {
+                            if (node && node.vitrage_category && node.vitrage_category.toLowerCase() === 'alarm') {
                                 node.high = true;
                                 node.highDepth = 0;
                             } else if (!node.high && node.vitrage_type && node.vitrage_type.toLowerCase() === 'sdn_controller') {

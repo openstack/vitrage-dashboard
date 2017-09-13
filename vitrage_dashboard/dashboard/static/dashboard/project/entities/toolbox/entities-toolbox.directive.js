@@ -12,12 +12,17 @@ function hzEntitiesToolbox($rootScope) {
         scope: {
             item: '=',
             searchText: '=',
-            autoRefresh: '='
+            autoRefresh: '=',
+            heats: '=',
+            selectedHeat: '=',
+            depthRange: '='
         }
     };
     return directive;
 
     function link(scope, element, attrs) {
+        scope.selectedHeat = 'all';
+        scope.depthRange = 2;
 
         scope.autoRefresh = !!horizon.cookies.get('entitiesAutomaticRefresh');
         console.log('Getting autoRefresh cookie: ', scope.autoRefresh);
@@ -25,6 +30,6 @@ function hzEntitiesToolbox($rootScope) {
         scope.broadcast = function(event) {
             console.log('click', event);
             $rootScope.$broadcast('toolbox-' + event);
-        }
+        };
     }
 }

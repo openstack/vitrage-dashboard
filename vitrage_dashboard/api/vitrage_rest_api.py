@@ -12,15 +12,13 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-
 from django.views import generic
-
-
-from openstack_dashboard.api.rest import utils as rest_utils
-
+import logging
 from openstack_dashboard.api.rest import urls
-
+from openstack_dashboard.api.rest import utils as rest_utils
 from vitrage_dashboard.api import vitrage
+
+LOG = logging.getLogger(__name__)
 
 
 @urls.register
@@ -41,16 +39,27 @@ class Topolgy(generic.View):
         """
 
         ''' original default is graph '''
+
+        LOG.info("--------- reques --------------- %s", str(request))
+
         graph_type = 'tree'
         all_tenants = 'false'
+        root = None
+        limit = None
+
         if 'graph_type' in request.GET:
             graph_type = request.GET.get('graph_type')
         if 'all_tenants' in request.GET:
                         all_tenants = request.GET.get('all_tenants')
+        if 'root' in request.GET:
+                        root = request.GET.get('root')
+        if 'depth' in request.GET:
+                        limit = int(request.GET.get('depth'))
 
         query = None
         if 'query' in request.GET:
             query = request.GET.get('query')
+            LOG.info("--A request QUERY -- %s", str(query))
         elif graph_type == 'tree':
             ''' Default tree query - get computes, used by Sunburst'''
             query = '{"and": [{"==": {"vitrage_category": "RESOURCE"}},' \
@@ -64,7 +73,9 @@ class Topolgy(generic.View):
         return vitrage.topology(request=request,
                                 query=query,
                                 graph_type=graph_type,
-                                all_tenants=all_tenants)
+                                all_tenants=all_tenants,
+                                root=root,
+                                limit=limit)
 
 
 @urls.register

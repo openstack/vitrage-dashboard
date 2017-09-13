@@ -30,12 +30,13 @@
       config = config || {};
 
       if (graph_type) {
-        config.params = {graph_type: graph_type};
+        config.params = config.params || {};
+        config.params.graph_type = graph_type;
       }
       if (admin){
         (!config.params) ? config.params = {all_tenants: true} : config.params.all_tenants = true;
       }
-
+      console.info('CONFIG in core - ', config)
       return apiService.get('/api/vitrage/topology/', config)
           .error(function () {
             toastService.add('error', gettext('Unable to fetch the Vitrage Topology service.'));

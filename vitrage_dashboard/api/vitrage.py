@@ -12,12 +12,25 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+"""
+https://docs.openstack.org/horizon/latest/contributor/tutorials/plugin.html
+"""
+
+""" This file will likely be necessary if creating a Django or Angular driven
+    plugin. This file is intended to act as a convenient location for
+    interacting with the new service this plugin is supporting.
+    While interactions with the service can be handled in the views.py,
+    isolating the logic is an established pattern in Horizon.
+"""
 
 from horizon.utils.memoized import memoized  # noqa
 from keystoneauth1.identity.generic.token import Token
 from keystoneauth1.session import Session
 from openstack_dashboard.api import base
 from vitrageclient import client as vitrage_client
+
+import logging
+LOG = logging.getLogger(__name__)
 
 
 @memoized
@@ -30,10 +43,19 @@ def vitrageclient(request, password=None):
     return vitrage_client.Client('1', session)
 
 
-def topology(request, query=None, graph_type='tree', all_tenants='false'):
+def topology(request, query=None, graph_type='tree', all_tenants='false',
+             root=None, limit=None):
+    LOG.info("--------- CALLING VITRAGE_CLIENT ---request %s", str(request))
+    LOG.info("--------- CALLING VITRAGE_CLIENT ---query %s", str(query))
+    LOG.info("------ CALLING VITRAGE_CLIENT --graph_type %s", str(graph_type))
+    LOG.info("---- CALLING VITRAGE_CLIENT --all_tenants %s", str(all_tenants))
+    LOG.info("--------- CALLING VITRAGE_CLIENT --------root %s", str(root))
+    LOG.info("--------- CALLING VITRAGE_CLIENT --------limit %s", str(limit))
     return vitrageclient(request).topology.get(query=query,
                                                graph_type=graph_type,
-                                               all_tenants=all_tenants)
+                                               all_tenants=all_tenants,
+                                               root=root,
+                                               limit=limit)
 
 
 def alarms(request, vitrage_id='all', all_tenants='false'):

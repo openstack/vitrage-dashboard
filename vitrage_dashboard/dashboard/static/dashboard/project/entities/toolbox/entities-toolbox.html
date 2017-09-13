@@ -1,5 +1,17 @@
 <div class="entities-toolbox">
 
+    <div class="input-group input-group-xs heats-filter">
+        <select class="form-control" ng-model="selectedHeat">
+            <option value="all">All Heat Stacks</option>
+            <option ng-repeat="heat in heats track by $index" ng-value="heat.vitrageId">{{heat.name}}</option>
+        </select>
+    </div>
+
+    <div class="input-group input-group-xs heats-filter" ng-show="selectedHeat !== 'all'">
+        <label translate>Detail Level</label>
+        <input type="range" min="1" max="4" ng-value="4" ng-model="depthRange" class="slider">
+    </div>
+
     <div class="input-group input-group-xs">
         <span class="input-group-addon search-icon">
             <span class="fa fa-search"></span>

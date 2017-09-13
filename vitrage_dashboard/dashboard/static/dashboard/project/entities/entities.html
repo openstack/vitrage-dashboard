@@ -7,7 +7,11 @@
                 </div>
                 <div class="panel-body">
                     <hz-entities-info item="vm.selectedItem"></hz-entities-info>
-                    <hz-entities-toolbox search-text="searchText" auto-refresh="automaticRefresh"></hz-entities-toolbox>
+                    <hz-entities-toolbox search-text="searchText"
+                                         auto-refresh="automaticRefresh"
+                                         heats="heats"
+                                         selected-heat="selectedHeat"
+                                         depth-range="depthRange"></hz-entities-toolbox>
                     <hz-entities-graph data="vm.graphData"
                                        selected="vm.model.selected"
                                        search-item="searchText"

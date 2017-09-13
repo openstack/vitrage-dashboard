@@ -1,10 +1,10 @@
 <div class="entities-info" ng-show="item">
-    <div class="info clearfix" ng-if="item.name">
-        <span class="key pull-left ellipsis" title="{$ 'name' | translate $}">{$ 'name' | translate $}: </span>
-        <span class="value name pull-left ellipsis" title="{$ item.name $}"> {$ item.name $}</span>
+    <div class="info clearfix" ng-if="parseItem.name">
+        <span class="key pull-left ellipsis font-title" title="{$ 'name' | translate $}">{$ 'name' | translate $}: </span>
+        <span class="value name pull-left ellipsis" title="{$ parseItem.name $}"> {$ parseItem.name $}</span>
     </div>
-    <div class="info clearfix" ng-if="blackList.indexOf(key) < 0" ng-repeat="(key, value) in item">
-        <span class="key pull-left ellipsis" title="{$ key | translate $}">{$ key | translate $}: </span>
-        <span class="value pull-left ellipsis" title="{$ value $}"> {$ value $}</span>
+    <div class="info clearfix" ng-repeat="(key, value) in parseItem">
+        <span class="key pull-left ellipsis keys-font font-title" title="{$ key | translate $}">{$ key | translate $}: </span>
+        <span class="value pull-left ellipsis font-title" title="{$ value $}"> {$ value $}</span>
     </div>
 </div>
