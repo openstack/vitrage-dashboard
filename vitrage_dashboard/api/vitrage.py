@@ -36,9 +36,12 @@ LOG = logging.getLogger(__name__)
 @memoized
 def vitrageclient(request, password=None):
     endpoint = base.url_for(request, 'identity')
-    tokenId = request.user.token.id
-    tenentName = request.user.tenant_name
-    auth = Token(auth_url=endpoint, token=tokenId, project_name=tenentName)
+    token_id = request.user.token.id
+    tenant_name = request.user.tenant_name
+    project_domain_id = request.user.token.project.get('domain_id', 'Default')
+    auth = Token(auth_url=endpoint, token=token_id,
+                 project_name=tenant_name,
+                 project_domain_id=project_domain_id)
     session = Session(auth=auth, timeout=600)
     return vitrage_client.Client('1', session)
 
