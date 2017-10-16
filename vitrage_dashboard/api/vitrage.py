@@ -66,6 +66,12 @@ def alarms(request, vitrage_id='all', all_tenants='false'):
                                              all_tenants=all_tenants)
 
 
+def alarm_counts(request, all_tenants='false'):
+    counts = vitrageclient(request).alarm.count(all_tenants=all_tenants)
+    counts['NA'] = counts.get("N/A")
+    return counts
+
+
 def rca(request, alarm_id, all_tenants='false'):
     return vitrageclient(request).rca.get(alarm_id=alarm_id,
                                           all_tenants=all_tenants)

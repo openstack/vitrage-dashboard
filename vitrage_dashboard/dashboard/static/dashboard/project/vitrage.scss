@@ -12,26 +12,49 @@
 @import 'templateList/templateList.scss';
 @import 'components/template/templateContainer.scss';
 
+.badge {
+  padding: 3px 15px;
+  margin-right: 18px;
+}
+
+.badge-red{
+  background-color: #FA3C3C;
+}
 .red {
   color: #FA3C3C;
 }
 
+.badge-orange {
+  background-color: #fc9d00;
+}
 .orange {
   color: #fc9d00;
 }
 
+.badge-yellow {
+  background-color: #FFC600;
+}
 .yellow {
   color: #FFC600;
 }
 
+.badge-green {
+  background-color: #87CE53;
+}
 .green {
   color: #87CE53;
 }
 
+.badge-olive {
+  background-color: #97A560;
+}
 .olive {
   color: #97A560;
 }
 
+.badge-gray {
+  background-color: #AEAEAE;
+}
 .gray {
   color: #AEAEAE;
 }

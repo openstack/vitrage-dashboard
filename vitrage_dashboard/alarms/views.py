@@ -14,6 +14,8 @@
 
 from horizon import views
 
+from vitrage_dashboard.api import vitrage
+
 import json
 
 
@@ -29,4 +31,16 @@ class IndexView(views.APIView):
             }
         }
         context['TOPOLOGY_VITRAGE_SETTINGS'] = json.dumps(topology_settings)
+        return context
+
+
+class AlarmBannerView(views.HorizonTemplateView):
+    template_name = 'alarms/banner.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AlarmBannerView, self).get_context_data(**kwargs)
+
+        is_admin = 'admin' in self.request.META.get('HTTP_REFERER')
+        counts = vitrage.alarm_counts(self.request, is_admin)
+        context['counts'] = counts
         return context

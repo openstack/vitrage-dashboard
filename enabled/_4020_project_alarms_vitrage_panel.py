@@ -25,3 +25,6 @@ ADD_INSTALLED_APPS = ['vitrage_dashboard.alarms']
 ADD_ANGULAR_MODULES = ['horizon.dashboard.project.vitrage']
 
 AUTO_DISCOVER_STATIC_FILES = True
+
+ADD_HEADER_SECTIONS = \
+    ['vitrage_dashboard.alarms.views.AlarmBannerView', ]

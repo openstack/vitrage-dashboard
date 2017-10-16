@@ -1,0 +1,22 @@
+{% load i18n %}
+{% block alarm_banner %}
+  <div class="vitrage-alarm-banner" style="cursor:pointer" onclick="
+   var path=document.location.pathname;
+   var dash=~path.indexOf('admin') ? 'admin/vitrageadminalarms/':'project/vitragealarms/';
+   document.location.href = document.location.href.replace(path,$(window).attr('WEBROOT')+dash);">
+    {% trans " CRITICAL " %}
+    <span class="badge {% if counts.CRITICAL != 0 %}badge-red{% endif %}">{{ counts.CRITICAL}}</span>
+    {% trans "SEVERE " %}
+    <span class="badge {% if counts.SEVERE != 0 %}badge-orange{% endif %}">{{ counts.SEVERE }}</span>
+    {% trans " WARNING " %}
+    <span class="badge {% if counts.WARNING != 0 %}badge-yellow{% endif %}">{{ counts.WARNING }}</span>
+    {% if counts.OK %}
+    {% trans " OK " %}
+    <span class="badge {% if counts.OK != 0 %}badge-green{% endif %}">{{ counts.OK }}</span>
+    {% endif %}
+    {% if counts.NA %}
+    {% trans " N/A " %}
+    <span class="badge {% if counts.NA != 0 %}badge-gray{% endif %}">{{ counts.NA }}</span>
+    {% endif %}
+  </div>
+{% endblock %}
