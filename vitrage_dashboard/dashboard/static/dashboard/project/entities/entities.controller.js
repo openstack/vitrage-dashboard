@@ -176,7 +176,7 @@
                     .attr('dominant-baseline', 'central')
                     .attr('transform', 'scale(1)')
                     .attr('class', function (d) {
-                        var category = d.category,
+                        var category = d.vitrage_category,
                             cls = '';
                         if (category && category.toLowerCase() === 'alarm') {
                             var severity = d.vitrage_operational_severity;
@@ -227,7 +227,7 @@
                         return cls;
                     })
                     .style('font-size', function (d) {
-                        var category = d.category || 'no_category',
+                        var category = d.vitrage_category || 'no_category',
                             icon_size;
 
                         if (category && category.toLowerCase() === 'alarm') {
@@ -256,7 +256,7 @@
                         return icon_size;
                     })
                     .style('stroke', function (d) {
-                        var category = d.category;
+                        var category = d.vitrage_category;
                         if (category && category.toLowerCase() === 'alarm') {
                             return '18px';
                         }
@@ -270,7 +270,7 @@
                         }
                     })
                     .text(function (d) {
-                        var category = d.category,
+                        var category = d.vitrage_category,
                             icon;
                         if (category && category.toLowerCase() === 'alarm') {
                             icon = '\uf0f3'; //\uf0a2'; //bell-o
