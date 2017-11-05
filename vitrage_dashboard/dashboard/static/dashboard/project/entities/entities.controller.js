@@ -304,7 +304,7 @@
                                     break;
                                 default:
                                     console.warn('Vitrage type not supported: ' + d.vitrage_type);
-                                    icon = '\uf1b3'; //fa-cog
+                                    icon = '\uf013'; //fa-cog
                                     break;
                             }
                         }
