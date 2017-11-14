@@ -81,7 +81,7 @@
                     });
             }
 
-            var config = {params: {query: '{"==": {"vitrage_is_deleted" : false} }'}};
+            var config = {params: {query: '{"and": [{"==": {"vitrage_is_placeholder": false}}, {"==": {"vitrage_is_deleted": false}}]}'}};
             if ($scope.selectedHeat && $scope.selectedHeat !== 'all') {
                 config.params.depth = $scope.depthRange;
                 config.params.root = $scope.selectedHeat;
