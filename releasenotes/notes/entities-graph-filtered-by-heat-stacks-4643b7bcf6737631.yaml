@@ -1,0 +1,8 @@
+---
+features:
+  - Heat stack filter added
+  - Heat stack, depth of graph added
+
+fixes:
+  - Style fixes
+  - Logic for rerendering the graph change, now it also check names
