@@ -1,0 +1,4 @@
+---
+features:
+  - Added an extensible header section to the top bar to display the current
+    count of alarms present in the system.
