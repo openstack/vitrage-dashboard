@@ -68,6 +68,7 @@ class Topolgy(generic.View):
                     '{"or": [{"==": {"vitrage_type": "openstack.cluster"}},' \
                     '{"==": {"vitrage_type": "nova.instance"}},' \
                     '{"==": {"vitrage_type": "nova.host"}},' \
+                    '{"==": {"vitrage_type": "nova.scheduler"}},' \
                     '{"==": {"vitrage_type": "nova.zone"}}]}]}'
 
         return vitrage.topology(request=request,
