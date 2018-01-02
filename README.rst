@@ -62,7 +62,7 @@ With Horizon
 
     ../horizon/tools/with_venv.sh pip install -e.
 
-    cp -a vitragedashboard/enabled/* ../horizon/openstack_dashboard/enabled/
+    cp -a vitrage_dashboard/enabled/* ../horizon/openstack_dashboard/enabled/
 
     popd
 

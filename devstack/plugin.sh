@@ -8,7 +8,7 @@ function install_vitrage_dashboard {
 }
 
 function configure_vitrage_dashboard {
-    cp -a ${VITRAGE_DASHBOARD_DIR}/enabled/* ${DEST}/horizon/openstack_dashboard/enabled/
+    cp -a ${VITRAGE_DASHBOARD_DIR}/vitrage_dashboard/enabled/* ${DEST}/horizon/openstack_dashboard/enabled/
 }
 
 function init_vitrage_dashboard {
