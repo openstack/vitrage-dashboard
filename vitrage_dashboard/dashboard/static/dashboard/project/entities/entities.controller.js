@@ -284,6 +284,9 @@
                                 case 'nova.host':
                                     icon = '\uf233'; //fa-server
                                     break;
+                                case 'nova.scheduler':
+                                    icon = '\uf0e4'; //fa-tachometer
+                                    break;
                                 case 'nova.zone':
                                     icon = '\uf279'; //fa-map
                                     break;
