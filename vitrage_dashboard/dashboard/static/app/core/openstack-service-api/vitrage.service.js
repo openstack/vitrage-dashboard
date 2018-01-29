@@ -38,7 +38,7 @@
       }
       console.info('CONFIG in core - ', config)
       return apiService.get('/api/vitrage/topology/', config)
-          .error(function () {
+          .catch(function () {
             toastService.add('error', gettext('Unable to fetch the Vitrage Topology service.'));
           });
     }
@@ -54,7 +54,7 @@
         url += '/false';
       }
       return apiService.get(url)
-        .error(function() {
+        .catch(function() {
           toastService.add('error', gettext('Unable to fetch the Vitrage Alarms service.'));
         });
 
@@ -62,14 +62,14 @@
 
     function getRca(alarm_id,adminState) {
       return apiService.get('/api/vitrage/rca/'+alarm_id+"/"+adminState)
-          .error(function () {
+          .catch(function () {
             toastService.add('error', gettext('Unable to fetch the Vitrage RCA service.'));
           });
     }
 
     function getTemplates(template_id) {
       return apiService.get('/api/vitrage/template/'+template_id)
-          .error(function () {
+          .catch(function () {
             toastService.add('error', gettext('Unable to fetch the Vitrage Templates service.'));
           });
     }
