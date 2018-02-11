@@ -19,10 +19,10 @@
 
             if (vitrageAPI) {
                 return vitrageAPI.getTopology(graph_type, config, admin)
-                    .success(function (data) {
+                    .then(function (data) {
                         return data;
                     })
-                    .error(function (err) {
+                    .catch(function (err) {
                             console.error(err);
                         }
                     );
@@ -33,10 +33,10 @@
 
             if (vitrageAPI) {
                 return vitrageAPI.getAlarms(vitrage_id, admin)
-                    .success(function (data) {
+                    .then(function (data) {
                         return data;
                     })
-                    .error(function (err) {
+                    .catch(function (err) {
                             console.error(err);
                         }
                     );
@@ -47,10 +47,10 @@
 
             if (vitrageAPI) {
                 return vitrageAPI.getTemplates(template_id)
-                    .success(function (data) {
+                    .then(function (data) {
                         return data;
                     })
-                    .error(function (err) {
+                    .catch(function (err) {
                             console.error(err);
                         }
                     );
@@ -61,10 +61,10 @@
         function getRootCauseAnalysis(alarm_id, adminState) {
             if (vitrageAPI) {
                 return vitrageAPI.getRca(alarm_id, adminState)
-                    .success(function (data) {
+                    .then(function (data) {
                         return data;
                     })
-                    .error(function (err) {
+                    .catch(function (err) {
                             console.error(err);
                         }
                     );
