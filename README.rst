@@ -2,8 +2,8 @@
 Team and repository tags
 ========================
 
-.. image:: http://governance.openstack.org/badges/vitrage-dashboard.svg
-    :target: http://governance.openstack.org/reference/tags/index.html
+.. image:: https://governance.openstack.org/tc/badges/vitrage-dashboard.svg
+    :target: https://governance.openstack.org/tc/reference/tags/index.html
 
 .. Change things from this point on
 
@@ -24,7 +24,7 @@ Vitrage.
 Project Resources
 -----------------
 
-* `Vitrage at Launchpad <http://launchpad.net/vitrage>`_
+* `Vitrage at Launchpad <https://launchpad.net/vitrage>`_
 * `Wiki <https://wiki.openstack.org/wiki/Vitrage>`_
 * `Code Review <https://review.openstack.org/>`_
 
