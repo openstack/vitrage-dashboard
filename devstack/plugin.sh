@@ -12,8 +12,8 @@ function configure_vitrage_dashboard {
 }
 
 function init_vitrage_dashboard {
-    python ${DEST}/horizon/manage.py collectstatic --noinput
-    python ${DEST}/horizon//manage.py compress --force
+    $PYTHON ${DEST}/horizon/manage.py collectstatic --noinput
+    $PYTHON ${DEST}/horizon//manage.py compress --force
 }
 
 # check for service enabled
