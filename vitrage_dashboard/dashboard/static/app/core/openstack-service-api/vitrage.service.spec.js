@@ -44,7 +44,8 @@
         "func": "getTopology",
         "method": "get",
         "path": "/api/vitrage/topology/",
-        "error": "Unable to get the Vitrage service topology."
+	"data": {},
+        "error": "Unable to fetch the Vitrage Topology service."
       }
 
     ];

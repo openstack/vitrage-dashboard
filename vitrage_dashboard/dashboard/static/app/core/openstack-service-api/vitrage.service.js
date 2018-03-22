@@ -38,7 +38,7 @@
       }
       console.info('CONFIG in core - ', config)
       return apiService.get('/api/vitrage/topology/', config)
-          .catch(function () {
+          .error(function () {
             toastService.add('error', gettext('Unable to fetch the Vitrage Topology service.'));
           });
     }
