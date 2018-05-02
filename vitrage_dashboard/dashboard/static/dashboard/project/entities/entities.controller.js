@@ -138,7 +138,8 @@
             for (var i = 0; i < nodes1.length; i++) {
                 var nodeFound = false;
                 for (var j = 0; j < nodes2.length; j++) {
-                    if (nodes1[i].name === nodes2[j].name) {
+                    if (nodes1[i].name === nodes2[j].name &&
+                    nodes1[i].vitrage_operational_state === nodes2[j].vitrage_operational_state) {
                         nodeFound = true;
                         continue;
                     }
