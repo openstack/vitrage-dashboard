@@ -20,6 +20,9 @@ recursive-include vitrageentities/templates *
 recursive-include vitragetemplates/static *
 recursive-include vitragetemplates/templates *
 
+recursive-include vitrageadmintemplates/static *
+recursive-include vitrageadmintemplates/templates *
+
 recursive-include vitrageadminalarms/static *
 recursive-include vitrageadminalarms/templates *
 
