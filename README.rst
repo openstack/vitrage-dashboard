@@ -25,6 +25,7 @@ Project Resources
 * `Vitrage at Launchpad <https://launchpad.net/vitrage>`_
 * `Wiki <https://wiki.openstack.org/wiki/Vitrage>`_
 * `Code Review <https://review.openstack.org/>`_
+* `Release notes <https://docs.openstack.org/releasenotes/vitrage-dashboard/>`_
 
 How to use this package
 -----------------------
