@@ -1,0 +1,22 @@
+<div class="template-container">
+    <div class="controls">
+        <i title="Close" class="fa fa-times" ng-click="templateList.closeModal()"></i>
+    </div>
+    <div style="margin:15px">
+        <h2>Select template type:</h2>
+    </div>
+    <form>
+        <div style="margin: 15px">
+            <select class="form-control form-control-lg" id="typeSelect">
+              <option selected="selected">Standard</option>
+              <option>Definition</option>
+              <option>Equivalence</option>
+            </select>
+        </div>
+        <div style="margin: 15px">
+            <button type="button" class="btn btn-primary" ng-click="templateList.submitModal()">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>

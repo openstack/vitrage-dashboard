@@ -17,7 +17,9 @@
       getTopology: getTopology,
       getAlarms: getAlarms,
       getRca: getRca,
-      getTemplates: getTemplates
+      getTemplates: getTemplates,
+      deleteTemplate: deleteTemplate,
+      addTemplate: addTemplate
     };
 
     return service;
@@ -69,6 +71,21 @@
 
     function getTemplates(template_id) {
       return apiService.get('/api/vitrage/template/'+template_id)
+          .catch(function () {
+            toastService.add('error', gettext('Unable to fetch the Vitrage Templates service.'));
+          });
+    }
+
+    function deleteTemplate(template_id) {
+      return apiService.delete('/api/vitrage/template/'+template_id)
+          .catch(function () {
+            toastService.add('error', gettext('Unable to fetch the Vitrage Templates service.'));
+          });
+    }
+
+    function addTemplate(template, type) {
+      var temp = { 'template' : template, 'type': type }
+      return apiService.post('/api/vitrage/template/default/', temp)
           .catch(function () {
             toastService.add('error', gettext('Unable to fetch the Vitrage Templates service.'));
           });
