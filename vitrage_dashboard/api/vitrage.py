@@ -22,11 +22,12 @@ https://docs.openstack.org/horizon/latest/contributor/tutorials/plugin.html
     While interactions with the service can be handled in the views.py,
     isolating the logic is an established pattern in Horizon.
 """
-
 from horizon.utils.memoized import memoized  # noqa
+import json
 from keystoneauth1.identity.generic.token import Token
 from keystoneauth1.session import Session
 from openstack_dashboard.api import base
+import tempfile
 from vitrageclient import client as vitrage_client
 
 import logging
@@ -77,7 +78,22 @@ def rca(request, alarm_id, all_tenants='false'):
                                           all_tenants=all_tenants)
 
 
-def templates(request, template_id='all'):
+def template_show(request, template_id='all'):
     if template_id == 'all':
         return vitrageclient(request).template.list()
     return vitrageclient(request).template.show(template_id)
+
+
+def template_delete(request, template_id):
+    return vitrageclient(request).template.delete(template_id)
+
+
+def template_add(request):
+    template = json.loads(request.body)
+    type = template.get('type')
+    with tempfile.NamedTemporaryFile(suffix='.yaml') as temp:
+        temp.write(template.get('template'))
+        temp.flush()
+        temp.seek(0)
+        response = vitrageclient(request).template.add(temp.name, type)
+    return response

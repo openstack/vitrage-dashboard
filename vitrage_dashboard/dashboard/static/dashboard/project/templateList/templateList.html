@@ -1,4 +1,16 @@
 <div class="template-list" ng-controller="TemplateListController as templateList">
+    <div class="add-btn">
+        <button class="btn btn-primary"
+                type="file"
+                id="add-template"
+                ngf-select="templateList.uploadFile($file, $invalidFiles)"
+                ngf-max-height="1000"
+                accept="*"
+                ngf-max-size="1MB">
+            Add Template
+        </button>
+    </div>
+
     <div class="panel panel-default">
 
         <table st-table='templateList.itemplates' st-safe-src="templateList.templates" class="table-striped table-rsp table-detail modern"
@@ -11,6 +23,7 @@
                 <th st-sort="details">{$ 'Details' | translate $}</th>
                 <th st-sort="timestamp">{$ 'Timestamp' | translate $}</th>
                 <th>{$ 'Show' | translate $}</th>
+                <th>{$ 'Delete' | translate $}</th>
             </tr>
             <tr>
                 <th colspan="5">
@@ -26,8 +39,9 @@
                 <td>{$template.status$}</td>
                 <td>{$template.type$}</td>
                 <td>{$template["status details"]$}</td>
-                <td><i class="fa fa-clock-o"></i> {$template.date | date:"yyyy-MM-dd HH:mm:ss"$}</td>
+                <td><i class="fa fa-clock-o"></i> {$template.date | date:"yyyy-MM-dd hh:mm:ss"$}</td>
                 <td ng-click="templateList.onShowClick(template)"><i class="fa fa-list"></i></td>
+                <td ng-click="templateList.onDeleteClick(template)"><i class="fa fa-trash"></i></td>
             </tr>
             </tbody>
         </table>

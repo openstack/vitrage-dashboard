@@ -57,6 +57,34 @@
             }
         }
 
+        function deleteTemplate(template_id) {
+
+            if (vitrageAPI) {
+                return vitrageAPI.deleteTemplate(template_id)
+                    .then(function (data) {
+                        return data;
+                    })
+                    .catch(function (err) {
+                            console.error(err);
+                        }
+                    );
+            }
+        }
+
+        function addTemplate(template, type) {
+
+            if (vitrageAPI) {
+                return vitrageAPI.addTemplate(template, type)
+                    .then(function (data) {
+                        return data;
+                    })
+                    .catch(function (err) {
+                            console.error(err);
+                        }
+                    );
+            }
+        }
+
 
         function getRootCauseAnalysis(alarm_id, adminState) {
             if (vitrageAPI) {
@@ -75,7 +103,9 @@
             getTopology: getTopology,
             getAlarms: getAlarms,
             getRootCauseAnalysis: getRootCauseAnalysis,
-            getTemplates: getTemplates
+            getTemplates: getTemplates,
+            deleteTemplate: deleteTemplate,
+            addTemplate: addTemplate
         };
     }
 })();

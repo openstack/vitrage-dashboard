@@ -135,5 +135,24 @@ class Templates(generic.View):
 
         The result is a template object.
         """
+        return vitrage.template_show(request, template_id)
 
-        return vitrage.templates(request, template_id)
+    @rest_utils.ajax()
+    def delete(self, request, template_id):
+        """Delete a single template with the vitrage id.
+
+        :param template_id the id of the vitrage template
+        """
+        return vitrage.template_delete(request, template_id)
+
+    @rest_utils.ajax()
+    def post(self, request, **kwargs):
+        """Add a single template.
+
+        request.body holds template in format:
+        {template: template_string
+         type: template_type}
+
+        """
+
+        return vitrage.template_add(request)

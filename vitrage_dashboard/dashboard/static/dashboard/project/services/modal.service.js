@@ -12,8 +12,10 @@
 
         function show(modalOptions) {
             modalInstance = $uibModal.open(modalOptions);
+            return modalInstance;
         }
 
+        //resolves the promise modalInstance.result
         function close() {
             if(modalInstance) {
                 modalInstance.close();
@@ -21,9 +23,18 @@
             }
         }
 
+        //rejects the promise modalInstance.result
+        function dismiss() {
+            if(modalInstance) {
+                modalInstance.dismiss();
+                modalInstance = null;
+            }
+        }
+
         return {
             show: show,
-            close: close
+            close: close,
+            dismiss: dismiss
         }
     }
 })();
