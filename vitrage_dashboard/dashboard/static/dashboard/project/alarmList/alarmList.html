@@ -1,40 +1,126 @@
 <div class="alarm-list" ng-controller="AlarmListController as alarmList">
-    <div class="themable-checkbox refreshBtn">
-        <input type="checkbox" ng-model="alarmList.checkboxAutoRefresh" id="themable-checkbox" ng-change="alarmList.autoRefreshChanged()">
-        <label for="themable-checkbox" translate>Auto Refresh</label>
-    </div>
-    <div class="panel panel-default" >
 
-        <table st-table='alarmList.ialarms' st-safe-src="alarmList.alarms" class="table-striped table-rsp table-detail modern" hz-table>
+    <div class="row">
+
+        <div class="col-lg-8">
+            <div class="btn-group">
+                <label class="btn btn-primary"
+                       ng-model="alarmList.radioModel"
+                       uib-btn-radio="'activeAlarms'"
+                       ng-click="alarmList.getHistoryData('')">Active
+                    Alarms</label>
+
+                <label class="btn btn-primary"
+                       ng-model="alarmList.radioModel"
+                       uib-btn-radio="'historyAlarms'">Alarm History</label>
+            </div>
+
+            <div ng-show="alarmList.radioModel === 'historyAlarms'" style="display: inline;">
+                <label>Started</label>
+
+                <input type="datetime-local" ng-model="alarmList.fromDateTime"/>
+
+                <label>Ended</label>
+
+                <input type="datetime-local" ng-model="alarmList.toDateTime"/>
+
+                <button class="btn btn-primary"
+                        ng-click="alarmList.getHistoryData()">
+                    Fetch Alarms
+                </button>
+            </div>
+        </div>
+
+        <div class="col-lg-4 prev-next-align">
+            <select class="form-control"
+                    ng-options="item as item.name for item in alarmList.filterItems track by item.name"
+                    ng-model="alarmList.filterByField"
+                    ng-change="alarmList.onFilterFieldChange()">
+            </select>
+
+            <input type="text" ng-model="alarmList.filterText"
+                   class="form-control"
+                   ng-change="alarmList.onFilterChange()"
+                   ng-disabled="alarmList.filterByField.filterValue === null">
+
+            <i title="Previous"
+               class="fa fa-angle-double-left  prev-next-btn prev"
+               aria-hidden="true"
+               ng-click="alarmList.getHistoryData('prev')"
+               ng-show="alarmList.prevEnabled"></i>
+            <i title="Next" class="fa
+fa-angle-double-right prev-next-btn"
+               aria-hidden="true"
+               ng-click="alarmList.getHistoryData('next')"></i>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+
+        <table st-table='alarmList.ialarms' st-safe-src="alarmList.alarms"
+               class="table-striped table-rsp table-detail modern alarm-table" hz-table>
             <thead>
             <tr>
-                <th st-sort="normalized_severity"></th>
-                <th st-sort="update_timestamp">{$ 'TimeStamp' | translate $}</th>
-                <th st-sort="name">{$ 'Name' | translate $}</th>
-                <th st-sort="resource_type">{$ 'Resource Type' | translate $}</th>
-                <th st-sort="vitrage_resource_id">{$ 'Resource ID' | translate $}</th>
-                <th st-sort="severity">{$ 'Severity' | translate $}</th>
-                <th st-sort="vitrage_type">{$ 'Type' | translate $}</th>
-                <th>{$ 'RCA' | translate $}</th>
-            </tr>
-            <tr>
-                <th colspan="7">
-                    <hz-search-bar group-classes="input-group-sm"
-                                   icon-classes="fa-search">
-                    </hz-search-bar>
+                <th class="column icon header"></th>
+                <th class="column header"
+                    ng-click="alarmList.sortBy('vitrage_aggregated_severity')">
+                    {$ 'Severity' | translate $}
                 </th>
+                <th class="column header"
+                    ng-click="alarmList.sortBy('start_timestamp')">{$
+                    'Started' |
+                    translate $}
+                </th>
+                <th class="column header"
+                    ng-click="alarmList.sortBy('end_timestamp')">{$ 'Ended' |
+                    translate $}
+                </th>
+                <th class="column full-width header"
+                    ng-click="alarmList.sortBy('name')">{$ 'Name' | translate
+                    $}
+                </th>
+                <th class="column full-width header"
+                    ng-click="alarmList.sortBy('vitrage_resource_type')">{$
+                    'Resource Type' | translate $}
+                </th>
+                <th class="column header resource-column"
+                    ng-click="alarmList.sortBy('vitrage_resource_id')">{$
+                    'Resource ID' | translate $}
+                </th>
+                <th class="column header"
+                    ng-click="alarmList.sortBy('vitrage_type')">{$ 'Type' |
+                    translate $}
+                </th>
+                <th class="column icon header">{$ 'RCA' | translate $}</th>
+                <th class="column icon header"></th>
             </tr>
+
             </thead>
             <tbody>
             <tr ng-repeat="alarm in alarmList.ialarms track by $index">
-                <td title="{$ alarm.vitrage_aggregated_severity $}"><i class="fa first-column" ng-class="{'orange fa-exclamation-triangle': alarm.vitrage_operational_severity == 'SEVERE', 'yellow fa-exclamation-triangle': alarm.vitrage_operational_severity == 'WARNING', 'red fa-exclamation-circle': alarm.vitrage_operational_severity == 'CRITICAL', 'green fa-check': alarm.vitrage_operational_severity == 'OK', 'gray fa-circle-o-notch': alarm.vitrage_operational_severity == 'N/A'}"></i></td>
-                <td><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | date:"yyyy-MM-dd HH:mm:ss"$} </td>
+
+                <td title="{$ alarm.vitrage_aggregated_severity $}"><i
+                        class="fa first-column column icon"
+                        ng-class="{'orange fa-exclamation-triangle': alarm.vitrage_operational_severity == 'SEVERE', 'yellow fa-exclamation-triangle': alarm.vitrage_operational_severity == 'WARNING', 'red fa-exclamation-circle': alarm.vitrage_operational_severity == 'CRITICAL', 'green fa-check': alarm.vitrage_operational_severity == 'OK', 'gray fa-circle-o-notch': alarm.vitrage_operational_severity == 'N/A'}"></i>
+                </td>
+                <td
+                        ng-class="{'td-orange': alarm.vitrage_operational_severity == 'SEVERE', 'td-yellow': alarm.vitrage_operational_severity == 'WARNING', 'td-red': alarm.vitrage_operational_severity == 'CRITICAL', 'td-green': alarm.vitrage_operational_severity == 'OK', 'td-gray': alarm.vitrage_operational_severity == 'N/A'}">
+                    {$alarm.vitrage_aggregated_severity |
+                    lowercase$}
+                </td>
+                <td class="column">{$alarm.start_timestamp | date:"yyyy-MM-dd
+                    HH:mm:ss"$}
+                </td>
+                <td class="column">{$alarm.end_timestamp | date:"yyyy-MM-dd
+                    HH:mm:ss"$}
+                </td>
                 <td>{$alarm.name$}</td>
                 <td>{$alarm.vitrage_resource_type$}</td>
                 <td>{$alarm.vitrage_resource_id$}</td>
-                <td>{$alarm.vitrage_aggregated_severity | lowercase$}</td>
                 <td>{$alarm.vitrage_type$}</td>
-                <td ng-click="alarmList.onRcaClick(alarm)"><i class="fa fa-sitemap"></i></td>
+                <td><a class="btn btn-small btn-info" ng-click="alarmList.onRcaClick(alarm)">
+                    <i class="fa fa-sitemap"></i></a></td>
+                <td></td>
             </tr>
             </tbody>
         </table>

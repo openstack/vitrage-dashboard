@@ -1,61 +1,79 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('horizon.dashboard.project.vitrage')
-        .service('vitrageTopologySrv', VitrageTopologySrv);
+  angular
+    .module('horizon.dashboard.project.vitrage')
+    .service('vitrageTopologySrv', VitrageTopologySrv);
 
-    VitrageTopologySrv.$inject = ['$http', '$injector'];
+  VitrageTopologySrv.$inject = ['$http', '$injector'];
 
-    function VitrageTopologySrv($http, $injector) {
-        var vitrageAPI;
+  function VitrageTopologySrv($http, $injector) {
+    var vitrageAPI;
 
-        if ($injector.has('horizon.app.core.openstack-service-api.vitrage')) {
-            vitrageAPI = $injector.get('horizon.app.core.openstack-service-api.vitrage');
+    if ($injector.has('horizon.app.core.openstack-service-api.vitrage')) {
+      vitrageAPI = $injector.get('horizon.app.core.openstack-service-api.vitrage');
 
-        }
+    }
 
-        function getTopology(graph_type, config, admin) {
+    function getTopology(graph_type, config, admin) {
 
-            if (vitrageAPI) {
-                return vitrageAPI.getTopology(graph_type, config, admin)
-                    .then(function (data) {
-                        return data;
-                    })
-                    .catch(function (err) {
-                            console.error(err);
-                        }
-                    );
+      if (vitrageAPI) {
+        return vitrageAPI.getTopology(graph_type, config, admin)
+          .then(function (data) {
+            return data;
+          })
+          .catch(function (err) {
+              console.error(err);
             }
-        }
+          );
+      }
+    }
 
-        function getAlarms(vitrage_id, admin) {
+    function getAlarms(config) {
 
-            if (vitrageAPI) {
-                return vitrageAPI.getAlarms(vitrage_id, admin)
-                    .then(function (data) {
-                        return data;
-                    })
-                    .catch(function (err) {
-                            console.error(err);
-                        }
-                    );
+      config = {params: config};
+
+      if (vitrageAPI) {
+        return vitrageAPI.getAlarms(config)
+          .then(function (data) {
+            return data;
+          })
+          .catch(function (err) {
+              console.error(err);
             }
-        }
+          );
+      }
+    }
 
-        function getTemplates(template_id) {
+    function getHistoryAlarms(config) {
 
-            if (vitrageAPI) {
-                return vitrageAPI.getTemplates(template_id)
-                    .then(function (data) {
-                        return data;
-                    })
-                    .catch(function (err) {
-                            console.error(err);
-                        }
-                    );
+      config = {params: config};
+
+      if (vitrageAPI) {
+        return vitrageAPI.getHistoryAlarms(config)
+          .then(function (data) {
+            return data;
+          })
+          .catch(function (err) {
+              console.error(err);
             }
-        }
+          );
+      }
+    }
+
+    function getTemplates(template_id) {
+
+      if (vitrageAPI) {
+        return vitrageAPI.getTemplates(template_id)
+          .then(function (data) {
+            return data;
+          })
+          .catch(function (err) {
+              console.error(err);
+            }
+          );
+      }
+    }
 
         function deleteTemplate(template_id) {
 
@@ -86,22 +104,23 @@
         }
 
 
-        function getRootCauseAnalysis(alarm_id, adminState) {
-            if (vitrageAPI) {
-                return vitrageAPI.getRca(alarm_id, adminState)
-                    .then(function (data) {
-                        return data;
-                    })
-                    .catch(function (err) {
-                            console.error(err);
-                        }
-                    );
+    function getRootCauseAnalysis(alarm_id, adminState) {
+      if (vitrageAPI) {
+        return vitrageAPI.getRca(alarm_id, adminState)
+          .then(function (data) {
+            return data;
+          })
+          .catch(function (err) {
+              console.error(err);
             }
-        }
+          );
+      }
+    }
 
         return {
             getTopology: getTopology,
             getAlarms: getAlarms,
+            getHistoryAlarms: getHistoryAlarms,
             getRootCauseAnalysis: getRootCauseAnalysis,
             getTemplates: getTemplates,
             deleteTemplate: deleteTemplate,

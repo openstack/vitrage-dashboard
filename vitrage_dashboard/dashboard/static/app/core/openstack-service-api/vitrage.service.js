@@ -16,6 +16,7 @@
     var service = {
       getTopology: getTopology,
       getAlarms: getAlarms,
+      getHistoryAlarms: getHistoryAlarms,
       getRca: getRca,
       getTemplates: getTemplates,
       deleteTemplate: deleteTemplate,
@@ -26,7 +27,7 @@
 
     ///////////
     // Topology
-    '/static/dashboard/project/topology/graph.sample.json'
+    ///////////
 
     function getTopology(graph_type, config,admin) {
       config = config || {};
@@ -45,19 +46,24 @@
           });
     }
 
-    function getAlarms(vitrage_id,adminState) {
-      if (vitrage_id == undefined){
-        vitrage_id = 'all';
-      }
-      var url = '/api/vitrage/alarm/' + vitrage_id;
-      if (adminState) {
-        url += '/true';
-      }else {
-        url += '/false';
-      }
-      return apiService.get(url)
+    function getAlarms(config) {
+      config = config || {};
+      var url = '/api/vitrage/alarm/';
+
+      return apiService.get(url, config)
         .catch(function() {
           toastService.add('error', gettext('Unable to fetch the Vitrage Alarms service.'));
+        });
+    }
+
+    function getHistoryAlarms(config) {
+      config = config || {};
+
+      var url = '/api/vitrage/history/';
+      return apiService.get(url, config)
+        .catch(function() {
+          toastService.add('error', gettext('Unable to fetch the Vitrage' +
+            ' Alarms History service.'));
         });
 
     }

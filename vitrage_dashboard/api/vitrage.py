@@ -62,9 +62,50 @@ def topology(request, query=None, graph_type='tree', all_tenants='false',
                                                limit=limit)
 
 
-def alarms(request, vitrage_id='all', all_tenants='false'):
+def alarms(request, vitrage_id='all', all_tenants='false',
+           limit=1000,
+           sort_by=['start_timestamp', 'vitrage_id'],
+           sort_dirs=['asc', 'asc'],
+           filter_by=None,
+           filter_vals=None,
+           next_page=True,
+           marker=None
+           ):
+
     return vitrageclient(request).alarm.list(vitrage_id=vitrage_id,
-                                             all_tenants=all_tenants)
+                                             all_tenants=all_tenants,
+                                             limit=limit,
+                                             sort_by=sort_by,
+                                             sort_dirs=sort_dirs,
+                                             filter_by=filter_by,
+                                             filter_vals=filter_vals,
+                                             next_page=next_page,
+                                             marker=marker
+                                             )
+
+
+def history(request, all_tenants='false',
+            start=None, end=None,
+            limit=1000,
+            sort_by=['start_timestamp', 'vitrage_id'],
+            sort_dirs=['asc', 'asc'],
+            filter_by=None,
+            filter_vals=None,
+            next_page=True,
+            marker=None
+            ):
+
+    return vitrageclient(request).alarm.history(all_tenants=all_tenants,
+                                                start=start,
+                                                end=end,
+                                                limit=limit,
+                                                sort_by=sort_by,
+                                                sort_dirs=sort_dirs,
+                                                filter_by=filter_by,
+                                                filter_vals=filter_vals,
+                                                next_page=next_page,
+                                                marker=marker
+                                                )
 
 
 def alarm_counts(request, all_tenants='false'):

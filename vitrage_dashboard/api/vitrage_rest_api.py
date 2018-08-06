@@ -83,11 +83,10 @@ class Topolgy(generic.View):
 class Alarms(generic.View):
     """API for vitrage alarms."""
 
-    url_regex = r'vitrage/alarm/(?P<vitrage_id>.+|default)/' \
-                '(?P<all_tenants>.+|default)/$'
+    url_regex = r'vitrage/alarm/$'
 
     @rest_utils.ajax()
-    def get(self, request, vitrage_id, all_tenants):
+    def get(self, request):
         """Get a single entity's alarm with the vitrage id.
 
         The following get alarm may be passed in the GET
@@ -96,8 +95,62 @@ class Alarms(generic.View):
 
         The result is a alarms object.
         """
+        vitrage_id = request.GET.get('vitrage_id', 'all')
+        all_tenants = request.GET.get('all_tenants', False)
+        limit = request.GET.get('limit', 1000)
+        sort_by = request.GET.get('sort_by', ['start_timestamp', 'vitrage_id'])
+        sort_dirs = request.GET.get('sort_dirs', ['asc', 'asc'])
+        filter_by = request.GET.get('filter_by', None)
+        filter_vals = request.GET.get('filter_vals', None)
+        next_page = request.GET.get('next_page', True)
+        marker = request.GET.get('marker', None)
 
-        return vitrage.alarms(request, vitrage_id, all_tenants)
+        return vitrage.alarms(request, vitrage_id, all_tenants,
+                              limit,
+                              sort_by,
+                              sort_dirs,
+                              filter_by,
+                              filter_vals,
+                              next_page,
+                              marker
+                              )
+
+
+@urls.register
+class History(generic.View):
+    """API for vitrage alarms history."""
+
+    url_regex = r'vitrage/history/$'
+
+    @rest_utils.ajax()
+    def get(self, request):
+        """Get a list of alarms history based on the input parameters.
+
+        The following get alarm may be passed in the GET
+
+        The result is a alarms object.
+        """
+        all_tenants = request.GET.get('all_tenants', False)
+        start = request.GET.get('start', None)
+        end = request.GET.get('end', None)
+        limit = request.GET.get('limit', 1000)
+        sort_by = request.GET.get('sort_by', ['start_timestamp', 'vitrage_id'])
+        sort_dirs = request.GET.get('sort_dirs', ['asc', 'asc'])
+        filter_by = request.GET.get('filter_by', None)
+        filter_vals = request.GET.get('filter_vals', None)
+        next_page = request.GET.get('next_page', True)
+        marker = request.GET.get('marker', None)
+
+        return vitrage.history(request, all_tenants,
+                               start, end,
+                               limit,
+                               sort_by,
+                               sort_dirs,
+                               filter_by,
+                               filter_vals,
+                               next_page,
+                               marker
+                               )
 
 
 @urls.register

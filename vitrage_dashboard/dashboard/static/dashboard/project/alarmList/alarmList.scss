@@ -1,9 +1,72 @@
 .alarm-list {
-  .refreshBtn{
+  .refreshBtn {
     text-align: right;
   }
 
-  .first-column {
-    padding-left: 5px;
+  .column {
+    width: 144px;
+    &.icon {
+      width: 24px;
+      padding-left: 5px;
+    }
+    &.resource-column {
+      width: 256px;
+    }
+    &.header {
+      background: #ebe6e6;
+    }
+    &.full-width {
+      width: unset;
+    }
+  }
+
+  .td-red {
+    background: #f67171 !important;
+  }
+
+  .td-orange {
+    background: #f6993c !important;
+  }
+
+  .td-yellow {
+    background: #f6f005 !important;
+  }
+
+  .td-green {
+    background: #3bf685 !important;
+  }
+
+  .td-gray {
+    background: rgba(243, 243, 243, 0.49) !important;
+  }
+
+  .prev-next-btn {
+    font-size: 24px;
+    cursor: pointer;
+
+    &.prev {
+      margin-right: 10px;
+    }
+  }
+
+  .prev-next-align {
+    text-align: right;
+  }
+
+  .form-control, .datepicker input {
+    width: 112px;
+    display: unset;
+  }
+
+  .panel-default {
+    margin-top: 10px;
+  }
+
+  .alarm-table tr {
+    line-height: 14px;
+  }
+
+  .btn-info {
+    padding: 2px 4px;
   }
 }

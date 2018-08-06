@@ -35,6 +35,6 @@
             show: show,
             close: close,
             dismiss: dismiss
-        }
+        };
     }
 })();
