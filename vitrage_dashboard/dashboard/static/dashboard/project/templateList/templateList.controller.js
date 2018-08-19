@@ -5,16 +5,49 @@
       .module('horizon.dashboard.project.vitrage')
       .controller('TemplateListController', TemplateListController);
 
-  TemplateListController.$inject = ['$scope', 'modalSrv', 'vitrageTopologySrv'];
+  TemplateListController.$inject = ['$scope', '$interval', 'modalSrv', 'vitrageTopologySrv'];
 
-  function TemplateListController($scope, modalSrv, vitrageTopologySrv)
+  function TemplateListController($scope, $interval, modalSrv, vitrageTopologySrv)
    {
     var templateList = this;
     templateList.templates = [];
     templateList.itemplates = [];
     $scope.STATIC_URL = STATIC_URL;
     templateList.templates = [];
+    templateList.$interval = $interval;
+    templateList.checkboxAutoRefresh = true;
+    templateList.templateInterval;
 
+    getData();
+    startCollectData();
+
+    function startCollectData() {
+      if (angular.isDefined(templateList.templateInterval)) return;
+      templateList.templateInterval = templateList.$interval(getData,5000);
+    }
+
+    function stopCollectData() {
+      if (angular.isDefined(templateList.templateInterval)) {
+        templateList.$interval.cancel(templateList.templateInterval);
+        templateList.templateInterval = undefined;
+      }
+    }
+    $scope.$on('$destroy',function(){
+      templateList.stopCollectData();
+    });
+
+    templateList.autoRefreshChanged = function(){
+      if (templateList.checkboxAutoRefresh){
+        getData();
+        startCollectData();
+      }else{
+        stopCollectData();
+      }
+    };
+
+    templateList.refreshTemplates = function() {
+        getData();
+    }
 
     templateList.closeModal = function() {
         if(templateList.file){
@@ -86,7 +119,7 @@
         }
       }
 
-    getData();
+
 
     function getData() {
       vitrageTopologySrv.getTemplates('all').then(function(result){

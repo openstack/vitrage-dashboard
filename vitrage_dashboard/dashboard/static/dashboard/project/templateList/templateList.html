@@ -1,14 +1,30 @@
 <div class="template-list" ng-controller="TemplateListController as templateList">
-    <div class="add-btn">
+    <div class="add-btn" >
         <button class="btn btn-primary"
                 type="file"
                 id="add-template"
                 ngf-select="templateList.uploadFile($file, $invalidFiles)"
                 ngf-max-height="1000"
-                accept="*"
+                accept=".yaml,.yml"
+                data-toggle="tooltip"
+                title="File type: YAML  Max Size: 2MB"
                 ngf-max-size="1MB">
             Add Template
         </button>
+
+        <button class="btn btn-primary fa fa-refresh"
+                ng-click="templateList.refreshTemplates()"
+                ngf-max-height="1000"
+                data-toggle="tooltip"
+                title="Refresh template list"
+                >
+        </button>
+
+        <div class="themable-checkbox btn" style="float: right">
+            <input type="checkbox" ng-model="templateList.checkboxAutoRefresh" id="themable-checkbox" ng-change="alarmList.autoRefreshChanged()">
+            <label for="themable-checkbox" translate>Auto Refresh</label>
+        </div>
+
     </div>
 
     <div class="panel panel-default">
