@@ -2,9 +2,9 @@ angular
     .module('horizon.dashboard.project.vitrage')
     .directive('hzRootCauseAnalysisGraph', hzRootCauseAnalysisGraph);
 
-hzRootCauseAnalysisGraph.$inject = ['$filter'];
+hzRootCauseAnalysisGraph.$inject = ['$filter', 'timeSrv'];
 
-function hzRootCauseAnalysisGraph($filter) {
+function hzRootCauseAnalysisGraph($filter, timeSrv) {
     var directive = {
         link: link,
         templateUrl: STATIC_URL + 'dashboard/project/components/rca/rootCauseAnalysisGraph.html',
@@ -14,6 +14,8 @@ function hzRootCauseAnalysisGraph($filter) {
 
     function link(scope, element, attr, ctrl) {
         scope.STATIC_URL = STATIC_URL;
+        scope.timezone = timeSrv.getHorizonTimezone();
+        scope.dateFormat = timeSrv.rcaDateFormat;
         var lastSelectedNode = {id: "", value: ""};
 
         function setSelected(u) {
@@ -114,7 +116,7 @@ function hzRootCauseAnalysisGraph($filter) {
                         alertSeverity = key.severity,           //WARNING
                         alertOperationalSeverity = key.vitrage_operational_severity ? key.vitrage_operational_severity.toUpperCase() : key.vitrage_operational_severity,           //WARNING
                         alertState = key.state ? key.state.toUpperCase() : key.state,                 //Active
-                        alertTimeStamp = $filter('date')(key.update_timestamp, 'MM/dd/yyyy h:mma'),         //2015-12-01T12:46:41Z
+                        alertTimeStamp = $filter('vitrageDate')(key.update_timestamp, scope.dateFormat, scope.timezone),         //2015-12-01T12:46:41Z
                         alertType = key.vitrage_type,                   //nagios
                         alertVitrageId = key.vitrage_id;
 

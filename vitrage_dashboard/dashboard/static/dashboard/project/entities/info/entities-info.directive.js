@@ -2,7 +2,9 @@ angular
     .module('horizon.dashboard.project.vitrage')
     .directive('hzEntitiesInfo', hzEntitiesInfo);
 
-function hzEntitiesInfo() {
+hzEntitiesInfo.$inject = ['$filter'];
+
+function hzEntitiesInfo($filter) {
     var directive = {
         link: link,
         templateUrl: STATIC_URL + 'dashboard/project/entities/info/entities-info.html',
@@ -15,7 +17,8 @@ function hzEntitiesInfo() {
 
     function link(scope, element, attrs) {
         scope.blackList = ['is_real_vitrage_id', 'vitrage_is_deleted', 'vitrage_is_placeholder', 'index', 'graph_index',
-            'fixed', 'weight', 'px', 'py', 'x', 'y', 'width', 'height', 'bbox', 'high', 'highDepth', 'datasource_name'];
+            'fixed', 'weight', 'px', 'py', 'x', 'y', 'width', 'height', 'bbox', 'high', 'highDepth', 'datasource_name',
+            'dateFormat', 'timezone'];
         scope.parseItem = {};
 
         // TODO: Order info by this priority
@@ -34,7 +37,11 @@ function hzEntitiesInfo() {
                             var parsedProperty = '';
                             parsedProperty= property.split("_").join(" ");
                             parsedProperty = parsedProperty.charAt(0).toUpperCase() + parsedProperty.substr(1).toLowerCase();
-                            itemParsed[parsedProperty] = tmpItem[property];
+                            if (parsedProperty.includes('timestamp')) {
+                                itemParsed[parsedProperty] = $filter('vitrageDate')(tmpItem[property], tmpItem['dateFormat'], tmpItem['timezone']);
+                            } else {
+                                itemParsed[parsedProperty] = tmpItem[property];
+                            }
                         }
                     }
                 }
