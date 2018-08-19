@@ -5,9 +5,9 @@
       .module('horizon.dashboard.project.vitrage')
       .controller('TemplateListController', TemplateListController);
 
-  TemplateListController.$inject = ['$scope', '$interval', 'modalSrv', 'vitrageTopologySrv'];
+  TemplateListController.$inject = ['$scope', '$interval', 'modalSrv', 'timeSrv', 'vitrageTopologySrv'];
 
-  function TemplateListController($scope, $interval, modalSrv, vitrageTopologySrv)
+  function TemplateListController($scope, $interval, modalSrv, timeSrv, vitrageTopologySrv)
    {
     var templateList = this;
     templateList.templates = [];
@@ -17,6 +17,8 @@
     templateList.$interval = $interval;
     templateList.checkboxAutoRefresh = true;
     templateList.templateInterval;
+    templateList.timezone = timeSrv.getHorizonTimezone();
+    templateList.dateFormat = timeSrv.longDateFormat;
 
     getData();
     startCollectData();

@@ -5,9 +5,9 @@
         .module('horizon.dashboard.project.vitrage')
         .controller('EntitiesController', EntitiesController);
 
-    EntitiesController.$inject = ['$scope', 'vitrageTopologySrv', '$interval', '$location', '$timeout'];
+    EntitiesController.$inject = ['$scope', 'vitrageTopologySrv', 'timeSrv', '$interval', '$location', '$timeout'];
 
-    function EntitiesController($scope, vitrageTopologySrv, $interval, $location, $timeout) {
+    function EntitiesController($scope, vitrageTopologySrv, timeSrv, $interval, $location, $timeout) {
         this.model = {selected: {}};
 
         var _this = this,
@@ -15,7 +15,9 @@
             errorCount = 0,
             loadInterval,
             initialized = false,
-            timeoutSubscriber;
+            timeoutSubscriber,
+            timezone = timeSrv.getHorizonTimezone(),
+            dateFormat = timeSrv.longDateFormat;
 
 
         $scope.$watch('automaticRefresh', function (newData, oldData) {
@@ -48,6 +50,8 @@
         });
 
         $scope.$on('graphItemClicked', function (event, data) {
+            data.timezone = timezone;
+            data.dateFormat = dateFormat;
             _this.selectedItem = data;
             event.stopPropagation();
             $scope.$digest();
