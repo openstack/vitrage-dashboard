@@ -108,11 +108,9 @@ fa-angle-double-right prev-next-btn"
                     {$alarm.vitrage_aggregated_severity |
                     lowercase$}
                 </td>
-                <td class="column">{$alarm.start_timestamp | date:"yyyy-MM-dd
-                    HH:mm:ss"$}
+                <td class="column">{$alarm.start_timestamp | vitrageDate:alarmList.dateFormat:alarmList.timezone $}
                 </td>
-                <td class="column">{$alarm.end_timestamp | date:"yyyy-MM-dd
-                    HH:mm:ss"$}
+                <td class="column">{$alarm.end_timestamp | vitrageDate:alarmList.dateFormat:alarmList.timezone $}
                 </td>
                 <td>{$alarm.name$}</td>
                 <td>{$alarm.vitrage_resource_type$}</td>

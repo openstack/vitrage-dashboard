@@ -13,11 +13,13 @@ function hzAlarms() {
     controllerAs: 'alarmsCtrl'
   };
 
-  AlarmsController.$inject = ['$scope', 'modalSrv', 'vitrageTopologySrv'];
+  AlarmsController.$inject = ['$scope', 'modalSrv', 'timeSrv', 'vitrageTopologySrv'];
   return directive;
 
-  function AlarmsController($scope, modalSrv, vitrageTopologySrv) {
+  function AlarmsController($scope, modalSrv, timeSrv, vitrageTopologySrv) {
     var alarmsCtrl = this;
+    alarmsCtrl.timezone = timeSrv.getHorizonTimezone();
+    alarmsCtrl.dateFormat = timeSrv.longDateFormat;
 
     $scope.$watch('selected', function(newData, oldData) {
       if (newData != oldData) {

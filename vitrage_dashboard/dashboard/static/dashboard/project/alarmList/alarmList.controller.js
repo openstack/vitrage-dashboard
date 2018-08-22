@@ -5,9 +5,9 @@
     .module('horizon.dashboard.project.vitrage')
     .controller('AlarmListController', AlarmListController);
 
-  AlarmListController.$inject = ['$scope', 'modalSrv', 'vitrageTopologySrv', '$interval', '$location'];
+  AlarmListController.$inject = ['$scope', 'modalSrv', 'vitrageTopologySrv', 'timeSrv', '$interval', '$location'];
 
-  function AlarmListController($scope, modalSrv, vitrageTopologySrv, $interval, $location) {
+  function AlarmListController($scope, modalSrv, vitrageTopologySrv, timeSrv, $interval, $location) {
     var alarmList = this;
     var LIMIT = horizon.cookies.get('API_RESULT_PAGE_SIZE') || 20;
     var filterTimeout;
@@ -28,6 +28,8 @@
     alarmList.checkboxAutoRefresh = true;
     $scope.STATIC_URL = STATIC_URL;
     alarmList.format = 'dd-MMMM-yyyy';
+    alarmList.timezone = timeSrv.getHorizonTimezone();
+    alarmList.dateFormat = timeSrv.longDateFormat;
     alarmList.dateOptions = {
       dateDisabled: false,
       formatYear: 'yy',

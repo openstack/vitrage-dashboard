@@ -20,7 +20,7 @@
                     <tbody>
                     <tr ng-repeat="alarm in alarmsCtrl.computeAlarms track by $index">
                         <td title="{$ alarm.vitrage_aggregated_state $}"><i class="fa" ng-class="{'orange fa-exclamation-triangle': alarm.vitrage_operational_severity == 'SEVERE', 'yellow fa-exclamation-triangle': alarm.vitrage_operational_severity == 'WARNING', 'red fa-exclamation-circle': alarm.vitrage_operational_severity == 'CRITICAL', 'green fa-check': alarm.vitrage_operational_severity == 'OK', 'gray fa-circle-o-notch': alarm.vitrage_operational_severity == 'N/A'}"></i></td>
-                        <td title="{$alarm.update_timestamp | date:'yyyy-MM-dd HH:mm:ss'$}"><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | date:"yyyy-MM-dd HH:mm:ss"$} </td>
+                        <td title="{$alarm.update_timestamp | vitrageDate:alarmsCtrl.dateFormat:alarmsCtrl.timezone$}"><i class="fa fa-clock-o"></i> {$alarm.update_timestamp | vitrageDate:alarmsCtrl.dateFormat:alarmsCtrl.timezone$} </td>
                         <td class="ellipsis" title="{$alarm.name$}">{$alarm.name$}</td>
                         <td title="{$ 'Root Cause Analysis' | translate $}" ng-click="alarmsCtrl.onAlarmClick(alarm)"><i class="fa fa-sitemap"></i></td>
                     </tr>
