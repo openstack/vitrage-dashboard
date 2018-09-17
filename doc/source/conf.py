@@ -80,5 +80,4 @@ latex_documents = [
 
 # -- Options for openstackdocstheme -------------------------------------------
 repository_name = 'openstack/vitrage-dashboard'
-bug_project = 'vitrage-dashboard'
-bug_tag = ''
+use_storyboard = True
