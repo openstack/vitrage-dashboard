@@ -18,7 +18,7 @@ function hzEntitiesInfo($filter) {
     function link(scope, element, attrs) {
         scope.blackList = ['is_real_vitrage_id', 'vitrage_is_deleted', 'vitrage_is_placeholder', 'index', 'graph_index',
             'fixed', 'weight', 'px', 'py', 'x', 'y', 'width', 'height', 'bbox', 'high', 'highDepth', 'datasource_name',
-            'dateFormat', 'timezone'];
+            'dateFormat', 'timezone', 'vitrage_cached_id', 'vitrage_resource_id', 'vitrage_resource_type'];
         scope.parseItem = {};
 
         // TODO: Order info by this priority
