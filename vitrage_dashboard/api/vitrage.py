@@ -12,6 +12,16 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
+import json
+import logging
+import tempfile
+
+from horizon.utils.memoized import memoized
+from keystoneauth1.identity.generic.token import Token
+from keystoneauth1.session import Session
+from openstack_dashboard.api import base
+from vitrageclient import client as vitrage_client
+
 """
 https://docs.openstack.org/horizon/latest/contributor/tutorials/plugin.html
 """
@@ -22,15 +32,6 @@ https://docs.openstack.org/horizon/latest/contributor/tutorials/plugin.html
     While interactions with the service can be handled in the views.py,
     isolating the logic is an established pattern in Horizon.
 """
-from horizon.utils.memoized import memoized  # noqa
-import json
-from keystoneauth1.identity.generic.token import Token
-from keystoneauth1.session import Session
-from openstack_dashboard.api import base
-import tempfile
-from vitrageclient import client as vitrage_client
-
-import logging
 LOG = logging.getLogger(__name__)
 
 
