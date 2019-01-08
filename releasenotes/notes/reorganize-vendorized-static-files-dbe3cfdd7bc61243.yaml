@@ -1,0 +1,8 @@
+---
+other:
+  - |
+    vitrage-dashboard now uses non-compressed static files from the 'vendor'
+    directory by default. All scripts will be compressed if `COMPRESS_ENABLED`
+    option it set to True during `python manage.py compress` command execution.
+    Also it removes minified static files what helps maintainerss to create
+    RPM/DEP packages for vitrage-dashboard.
