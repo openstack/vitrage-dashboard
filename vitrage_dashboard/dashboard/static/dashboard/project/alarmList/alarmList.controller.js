@@ -73,6 +73,8 @@
       };
 
       if (alarmList.radioModel === 'historyAlarms') {
+        alarmList.toDateTime = new Date();
+        alarmList.toDateTime.setMilliseconds(0);
         config.start = alarmList.fromDateTime;
         config.end = alarmList.toDateTime;
       }
