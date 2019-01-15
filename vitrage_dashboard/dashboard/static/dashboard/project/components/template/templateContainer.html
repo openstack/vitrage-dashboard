@@ -9,7 +9,7 @@
         <b>Template: </b>
         <span id="template_name">{$ data.metadata.name $}</span>
     </h2>
-    <div ng-hide="yaml_view">
+    <div ng-show="!yaml_view">
         <div class="definition-block" ng-if="data.definitions && data.definitions.entities">
             <h3>Entities</h3>
             <div ng-repeat="entity in data.definitions.entities | orderBy: 'entity.category' track by entity.entity.template_id">
@@ -57,17 +57,16 @@
                                     <li ng-repeat="(property, value) in equ.entity">
                                         <b>{$ property $}:</b> {$ value $}
                                     </li>
+       
                                 </ul>
                             </div>
                         </details>
                     </div>
-                </div>
+               </li>  
             </ul>
             <br>
-        </div>
-
-
-        <div class="definition-block" ng-if="data.scenarios">
+		</div>
+		<div class="definition-block" ng-if="data.scenarios">
             <h3>Scenarios</h3>
             <div ng-repeat="scenario in data.scenarios track by $index">
                 <details>
@@ -94,10 +93,13 @@
             </div>
             <br>
         </div>
-    </div>
+        </div>
     <div ng-show="yaml_view" class="definition-block">
         <pre contentEditable="false">
             {$ str_data $}
         </pre>
     </div>
-</div>
+
+       
+    </div>
+   
