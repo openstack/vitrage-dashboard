@@ -17,7 +17,7 @@
     "karma-spec-reporter": "0.0.32"
   },
   "scripts": {
-    "postinstall": "if [ ! -d .venv ]; then tox -e npm --notest; fi",
+    "postinstall": "if [ ! -d .tox/npm ]; then tox -e npm --notest; fi",
     "lint": "eslint --no-color vitrage_dashboard/static",
     "lintq": "eslint --quiet vitrage_dashboard/static",
     "test": "karma start karma.conf.js --single-run"
