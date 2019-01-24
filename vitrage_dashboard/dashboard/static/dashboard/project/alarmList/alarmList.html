@@ -15,7 +15,10 @@
                        ng-click="alarmList.getHistoryData('')"
                        uib-btn-radio="'historyAlarms'">Alarm History</label>
             </div>
-
+            <div ng-hide="alarmList.radioModel === 'historyAlarms'"  class="themable-checkbox refreshBtn" >
+                 <input type="checkbox" ng-model="alarmList.checkboxAutoRefresh" id="themable-checkbox"                         ng-change="alarmList.autoRefreshChanged()">
+                 <label for="themable-checkbox" >Auto Refresh</label>
+             </div>
             <div ng-show="alarmList.radioModel === 'historyAlarms'" style="display: inline;">
                 <label>Started</label>
 
@@ -58,7 +61,7 @@ fa-angle-double-right prev-next-btn"
 
     <div class="panel panel-default">
 
-        <table st-table='alarmList.ialarms' st-safe-src="alarmList.alarms"
+        <table id="table"  st-table='alarmList.ialarms' st-safe-src="alarmList.alarms"
                class="table-striped table-rsp table-detail modern alarm-table" hz-table>
             <thead>
             <tr>
@@ -123,5 +126,6 @@ fa-angle-double-right prev-next-btn"
             </tr>
             </tbody>
         </table>
+       <img id="spinner" ng-src="{$STATIC_URL$}dashboard/project/assets/spinner.gif" class="spinner" >
     </div>
 </div>

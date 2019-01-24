@@ -60,6 +60,15 @@
       opened: false
     };
 
+    alarmList.autoRefreshChanged = function () {
+      if (alarmList.checkboxAutoRefresh && alarmList.radioModel !== 'historyAlarms') {
+        startCollectData();
+      } else {
+        stopCollectData();
+      }
+    };
+
+
     alarmList.getHistoryData = function (nextPrev) {
       if (nextPrev === 'next' && !alarmList.nextEnabled) {
         return;
@@ -104,9 +113,12 @@
 
 
       if (alarmList.radioModel === 'historyAlarms') {
-        vitrageTopologySrv.getHistoryAlarms(config).then(function (result) {
+          $("#table").hide();
+          $("#spinner").show();
+          vitrageTopologySrv.getHistoryAlarms(config).then(function (result) {
           alarmList.alarms = result.data;
-
+          $("#spinner").hide();
+          $("#table").show();
           alarmList.nextEnabled = result.data.length === LIMIT;
           alarmList.prevEnabled = true;
         });
@@ -122,6 +134,18 @@
     };
 
     alarmList.getHistoryData();
+
+    function startCollectData() {
+      if (angular.isDefined(alarmList.alarmInterval)) return;
+      alarmList.alarmInterval = alarmList.$interval(alarmList.getHistoryData,10000);
+    }
+
+    function stopCollectData() {
+      if (angular.isDefined(alarmList.alarmInterval)) {
+        alarmList.$interval.cancel(alarmList.alarmInterval);
+        alarmList.alarmInterval = undefined;
+      }
+    }
 
     alarmList.sortBy = function (fieldName) {
       if (fieldName === alarmList.sortByFieldName) {
