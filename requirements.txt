@@ -14,3 +14,4 @@ XStatic-Bootstrap-SCSS>=3.3.7.1 # Apache 2.0 License
 XStatic-Font-Awesome>=4.7.0.0 # SIL OFL 1.1 License, MIT License
 XStatic-jQuery>=1.8.2.1 # MIT License
 XStatic-smart-table>=1.4.13.2 # MIT License
+python-vitrageclient>=2.5.0  # Apache-2.
