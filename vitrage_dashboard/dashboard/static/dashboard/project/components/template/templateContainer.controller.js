@@ -24,6 +24,8 @@
           function success(result) {
             $scope.yaml_view = false;
             $scope.data = result.data;
+            $scope.v3 = result.data.entities?true:false;
+            $scope.keys = Object.keys;
             $scope.str_data = JSON.stringify(result.data, null, 4);
           },
           function error(result) {
