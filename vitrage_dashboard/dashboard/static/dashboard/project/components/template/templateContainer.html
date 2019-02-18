@@ -10,14 +10,27 @@
         <span id="template_name">{$ data.metadata.name $}</span>
     </h2>
     <div ng-show="!yaml_view">
-        <div class="definition-block" ng-if="data.definitions && data.definitions.entities">
+        <div class="definition-block" ng-if="data.entities||(data.definitions && data.definitions.entities)">
             <h3>Entities</h3>
-            <div ng-repeat="entity in data.definitions.entities | orderBy: 'entity.category' track by entity.entity.template_id">
+            <div ng-if="!v3"
+                 ng-repeat="entity in data.definitions.entities | orderBy: 'entity.category' track by entity.entity.template_id">
                 <details>
                     <summary>{$ entity.entity.template_id $}</summary>
                     <div class="tabbed">
                         <ul>
                             <li ng-repeat="(property, value) in entity.entity track by $index">
+                                <b>{$ property $}:</b> {$ value $}
+                            </li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+            <div ng-if="v3" ng-repeat="(key,entity) in data.entities ">
+                <details>
+                    <summary>{$ key $}</summary>
+                    <div class="tabbed">
+                        <ul>
+                            <li ng-repeat="(property, value) in entity track by $index">
                                 <b>{$ property $}:</b> {$ value $}
                             </li>
                         </ul>
@@ -70,11 +83,11 @@
             <h3>Scenarios</h3>
             <div ng-repeat="scenario in data.scenarios track by $index">
                 <details>
-                    <summary>{$ scenario.scenario.condition $}</summary>
+                    <summary>{$ scenario.condition||scenario.scenario.condition $}</summary>
                     <div class="tabbed">
                         <b>Actions:</b>
                         <ol>
-                            <div ng-repeat="action in scenario.scenario.actions track by $index">
+                            <div ng-if="!v3" ng-repeat="action in scenario.scenario.actions track by $index">
                                 <li>
                                     <ul>
                                         <li><b>action:</b> {$ action.action.action_type $}</li>
@@ -83,6 +96,16 @@
                                         </li>
                                         <li ng-repeat="(property, value) in action.action.properties track by $index">
                                             <b>{$ property $}:</b> {$ value $}
+                                        </li>
+                                    </ul>
+                                </li>
+                            </div>
+                            <div ng-if="v3" ng-repeat="action in scenario.actions track by $index">
+                                <li>
+                                    <ul>
+                                        <li><b>action:</b> {$ keys(action)[0] $}</li>
+                                        <li ng-repeat="(key, value) in action[keys(action)[0]] track by $index">
+                                            <b>{$ key $}:</b> {$ value $}
                                         </li>
                                     </ul>
                                 </li>
