@@ -24,7 +24,8 @@ function hzAlarms() {
     $scope.$watch('selected', function(newData, oldData) {
       if (newData != oldData) {
         console.log('selected ', newData);
-        vitrageTopologySrv.getAlarms(newData.vitrage_id).then(function(result) {
+	var config = {vitrage_id: newData.vitrage_id};
+        vitrageTopologySrv.getAlarms(config).then(function(result) {
           alarmsCtrl.computeAlarms = result.data;
         });
       }
