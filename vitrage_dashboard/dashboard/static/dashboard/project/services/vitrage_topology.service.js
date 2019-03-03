@@ -89,10 +89,10 @@
             }
         }
 
-        function addTemplate(template, type) {
+        function addTemplate(template, type, parameters) {
 
             if (vitrageAPI) {
-                return vitrageAPI.addTemplate(template, type)
+                return vitrageAPI.addTemplate(template, type, parameters)
                     .then(function (data) {
                         return data;
                     })
@@ -102,6 +102,19 @@
                     );
             }
         }
+      function validateTemplate(template, type, parameters) {
+
+          if (vitrageAPI) {
+              return vitrageAPI.validateTemplate(template, type, parameters)
+                  .then(function (data) {
+                      return data;
+                  })
+                  .catch(function (err) {
+                          console.error(err);
+                      }
+                  );
+          }
+      }
 
 
     function getRootCauseAnalysis(alarm_id, adminState) {
@@ -124,6 +137,7 @@
             getRootCauseAnalysis: getRootCauseAnalysis,
             getTemplates: getTemplates,
             deleteTemplate: deleteTemplate,
+            validateTemplate: validateTemplate,
             addTemplate: addTemplate
         };
     }

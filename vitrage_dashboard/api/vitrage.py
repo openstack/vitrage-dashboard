@@ -72,7 +72,6 @@ def alarms(request, vitrage_id='all', all_tenants='false',
            next_page=True,
            marker=None
            ):
-
     return vitrageclient(request).alarm.list(vitrage_id=vitrage_id,
                                              all_tenants=all_tenants,
                                              limit=limit,
@@ -95,7 +94,6 @@ def history(request, all_tenants='false',
             next_page=True,
             marker=None
             ):
-
     return vitrageclient(request).alarm.history(all_tenants=all_tenants,
                                                 start=start,
                                                 end=end,
@@ -133,9 +131,24 @@ def template_delete(request, template_id):
 def template_add(request):
     template = json.loads(request.body)
     type = template.get('type')
+    params = template.get('params')
     with tempfile.NamedTemporaryFile(suffix='.yaml') as temp:
         temp.write(template.get('template'))
         temp.flush()
         temp.seek(0)
-        response = vitrageclient(request).template.add(temp.name, type)
+        response = vitrageclient(request).template.add(temp.name, type, params)
+    return response
+
+
+def template_validate(request):
+    template = json.loads(request.body)
+    type = template.get('type')
+    params = template.get('params')
+    with tempfile.NamedTemporaryFile(suffix='.yaml') as temp:
+        temp.write(template.get('template'))
+        temp.flush()
+        temp.seek(0)
+        response = vitrageclient(request).template.validate(temp.name,
+                                                            type,
+                                                            params)
     return response

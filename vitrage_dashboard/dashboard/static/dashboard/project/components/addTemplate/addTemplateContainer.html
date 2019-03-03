@@ -1,0 +1,66 @@
+<div class="modal-content">
+    <div class="modal-header">
+
+        <a href="#" class="close" data-dismiss="modal" ng-click="closeModal()">
+            <span class="fa fa-times"></span>
+        </a>
+        <h3 class="modal-title" id="modal-title">Add New Template</h3>
+    </div>
+    <div ng-hide="loading" class="modal-body clearfix">
+        <div class="form-group">
+            <div>
+                <label class="testClass">Template File:</label>
+                <input class="btn btn-default "
+                       type="file"
+                       id="add-template"
+                       ngf-select="uploadFile($file, $invalidFiles)"
+                       ngf-max-height="1000"
+                       accept=".yaml,.yml"
+                       data-toggle="tooltip"
+                       title="File type: YAML  Max Size: 2MB"
+                       ngf-max-size="1MB"/>
+            </div>
+
+
+        </div>
+
+
+        <div class="form-group" ng-if="version==='1'">
+            <label>Type:</label>
+
+            <select class="type-select" id="typeSelect">
+                <option selected="selected">Standard</option>
+                <option>Definition</option>
+                <option>Equivalence</option>
+            </select>
+        </div>
+
+        <div class="form-group" ng-if="version==='3'||version==='2'">
+            <label>Parameters:</label>
+
+            <button ng-click="addNewParameter()"><i class="fa fa-plus"></i></button>
+
+            <ul>
+                <li ng-repeat="parameter in parameters">
+                    <label>Key :</label>
+                    <input type="text" ng-model="parameter.key" ng-value="parameter.key">
+                    <label>Value :</label>
+                    <input type="text" ng-model="parameter.value" ng-value="parameter.value">
+                    <button ng-click="removeParameter(parameter)"><i class="fa fa-minus"></i></button>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+
+    </div>
+    <img ng-show="loading" id="spinner" ng-src="{$STATIC_URL$}dashboard/project/assets/spinner.gif"
+         class="template-spinner">
+    <div ng-hide="loading" class="modal-footer">
+        <button ng-disabled="!uploading" class="btn btn-primary" type="button" ng-click="submit()">Done</button>
+
+    </div>
+
+</div>

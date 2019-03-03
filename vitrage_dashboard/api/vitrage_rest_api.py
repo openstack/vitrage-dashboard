@@ -13,6 +13,7 @@
 #    limitations under the License.
 
 from django.views import generic
+import json
 import logging
 from openstack_dashboard.api.rest import urls
 from openstack_dashboard.api.rest import utils as rest_utils
@@ -39,9 +40,6 @@ class Topolgy(generic.View):
         """
 
         ''' original default is graph '''
-
-        LOG.info("--------- reques --------------- %s", str(request))
-
         graph_type = 'tree'
         all_tenants = 'false'
         root = None
@@ -174,12 +172,14 @@ class Rca(generic.View):
 
 @urls.register
 class Templates(generic.View):
+
     """API for vitrage templates."""
 
     url_regex = r'vitrage/template/(?P<template_id>.+|default)/$'
 
     @rest_utils.ajax()
     def get(self, request, template_id):
+
         """Get a single template with the vitrage id.
 
         The following get template may be passed in the GET
@@ -200,12 +200,15 @@ class Templates(generic.View):
 
     @rest_utils.ajax()
     def post(self, request, **kwargs):
-        """Add a single template.
+        """Add or validate a single template.
 
         request.body holds template in format:
         {template: template_string
-         type: template_type}
+         type: template_type
+         params: params}
 
         """
-
+        json_request = json.loads(request.body)
+        if json_request["method"] == 'validate':
+            return vitrage.template_validate(request)
         return vitrage.template_add(request)
