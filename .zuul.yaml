@@ -23,6 +23,7 @@
 
 - project:
     templates:
+      - horizon-nodejs4-jobs-nonvoting
       - openstack-python-jobs-horizon
       - openstack-python35-jobs-horizon
       - publish-openstack-docs-pti
@@ -30,14 +31,6 @@
       - release-notes-jobs-python3
     check:
       jobs:
-        - nodejs-npm-run-lint:
-            vars:
-              node_version: 4
-            voting: false
-        - nodejs-npm-run-test:
-            vars:
-              node_version: 4
-            voting: false
         - vitrage-dashboard-integration-tests:
             voting: false
 
