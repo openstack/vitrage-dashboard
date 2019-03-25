@@ -1,6 +1,6 @@
 <div class="template-container">
     <div class="controls">
-        <i title="{$ yaml_view ? 'Simple View' : 'Yaml View' $}"
+        <i title="{$ yaml_view ? 'Simple View' : 'Json View' $}"
            class="fa" ng-class="{'fa-file-text':!yaml_view, 'fa-list':yaml_view}"
            ng-click="yaml_view = !yaml_view;"></i>
         <i title="Close" class="fa fa-times" ng-click="closeModal()"></i>
@@ -95,7 +95,16 @@
                                             <b>{$ key $}:</b> {$ value $}
                                         </li>
                                         <li ng-repeat="(property, value) in action.action.properties track by $index">
-                                            <b>{$ property $}:</b> {$ value $}
+                                            <span ng-if="!isObject(value)"> <b>{$ property $}:</b> {$ value $}</span>
+                                            <span ng-if="isObject(value)">
+                                                <b>{$ property $}</b>
+                                                <ol>
+                                                    <li ng-repeat="(label, data) in value track by $index">
+                                                        <b>{$ label $}:</b> {$ data $}
+                                                    </li>
+                                                </ol>
+                                            </span>
+
                                         </li>
                                     </ul>
                                 </li>
@@ -105,7 +114,15 @@
                                     <ul>
                                         <li><b>action:</b> {$ keys(action)[0] $}</li>
                                         <li ng-repeat="(key, value) in action[keys(action)[0]] track by $index">
-                                            <b>{$ key $}:</b> {$ value $}
+                                            <span ng-if="!isObject(value)"> <b>{$ key $}:</b> {$ value $}</span>
+                                            <span ng-if="isObject(value)">
+                                                <b> {$ key $}</b>
+                                                <ol>
+                                                    <li ng-repeat="(label, data) in value track by $index">
+                                                        <b>{$ label $}:</b> {$ data $}
+                                                    </li>
+                                                </ol>
+                                            </span>
                                         </li>
                                     </ul>
                                 </li>
@@ -118,9 +135,7 @@
         </div>
         </div>
     <div ng-show="yaml_view" class="definition-block">
-        <pre contentEditable="false">
-            {$ str_data $}
-        </pre>
+        <pre contentEditable="false">{$ str_data $}</pre>
     </div>
 
        

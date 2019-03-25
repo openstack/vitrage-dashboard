@@ -18,6 +18,9 @@
       $scope.closeModal = function () {
           modalSrv.close();
       };
+      $scope.isObject = function (data) {
+          return typeof data ==='object';
+      };
 
       vitrageTopologySrv.getTemplates(template.uuid)
         .then(
