@@ -106,28 +106,30 @@
             );
 
             vitrageTopologySrv.validateTemplate($scope.templateContent, type, finalParameters).then(function (result) {
-                if (result.data.results[0]['status code'] !== 0) {
-                    horizon.toast.add("error", gettext(result.data.results[0].message));
+               if (!result || !result.data || !result.data.results || result.data.results.length === 0) {
+                    horizon.toast.add("error", gettext('Template Validation Failed'));
                 } else {
-                    vitrageTopologySrv.addTemplate($scope.templateContent, type, finalParameters).then(function (result) {
+                    if (!(result.data.results[0]['status code'] === 0 || result.data.results[0]['status code'] === "")) {
+                        horizon.toast.add("error", gettext(result.data.results[0].message));
+                    } else {
+                        vitrageTopologySrv.addTemplate($scope.templateContent, type, finalParameters).then(function (result) {
 
-                        if (result.data[0].status === 'ERROR') {
-                            horizon.toast.add("error", gettext(result.data[0]['status details']));
-                        } else {
-                            $scope.loading = false;
-                            $rootScope.$broadcast('autoRefresh');
+                            if (result.data[0].status === 'ERROR') {
+                                horizon.toast.add("error", gettext(result.data[0]['status details']));
+                            } else {
+                                $scope.loading = false;
+                                $rootScope.$broadcast('autoRefresh');
 
-                        }
+                            }
 
-                    })
-                        .catch(function () {
-                            $scope.loading = false;
-                            horizon.toast.add("error", gettext("Unable to add template"));
-                            return;
-                        });
-
+                        })
+                            .catch(function () {
+                                $scope.loading = false;
+                                horizon.toast.add("error", gettext("Unable to add template"));
+                                return;
+                            });
+                    }
                 }
-
 
             }).catch(function (reason) {
                 horizon.toast.add("error", gettext(reason));
