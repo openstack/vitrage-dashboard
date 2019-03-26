@@ -69,10 +69,14 @@
     };
 
 
-    alarmList.getHistoryData = function (nextPrev) {
+    alarmList.getHistoryData = function (nextPrev, updateDate) {
       if (nextPrev === 'next' && !alarmList.nextEnabled) {
         return;
       }
+            if(updateDate=='update'){
+                alarmList.toDateTime = new Date();
+                alarmList.toDateTime.setMilliseconds(0);
+            }
 
       var url = $location.absUrl();
       var config = {
