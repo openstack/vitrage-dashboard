@@ -7,18 +7,18 @@
                 <label class="btn btn-primary"
                        ng-model="alarmList.radioModel"
                        uib-btn-radio="'activeAlarms'"
-                       ng-click="alarmList.getHistoryData('')">Active
+                       ng-click="alarmList.getHistoryData('', '')">Active
                     Alarms</label>
 
                 <label class="btn btn-primary"
                        ng-model="alarmList.radioModel"
-                       ng-click="alarmList.getHistoryData('')"
+                       ng-click="alarmList.getHistoryData('', 'update')"
                        uib-btn-radio="'historyAlarms'">Alarm History</label>
             </div>
             <div ng-hide="alarmList.radioModel === 'historyAlarms'"  class="themable-checkbox refreshBtn" >
-                 <input type="checkbox" ng-model="alarmList.checkboxAutoRefresh" id="themable-checkbox"                         ng-change="alarmList.autoRefreshChanged()">
-                 <label for="themable-checkbox" >Auto Refresh</label>
-             </div>
+                <input type="checkbox" ng-model="alarmList.checkboxAutoRefresh" id="themable-checkbox"                         ng-change="alarmList.autoRefreshChanged()">
+                <label for="themable-checkbox" >Auto Refresh</label>
+            </div>
             <div ng-show="alarmList.radioModel === 'historyAlarms'" style="display: inline;">
                 <label>Started</label>
 
@@ -29,7 +29,7 @@
                 <input type="datetime-local" ng-model="alarmList.toDateTime"/>
 
                 <button class="btn btn-primary"
-                        ng-click="alarmList.getHistoryData()">
+                        ng-click="alarmList.getHistoryData('', '')">
                     Fetch Alarms
                 </button>
             </div>
