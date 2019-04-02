@@ -23,7 +23,6 @@
 
 - project:
     templates:
-      - horizon-nodejs4-jobs-nonvoting
       - horizon-nodejs10-jobs-nonvoting
       - openstack-python-jobs-horizon
       - openstack-python35-jobs-horizon
