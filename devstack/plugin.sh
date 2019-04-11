@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 # plugin.sh - DevStack plugin.sh dispatch script vitrage-dashboard
 
-VITRAGE_DASHBOARD_DIR=$(cd $(dirname $BASH_SOURCE)/.. && pwd)
 
 function install_vitrage_dashboard {
     setup_develop ${VITRAGE_DASHBOARD_DIR}
 }
 
 function configure_vitrage_dashboard {
-    cp -a ${VITRAGE_DASHBOARD_DIR}/vitrage_dashboard/enabled/* ${DEST}/horizon/openstack_dashboard/enabled/
+    cp -a ${VITRAGE_DASHBOARD_DIR}/vitrage_dashboard/enabled/* ${HORIZON_DIR}/openstack_dashboard/local/enabled/
 }
 
 function init_vitrage_dashboard {
@@ -48,9 +47,11 @@ if is_service_enabled vitrage-dashboard; then
     fi
 
     if [[ "$1" == "clean" ]]; then
-        # Remove state and transient data
-        # Remember clean.sh first calls unstack.sh
-        # no-op
-        :
+       rm -f ${HORIZON_DIR}/openstack_dashboard/local/enabled/_40*
+       rm -f ${HORIZON_DIR}/openstack_dashboard/local/enabled/_41*
+
+       # for backward computability
+       rm -f ${HORIZON_DIR}/openstack_dashboard/enabled/_40*
+       rm -f ${HORIZON_DIR}/openstack_dashboard/enabled/_41*
     fi
 fi

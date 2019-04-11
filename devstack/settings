@@ -1,2 +1,4 @@
 # settings file for vitrage-dashboard plugin
 enable_service vitrage-dashboard
+
+VITRAGE_DASHBOARD_DIR=$DEST/vitrage-dashboard
