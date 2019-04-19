@@ -15,8 +15,8 @@
       - ^releasenotes/.*$
     vars:
       devstack_plugins:
-        vitrage: https://git.openstack.org/openstack/vitrage
-        vitrage-dashboard: https://git.openstack.org/openstack/vitrage-dashboard
+        vitrage: https://opendev.org/openstack/vitrage
+        vitrage-dashboard: https://opendev.org/openstack/vitrage-dashboard
       devstack_services:
         horizon: true
       tox_envlist: integration
