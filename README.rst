@@ -23,7 +23,7 @@ Project Resources
 -----------------
 
 * `Wiki <https://wiki.openstack.org/wiki/Vitrage>`_
-* `Code Review <https://review.openstack.org/>`_
+* `Code Review <https://review.opendev.org/>`_
 * `Storyboard <https://storyboard.openstack.org/#!/project/openstack/vitrage-dashboard>`_
 * `Release notes <https://docs.openstack.org/releasenotes/vitrage-dashboard/>`_
 
@@ -37,7 +37,7 @@ Add the following to your Devstack local.conf file
 
 ::
 
-  enable_plugin vitrage-dashboard https://git.openstack.org/openstack/vitrage-dashboard
+  enable_plugin vitrage-dashboard https://opendev.org/openstack/vitrage-dashboard
 
 With Horizon
 ------------
