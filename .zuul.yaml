@@ -25,8 +25,7 @@
     templates:
       - horizon-nodejs10-jobs-nonvoting
       - openstack-python-jobs-horizon
-      - openstack-python36-jobs-horizon
-      - openstack-python37-jobs-horizon
+      - openstack-python3-train-jobs
       - publish-openstack-docs-pti
       - check-requirements
       - release-notes-jobs-python3
