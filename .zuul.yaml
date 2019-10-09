@@ -24,6 +24,7 @@
 - project:
     templates:
       - horizon-nodejs10-jobs-nonvoting
+      - horizon-non-primary-django-jobs
       - openstack-python-jobs-horizon
       - openstack-python3-train-jobs
       - publish-openstack-docs-pti
