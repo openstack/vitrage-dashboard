@@ -14,7 +14,6 @@
 
 import json
 import logging
-import tempfile
 
 from horizon.utils.memoized import memoized
 from keystoneauth1.identity.generic.token import Token
@@ -132,11 +131,11 @@ def template_add(request):
     template = json.loads(request.body)
     type = template.get('type')
     params = template.get('params')
-    with tempfile.NamedTemporaryFile(suffix='.yaml') as temp:
-        temp.write(template.get('template'))
-        temp.flush()
-        temp.seek(0)
-        response = vitrageclient(request).template.add(temp.name, type, params)
+    template_str = template.get('template')
+    response = vitrageclient(request).template \
+        .add(template_type=type,
+             params=params,
+             template_str=template_str)
     return response
 
 
@@ -144,11 +143,9 @@ def template_validate(request):
     template = json.loads(request.body)
     type = template.get('type')
     params = template.get('params')
-    with tempfile.NamedTemporaryFile(suffix='.yaml') as temp:
-        temp.write(template.get('template'))
-        temp.flush()
-        temp.seek(0)
-        response = vitrageclient(request).template.validate(temp.name,
-                                                            type,
-                                                            params)
+    template_str = template.get('template')
+    response = vitrageclient(request).template \
+        .validate(template_type=type,
+                  params=params,
+                  template_str=template_str)
     return response
