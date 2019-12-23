@@ -73,7 +73,7 @@ function hzEntitiesGraph() {
               .style("stroke", "darkgray")
               .style("stroke-width", "1")
               .style("fill", "#FFFFFF")
-              .attr('r', function(item) { return 14; });
+              .attr('r', function(item) { return circleRadius; });
 
             // Set special style to the found node
             if (value && value !== '') {
