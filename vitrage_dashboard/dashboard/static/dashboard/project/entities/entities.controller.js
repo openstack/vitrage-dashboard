@@ -49,6 +49,12 @@
             }
         });
 
+        $scope.$on('unselectNode', function(event) {
+            _this.selectedItem = undefined;
+            _this.model.selected = {};
+            $scope.$digest();
+        });
+
         $scope.$on('graphItemClicked', function (event, data) {
             data.timezone = timezone;
             data.dateFormat = dateFormat;
