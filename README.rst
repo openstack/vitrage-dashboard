@@ -1,15 +1,11 @@
-========================
-Team and repository tags
-========================
+=================
+Vitrage Dashboard
+=================
 
 .. image:: https://governance.openstack.org/tc/badges/vitrage-dashboard.svg
     :target: https://governance.openstack.org/tc/reference/tags/index.html
 
 .. Change things from this point on
-
-=================
-Vitrage Dashboard
-=================
 
 Vitrage is the Openstack RCA (Root Cause Analysis) Engine for organizing,
 analyzing and expanding OpenStack alarms & events, yielding insights
