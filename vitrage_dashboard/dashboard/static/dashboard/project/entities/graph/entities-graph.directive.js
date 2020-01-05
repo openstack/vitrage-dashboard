@@ -34,7 +34,9 @@ function hzEntitiesGraph() {
             node,
             link,
             linksMap,
-            content;
+            content,
+            mouseDownX,
+            mouseDownY;
 
         (function() {
             var p = $('.panel.panel-primary');
@@ -64,8 +66,6 @@ function hzEntitiesGraph() {
             var allNodes = d3.select("svg g").selectAll("g")
               .filter(function(d, i){ return this.classList.contains("node"); })
               .selectAll("circle");
-
-            //console.log('all nodes: ', allNodes.length);
 
             allNodes
               .transition()
@@ -132,6 +132,20 @@ function hzEntitiesGraph() {
             //.on('click', selectNone);
 
         svg.call(zoom);
+
+        svg.on('mousedown', function() {
+            mouseDownX = d3.event.clientX;
+            mouseDownY = d3.event.clientY;
+        });
+
+        svg.on('mouseup', function() {
+            var x = d3.event.clientX,
+                y = d3.event.clientY;
+            if (x === mouseDownX && y === mouseDownY) {
+                // means click rather than drag
+                svgClick();
+            }
+        });
 
         var svg_g = svg.append('g')
             .attr('width', '100%')
@@ -534,6 +548,40 @@ function hzEntitiesGraph() {
             force.start();
         }
 
+        function setAllNodesHighlight() {
+            svg_g.selectAll('.node')
+                .classed('selected', function(d) {
+                    return d.high;
+                })
+                .select('circle')
+                .style('stroke-width', function(d) {
+                    return d.high ? (Math.max(d.highDepth + 1, 1) * 2) : null;
+                })
+
+            svg_g.selectAll('.link').classed('selected', function(d) {
+                return d.source.high && d.target.high;
+            });
+        }
+
+        function svgClick() {
+            scope.selected = undefined;
+            svg_g.selectAll('.node')
+                .classed('selected', false);
+
+            _.each(scope.data.nodes, function(node) {
+                node.high = false;
+                node.highDepth = 0;
+            });
+
+            _.each(scope.data.links, function(link) {
+                link.high = false;
+            })
+
+            setAllNodesHighlight();
+
+            scope.$emit('unselectNode');
+        }
+
         function nodeClick(d) {
             scope.selected = d;
             //scope.itemSelected(scope.selected);
@@ -568,18 +616,7 @@ function hzEntitiesGraph() {
                 link.high = false;
             })
 
-            svg_g.selectAll('.node')
-                .classed('selected', function(d) {
-                    return d.high;
-                })
-                .select('circle')
-                .style('stroke-width', function(d) {
-                    return d.high ? (Math.max(d.highDepth + 1, 1) * 2) : null;
-                })
-
-            svg_g.selectAll('.link').classed('selected', function(d) {
-                return d.source.high && d.target.high;
-            });
+            setAllNodesHighlight();
         }
 
         function selectNone(d) {
