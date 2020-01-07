@@ -48,11 +48,11 @@ class Topolgy(generic.View):
         if 'graph_type' in request.GET:
             graph_type = request.GET.get('graph_type')
         if 'all_tenants' in request.GET:
-                        all_tenants = request.GET.get('all_tenants')
+            all_tenants = request.GET.get('all_tenants')
         if 'root' in request.GET:
-                        root = request.GET.get('root')
+            root = request.GET.get('root')
         if 'depth' in request.GET:
-                        limit = int(request.GET.get('depth'))
+            limit = int(request.GET.get('depth'))
 
         query = None
         if 'query' in request.GET:
