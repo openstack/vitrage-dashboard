@@ -25,3 +25,9 @@ ADD_INSTALLED_APPS = ['vitrage_dashboard.templates']
 ADD_ANGULAR_MODULES = ['horizon.dashboard.project.vitrage']
 
 AUTO_DISCOVER_STATIC_FILES = True
+
+ADD_XSTATIC_MODULES = [
+    ('xstatic.pkg.moment', ['moment.min.js']),
+    ('xstatic.pkg.moment_timezone',
+     ['moment-timezone-with-data-2012-2022.js']),
+]

@@ -16,3 +16,10 @@ PANEL_GROUP = 'admin_vitrage_panel_group'
 PANEL_GROUP_NAME = 'Vitrage'
 # The name of the dashboard the PANEL_GROUP associated with. Required.
 PANEL_GROUP_DASHBOARD = 'admin'
+
+ADD_XSTATIC_MODULES = [
+    ('xstatic.pkg.lodash', ['lodash.js']),
+    ('xstatic.pkg.graphlib', ['graphlib.core.js']),
+    ('xstatic.pkg.dagre', ['dagre.core.js']),
+    ('xstatic.pkg.dagre_d3', ['dagre-d3.core.js']),
+]
