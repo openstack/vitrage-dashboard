@@ -21,7 +21,6 @@ sys.path.insert(0, os.path.abspath('../..'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
-    'sphinx.ext.autodoc',
     # 'sphinx.ext.intersphinx',
     'reno.sphinxext',
     'openstackdocstheme',
@@ -61,11 +60,6 @@ html_theme = 'openstackdocs'
 # Output file base name for HTML help builder.
 htmlhelp_basename = '%sdoc' % project
 
-# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
-# using the given strftime format.
-# html_last_updated_fmt = '%b %d, %Y'
-html_last_updated_fmt = '%Y-%m-%d %H:%M'
-
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass
 # [howto/manual]).
@@ -84,5 +78,4 @@ locale_dirs = ['locale/']
 
 # -- Options for openstackdocstheme -------------------------------------------
 repository_name = 'openstack/vitrage-dashboard'
-bug_project = 'vitrage-dashboard'
-bug_tag = ''
+use_storyboard = True

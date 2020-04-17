@@ -60,11 +60,6 @@ html_theme = 'openstackdocs'
 # Output file base name for HTML help builder.
 htmlhelp_basename = '%sdoc' % project
 
-# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
-# using the given strftime format.
-# html_last_updated_fmt = '%b %d, %Y'
-html_last_updated_fmt = '%Y-%m-%d %H:%M'
-
 # Disable usage of xindy https://bugzilla.redhat.com/show_bug.cgi?id=1643664
 latex_use_xindy = False
 
