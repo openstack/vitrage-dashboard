@@ -48,7 +48,7 @@ add_function_parentheses = True
 add_module_names = True
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = 'native'
 
 # -- Options for HTML output --------------------------------------------------
 
@@ -77,5 +77,6 @@ latex_documents = [
 locale_dirs = ['locale/']
 
 # -- Options for openstackdocstheme -------------------------------------------
-repository_name = 'openstack/vitrage-dashboard'
-use_storyboard = True
+openstackdocs_repo_name = 'openstack/vitrage-dashboard'
+openstackdocs_auto_name = False
+openstackdocs_use_storyboard = True
