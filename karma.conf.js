@@ -140,7 +140,7 @@ module.exports = function (config) {
 
     frameworks: ['jasmine'],
 
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
     phantomjsLauncher: {
       // Have phantomjs exit if a ResourceError is encountered
@@ -152,7 +152,7 @@ module.exports = function (config) {
     //reporters: ['spec'],
 
     plugins: [
-      'karma-chrome-launcher',
+      'karma-phantomjs-launcher',
       'karma-jasmine',
       'karma-ng-html2js-preprocessor',
       'karma-spec-reporter',
