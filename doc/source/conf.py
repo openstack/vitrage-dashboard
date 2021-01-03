@@ -37,8 +37,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'vitrage-dashboard'
-copyright = u'2016, OpenStack Foundation'
+project = 'vitrage-dashboard'
+copyright = '2016, OpenStack Foundation'
 
 # If true, '()' will be appended to :func: etc. cross-reference text.
 add_function_parentheses = True
@@ -79,8 +79,8 @@ latex_elements = {
 latex_documents = [
     ('index',
      'doc-%s.tex' % project,
-     u'%s Documentation' % project,
-     u'OpenStack Foundation', 'manual', True),
+     '%s Documentation' % project,
+     'OpenStack Foundation', 'manual', True),
 ]
 
 # Example configuration for intersphinx: refer to the Python standard library.
