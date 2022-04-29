@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from django.conf.urls import url
+from django.urls import re_path
 
 import vitrage_dashboard.api.vitrage_rest_api  # noqa
 from vitrage_dashboard.dashboard import views
 
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view(), name='index'),
+    re_path(r'^$', views.IndexView.as_view(), name='index'),
 ]
