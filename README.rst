@@ -1,66 +1,19 @@
-=================
-Vitrage Dashboard
-=================
+===========================
+OpenStack Vitrage Dashboard
+===========================
 
-.. image:: https://governance.openstack.org/tc/badges/vitrage-dashboard.svg
-    :target: https://governance.openstack.org/tc/reference/tags/index.html
+This project is no longer being developed.  Previous releases will
+continue to be supported under the schedule outlined in the
+`OpenStack Stable Branches Policy
+<https://docs.openstack.org/project-team-guide/stable-branches.html>`_.
 
-.. Change things from this point on
+While stable branches exist, you will be able to see them here,
+but they will be deleted as they reach End of Life.
 
-Vitrage is the Openstack RCA (Root Cause Analysis) Engine for organizing,
-analyzing and expanding OpenStack alarms & events, yielding insights
-regarding the root cause of problems and deducing the existence of problems
-before they are directly detected.
+The contents of this repository are still available in the Git
+source code management system.  To see the contents of this
+repository before it reached its end of life, please check out the
+previous commit with "git checkout HEAD^1".
 
-Vitrage Dashboard is an extension for OpenStack Dashboard that provides a UI for
-Vitrage.
-
-Project Resources
------------------
-
-* `Wiki <https://wiki.openstack.org/wiki/Vitrage>`_
-* `Code Review <https://review.opendev.org/>`_
-* `Storyboard <https://storyboard.openstack.org/#!/project/openstack/vitrage-dashboard>`_
-* `Release notes <https://docs.openstack.org/releasenotes/vitrage-dashboard/>`_
-
-How to use this package
------------------------
-
-With Devstack
--------------
-
-Add the following to your Devstack local.conf file
-
-::
-
-  enable_plugin vitrage-dashboard https://opendev.org/openstack/vitrage-dashboard
-
-With Horizon
-------------
-
-::
-
-
-    git clone https://github.com/openstack/horizon.git
-
-    git clone https://github.com/openstack/vitrage-dashboard.git
-
-    git clone https://github.com/openstack/python-vitrageclient.git
-
-    cd ../horizon
-
-    ./run_tests.sh -f --docs
-
-    cp ./openstack_dashboard/local/local_settings.py.example ./openstack_dashboard/local/local_settings.py
-
-    pushd ../vitrage-dashboard
-
-    ../horizon/tools/with_venv.sh pip install -e.
-
-    cp -a vitrage_dashboard/enabled/* ../horizon/openstack_dashboard/enabled/
-
-    popd
-
-    cd python-vitrageclient
-
-    ../horizon/tools/with_venv.sh pip install -e.
+For any further questions, please email
+openstack-discuss@lists.openstack.org.

@@ -1,5 +1,0 @@
----
-features:
-  - A new ``Search Entities`` was added, to find relevant entities in a graph.
-    Search will highlight relevant entities in a styled circle. It will search
-    objects by their names (As the user can see on screen)
